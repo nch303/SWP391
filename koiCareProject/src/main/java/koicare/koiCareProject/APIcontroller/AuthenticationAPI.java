@@ -22,4 +22,5 @@ public class AuthenticationAPI {
     public EntityResponse register(@RequestBody MemberRegisterRequest memberRegisterRequest){
         AccountResponse newAccount = authenticationService.register(memberRegisterRequest);
     }
+    //fdssffdssdf
 }
