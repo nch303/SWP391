@@ -15,13 +15,13 @@ public class Pond {
     private long pondID;
 
     private String pondName;
-    private int area;
-    private int depth;
-    private int volume;
-    private int drainCount;
-    private int skimmerCount;
-    private int amountFish;
-    private int pumpingCapacity;
+    private long area;
+    private double depth;
+    private long volume;
+    private long drainCount;
+    private long skimmerCount;
+    private long amountFish;
+    private long pumpingCapacity;
 
     @ManyToOne
     @JoinColumn(name = "memberid")
