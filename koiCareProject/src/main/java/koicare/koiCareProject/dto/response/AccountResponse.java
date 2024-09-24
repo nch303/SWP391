@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 public class AccountResponse {
 
-    private int accountID;
+    private long accountID;
 
-    private String name;
+    private String username;
     private String password;
     private String role;
 }
