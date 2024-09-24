@@ -23,14 +23,8 @@ public class Member {
     private int premiumStatus;
     private Date expiredDate;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "accountid", referencedColumnName = "accountid")
-//
-//    private Account account;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pond> ponds;
-
-
 
 }

@@ -8,8 +8,6 @@ import koicare.koiCareProject.repository.PondRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class PondService {
     @Autowired
@@ -23,8 +21,13 @@ public class PondService {
         Pond pond = new Pond();
 
         pond.setPondName(request.getPondName());
+        pond.setArea(request.getArea());
+        pond.setDrainCount(request.getDrainCount());
+        pond.setPumpingCapacity(request.getPumpingCapacity());
+        pond.setDepth(request.getDepth());
+        pond.setVolume(request.getVolume());
+        pond.setSkimmerCount(request.getSkimmerCount());
         pond.setMember(memberRepository.getMemberByMemberID(request.getMemberID()));
-
         return pondRepository.save(pond);
     }
 
