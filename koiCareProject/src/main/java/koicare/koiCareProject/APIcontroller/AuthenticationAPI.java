@@ -23,11 +23,13 @@ public class AuthenticationAPI {
 
     //API register
     @PostMapping("register")
-    public EntityResponse register(@RequestBody MemberRegisterRequest memberRegisterRequest){
+    public ResponseEntity register(@Valid @RequestBody MemberRegisterRequest memberRegisterRequest) {
         AccountResponse newAccount = authenticationService.register(memberRegisterRequest);
         return ResponseEntity.ok(newAccount);
     }
+<<<<<<< Updated upstream
     //fdssffdssdf
+=======
 
     //API lấy thông tin account
     @GetMapping("account")
