@@ -27,5 +27,4 @@ public class Pond {
     @JoinColumn(name = "memberid")
     private Member member;
 
-
 }

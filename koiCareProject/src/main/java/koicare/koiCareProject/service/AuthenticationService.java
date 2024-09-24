@@ -38,18 +38,22 @@ public class AuthenticationService implements UserDetailsService {
 
     public AccountResponse register(MemberRegisterRequest memberRegisterRequest) {
         Account account = modelMapper.map(memberRegisterRequest, Account.class);
-        try {
-            String originPassword = account.getPassword();
-            account.setPassword(passwordEncoder.encode(originPassword));
 
-            Account newAccount = accountRepository.save(account);
-            return modelMapper.map(account, AccountResponse.class);
-        } catch (Exception e) {
-            if (e.getMessage().contains(account.getUsername())) {
-                throw new AppException(ErrorCode.USERNAME_EXISTED);
+        Account existedAccount = accountRepository.findAccountByUsername(memberRegisterRequest.getUsername());
+        if (existedAccount == null) {
+            try {
+                String originPassword = account.getPassword();
+                account.setPassword(passwordEncoder.encode(originPassword));
+
+                Account newAccount = accountRepository.save(account);
+                return modelMapper.map(account, AccountResponse.class);
+            } catch (Exception e) {
+                if (e.getMessage().contains(account.getUsername())) {
+                    throw new AppException(ErrorCode.USERNAME_EXISTED);
+                }
             }
-        }
-        return null;
+        }else throw new AppException(ErrorCode.USERNAME_EXISTED);
+        return modelMapper.map(account, AccountResponse.class);
     }
 
     public List<Account> getAllAccount() {
@@ -72,6 +76,6 @@ public class AuthenticationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            return accountRepository.findAccountByUsername(username);
+        return accountRepository.findAccountByUsername(username);
     }
 }

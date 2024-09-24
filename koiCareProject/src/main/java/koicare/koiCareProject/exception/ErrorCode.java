@@ -13,7 +13,7 @@ public enum ErrorCode {
     USER_NOT_EXISTED(1006, "User not existed"),
     UNAUTHENTICATED(1007, "Unauthenticated"),
     LOGIN_FAIL(1008, "Username or Password invalid"),
-    USERNAME_EXISTED(1009,"Duplicate code");
+    USERNAME_EXISTED(1009,"Username existed");
 
 
     private int code;

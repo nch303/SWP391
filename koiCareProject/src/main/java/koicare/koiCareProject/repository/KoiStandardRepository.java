@@ -1,10 +1,9 @@
 package koicare.koiCareProject.repository;
 
+import koicare.koiCareProject.entity.KoiStandard;
 import org.springframework.data.jpa.repository.JpaRepository;
-import koicare.koiCareProject.entity.Member;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long> {
-    Member getMemberByMemberID(long memberID);
+public interface KoiStandardRepository extends JpaRepository<KoiStandard, Long> {
 }

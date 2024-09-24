@@ -18,6 +18,7 @@ public class MemberService {
         member.setMemberEmail(request.getMemberEmail());
         member.setMemberPhone(request.getMemberPhone());
 
+
         return memberRepository.save(member);
     }
 }
