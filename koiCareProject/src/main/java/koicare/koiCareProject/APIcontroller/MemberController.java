@@ -16,6 +16,7 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+
     @PostMapping
     public APIResponse<Member> createMember(@RequestBody MemberCreationRequest request) {
         APIResponse<Member> response = new APIResponse<>();

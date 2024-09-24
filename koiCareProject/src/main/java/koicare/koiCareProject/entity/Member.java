@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "Member")
 @Data
 public class Member {
     @Id
@@ -29,7 +28,7 @@ public class Member {
 //
 //    private Account account;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pond> ponds;
 
 

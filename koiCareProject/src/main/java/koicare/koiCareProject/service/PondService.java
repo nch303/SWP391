@@ -17,12 +17,12 @@ public class PondService {
         Pond pond = new Pond();
 
         pond.setPondName(request.getPondName());
-        pond.setArea(request.getArea());
-        pond.setDrainCount(request.getDrainCount());
-        pond.setPumpingCapacity(request.getPumpingCapacity());
-        pond.setDepth(request.getDepth());
-        pond.setVolume(request.getVolume());
-        pond.setSkimmerCount(request.getSkimmerCount());
+//        pond.setArea(request.getArea());
+//        pond.setDrainCount(request.getDrainCount());
+//        pond.setPumpingCapacity(request.getPumpingCapacity());
+//        pond.setDepth(request.getDepth());
+//        pond.setVolume(request.getVolume());
+//        pond.setSkimmerCount(request.getSkimmerCount());
         return pondRepository.save(pond);
     }
 

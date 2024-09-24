@@ -7,10 +7,10 @@ import lombok.*;
 @NoArgsConstructor
 public class PondCreationRequest {
     private String pondName;
-    private long area;
-    private long depth;
-    private long volume;
-    private long drainCount;
-    private long skimmerCount;
-    private long pumpingCapacity;
+//    private int area;
+//    private int depth;
+//    private int volume;
+//    private int drainCount;
+//    private int skimmerCount;
+//    private int pumpingCapacity;
 }

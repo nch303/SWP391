@@ -7,25 +7,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Pond")
 @Data
 public class Pond {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pondid")
     private long pondID;
+
     private String pondName;
-    private long area;
-    private long depth;
-    private long volume;
-    private long drainCount;
-    private long skimmerCount;
-    private long amountFish;
-    private long pumpingCapacity;
+    private int area;
+    private int depth;
+    private int volume;
+    private int drainCount;
+    private int skimmerCount;
+    private int amountFish;
+    private int pumpingCapacity;
 
     @ManyToOne
-    @JoinColumn(name = "memberid", nullable = false, referencedColumnName = "memberid")
-    @JsonManagedReference
+    @JoinColumn(name = "memberid")
     private Member member;
 
 
