@@ -27,9 +27,7 @@ public class AuthenticationAPI {
         AccountResponse newAccount = authenticationService.register(memberRegisterRequest);
         return ResponseEntity.ok(newAccount);
     }
-<<<<<<< Updated upstream
-    //fdssffdssdf
-=======
+
 
     //API lấy thông tin account
     @GetMapping("account")
@@ -45,5 +43,5 @@ public class AuthenticationAPI {
     }
 
 
->>>>>>> Stashed changes
+
 }
