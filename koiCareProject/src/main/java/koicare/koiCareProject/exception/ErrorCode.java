@@ -13,7 +13,9 @@ public enum ErrorCode {
     USER_NOT_EXISTED(1006, "User not existed"),
     UNAUTHENTICATED(1007, "Unauthenticated"),
     LOGIN_FAIL(1008, "Username or Password invalid"),
-    USERNAME_EXISTED(1009,"Username existed");
+    USERNAME_EXISTED(1009,"Username existed"),
+    VARIETY_NOT_EXISTED(1010,"Variety not existed"),
+    KOIFISH_NOT_EXISTED(1011,"Koifish not existed");
 
 
     private int code;

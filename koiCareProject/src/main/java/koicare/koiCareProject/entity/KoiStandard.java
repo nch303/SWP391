@@ -25,6 +25,7 @@ public class KoiStandard {
     private double foodMale;
     private double foodFemale;
 
-    @OneToMany(mappedBy = "koiStandard", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<KoiVariety> koiVarieties;
+    @ManyToOne
+    @JoinColumn(name = "koivarietyid")
+    private KoiVariety koiVariety;
 }

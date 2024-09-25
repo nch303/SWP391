@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Data
 public class KoiVariety {
@@ -16,7 +18,9 @@ public class KoiVariety {
 
     private String varietyName;
 
-    @ManyToOne
-    @JoinColumn(name = "koistandid")
-    private KoiStandard koiStandard;
+    @OneToMany(mappedBy = "koiVariety", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<KoiStandard> koiStandards;
+
+    @OneToMany(mappedBy = "koiVariety", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<KoiFish> koiFishes;
 }

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Data
 public class Pond {
@@ -26,5 +28,8 @@ public class Pond {
     @ManyToOne
     @JoinColumn(name = "memberid")
     private Member member;
+
+    @OneToMany(mappedBy = "pond", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<KoiFish> koiFishes;
 
 }

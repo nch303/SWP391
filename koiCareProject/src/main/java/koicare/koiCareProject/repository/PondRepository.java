@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PondRepository extends JpaRepository<Pond, Long> {
 
+    Pond getPondByPondID(Long pondID);
+
 }
