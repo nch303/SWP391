@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface KoiFishRepository extends JpaRepository<KoiFish, Long> {
 
-    KoiFish getKoiFishByKoiFishID(Long KoiFishID);
+    KoiFish getKoiFishByKoiFishID(long KoiFishID);
 
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,4 +25,7 @@ public class KoiFish {
     @ManyToOne
     @JoinColumn(name = "koivarietyid")
     private KoiVariety koiVariety;
+
+    @OneToMany(mappedBy = "koiFish")
+    private List<KoiReport> koiReports;
 }

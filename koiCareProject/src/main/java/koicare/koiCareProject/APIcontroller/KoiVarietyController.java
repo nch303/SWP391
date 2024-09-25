@@ -25,17 +25,17 @@ public class KoiVarietyController {
     ModelMapper modelMapper;
 
 
-//    @PostMapping("create")
-//    APIResponse<KoiVarietyResponse> createKoiVariety(@RequestBody KoiVarietyRequest request) {
-//        APIResponse<KoiVarietyResponse> apiResponse = new APIResponse<>();
-//
-//        KoiVariety koiVariety = koiVarietyService.createKoiVariety(request);
-//        KoiVarietyResponse koiVarietyResponse = modelMapper.map(koiVariety, KoiVarietyResponse.class);
-//
-//        apiResponse.setResult(koiVarietyResponse);
-//
-//        return apiResponse;
-//    }
+    @PostMapping("create")
+    APIResponse<KoiVarietyResponse> createKoiVariety(@RequestBody KoiVarietyRequest request) {
+        APIResponse<KoiVarietyResponse> apiResponse = new APIResponse<>();
+
+        KoiVariety koiVariety = koiVarietyService.createKoiVariety(request);
+        KoiVarietyResponse koiVarietyResponse = modelMapper.map(koiVariety, KoiVarietyResponse.class);
+
+        apiResponse.setResult(koiVarietyResponse);
+
+        return apiResponse;
+    }
 
     @GetMapping("")
     public List<KoiVarietyResponse> getKoiVarieties() {

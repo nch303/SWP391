@@ -17,8 +17,11 @@ public enum ErrorCode {
     USERNAME_EXISTED(1009,"Username existed"),
     VARIETY_NOT_EXISTED(1010,"Variety not existed"),
     KOIFISH_NOT_EXISTED(1011,"Koifish not existed"),
-    POND_NOT_EXISTED(1012, "POND_NOT_EXISTED");
+    POND_NOT_EXISTED(1012, "POND_NOT_EXISTED"),
 
+
+
+    KOISTATUS_NOT_EXISTED(1013,"Koistatus not existed");
 
 
 
