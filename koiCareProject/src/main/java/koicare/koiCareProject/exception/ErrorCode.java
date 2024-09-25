@@ -4,6 +4,7 @@ package koicare.koiCareProject.exception;
 // tạo ra các Error code cho từng lỗi khác nhau
 
 public enum ErrorCode {
+
     UNCATEGORIZED_EXCEPTION(9999, "Uncategorized error"),
     USER_EXISTED(1001, "User existed"),
     INVALID_KEY(1002, "Invalid message key"),
@@ -15,7 +16,10 @@ public enum ErrorCode {
     LOGIN_FAIL(1008, "Username or Password invalid"),
     USERNAME_EXISTED(1009,"Username existed"),
     VARIETY_NOT_EXISTED(1010,"Variety not existed"),
-    KOIFISH_NOT_EXISTED(1011,"Koifish not existed");
+    KOIFISH_NOT_EXISTED(1011,"Koifish not existed"),
+    POND_NOT_EXISTED(1012, "POND_NOT_EXISTED");
+
+
 
 
     private int code;

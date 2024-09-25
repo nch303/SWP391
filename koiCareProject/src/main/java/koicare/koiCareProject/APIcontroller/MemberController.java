@@ -3,6 +3,7 @@ package koicare.koiCareProject.APIcontroller;
 import koicare.koiCareProject.dto.request.MemberCreationRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.entity.Member;
+import koicare.koiCareProject.repository.MemberRepository;
 import koicare.koiCareProject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,8 @@ public class MemberController {
     private MemberService memberService;
 
 
+
+
     @PostMapping
     public APIResponse<Member> createMember(@RequestBody MemberCreationRequest request) {
         APIResponse<Member> response = new APIResponse<>();
@@ -24,6 +27,8 @@ public class MemberController {
         response.setResult(memberService.createMember(request));
         return response;
     }
+
+
 
 
 }

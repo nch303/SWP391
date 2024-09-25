@@ -17,6 +17,7 @@ public class Pond {
     private long pondID;
 
     private String pondName;
+    private String pondImage;
     private long area;
     private double depth;
     private long volume;

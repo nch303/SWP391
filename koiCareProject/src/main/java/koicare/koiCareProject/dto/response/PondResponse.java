@@ -1,13 +1,11 @@
-package koicare.koiCareProject.dto.request;
+package koicare.koiCareProject.dto.response;
 
-import koicare.koiCareProject.entity.Member;
-import lombok.*;
+import lombok.Data;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class PondCreationRequest {
+public class PondResponse {
 
+    private Long pondID;
     private String pondName;
     private String pondImage;
     private long area;
@@ -15,7 +13,7 @@ public class PondCreationRequest {
     private long volume;
     private long drainCount;
     private long skimmerCount;
+    private long amountFish;
     private long pumpingCapacity;
-    private long memberID;
-
+    private Long memberID;
 }
