@@ -1,8 +1,10 @@
 package koicare.koiCareProject.service;
 
+import koicare.koiCareProject.dto.request.WaterReportRequest;
 import koicare.koiCareProject.entity.WaterReport;
 import koicare.koiCareProject.repository.PondRepository;
 import koicare.koiCareProject.repository.WaterReportRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +17,10 @@ public class WaterReportService {
     @Autowired
     private PondRepository pondRepository;
 
-//    public WaterReport createWaterReport() {
-//
-//
-//    }
+    @Autowired
+    ModelMapper modelMapper;
+    public WaterReport createWaterReport(WaterReportRequest waterReportRequest) {
+
+        return waterReportRepository.save(modelMapper.map(waterReportRequest, WaterReport.class));
+    }
 }
