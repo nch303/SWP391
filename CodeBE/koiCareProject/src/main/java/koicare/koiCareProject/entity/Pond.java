@@ -33,4 +33,8 @@ public class Pond {
     @OneToMany(mappedBy = "pond", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<KoiFish> koiFishes;
 
+    @OneToMany(mappedBy = "pond", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WaterReport> pondReports;
+
+
 }
