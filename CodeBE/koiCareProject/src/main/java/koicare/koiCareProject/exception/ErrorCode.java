@@ -18,10 +18,9 @@ public enum ErrorCode {
     VARIETY_NOT_EXISTED(1010,"Variety not existed"),
     KOIFISH_NOT_EXISTED(1011,"Koifish not existed"),
     POND_NOT_EXISTED(1012, "POND_NOT_EXISTED"),
-
-
-
-    KOISTATUS_NOT_EXISTED(1013,"Koistatus not existed");
+    KOISTATUS_NOT_EXISTED(1013,"Koistatus not existed"),
+    KOIREPORT_NOT_EXISTED(1014,"Koireport not existed"),
+    KOISTANDARD_NOT_EXISTED(1014,"Koistandard not existed");
 
 
 

@@ -50,7 +50,15 @@ public class PondService {
     public Pond updatePond(long pondID, PondCreationRequest request) {
         Pond pond = pondRepository.getPondByPondID(pondID);
         if (pond != null) {
-            pond =  modelMapper.map(request, Pond.class);
+            pond.setPondName(request.getPondName());
+            pond.setPondImage(request.getPondImage());
+            pond.setArea(request.getArea());
+            pond.setDepth(request.getDepth());
+            pond.setVolume(request.getVolume());
+            pond.setDrainCount(request.getDrainCount());
+            pond.setSkimmerCount(request.getSkimmerCount());
+            pond.setPumpingCapacity(request.getPumpingCapacity());
+            pond.setMember(memberRepository.getMemberByMemberID(request.getMemberID()));
             pond.setPondID(pondID);
             return pondRepository.save(pond);
         } else
