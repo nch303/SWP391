@@ -26,6 +26,7 @@ public class PondService {
     @Autowired
     ModelMapper modelMapper;
 
+    //tạo Pond
     public Pond createPond(PondCreationRequest request) {
 
         Pond pond = modelMapper.map(request, Pond.class);
@@ -35,10 +36,12 @@ public class PondService {
         return pondRepository.save(pond);
     }
 
+    //Lấy danh sách Pond
     public List<Pond> getAllPonds() {
         return pondRepository.findAll();
     }
 
+    //lấy Pond theo ID
     public Pond getPondById(Long pondID) {
         Pond pond = pondRepository.getPondByPondID(pondID);
         if (pond == null) {
@@ -47,6 +50,7 @@ public class PondService {
         else return pond;
     }
 
+    //Update Pond
     public Pond updatePond(long pondID, PondCreationRequest request) {
         Pond pond = pondRepository.getPondByPondID(pondID);
         if (pond != null) {
@@ -65,7 +69,7 @@ public class PondService {
             throw new AppException(ErrorCode.POND_NOT_EXISTED);
     }
 
-
+    //delete Pond
     public void deletePond(long pondID) {
         Pond pond = pondRepository.getPondByPondID(pondID);
         if (pond == null) {
