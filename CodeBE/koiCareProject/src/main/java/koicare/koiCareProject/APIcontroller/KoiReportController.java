@@ -36,7 +36,7 @@ public class KoiReportController {
         return response;
     }
 
-    //lấy danh sách KoiReport
+    //lấy danh sách KoiReport từ DB
     @GetMapping("")
     public APIResponse<List<KoiReportResponse>> getKoiReports() {
         APIResponse<List<KoiReportResponse>> response = new APIResponse<>();
