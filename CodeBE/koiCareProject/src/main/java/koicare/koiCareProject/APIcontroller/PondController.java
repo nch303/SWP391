@@ -39,7 +39,7 @@ public class PondController {
     public APIResponse<PondResponse> createPond(@RequestBody PondCreationRequest pondCreationRequest) {
         APIResponse<PondResponse> response = new APIResponse<>();
 
-        PondResponse pondResponse = modelMapper.map(pondCreationRequest, PondResponse.class);
+        PondResponse pondResponse = modelMapper.map(pondService.createPond(pondCreationRequest), PondResponse.class);
         pondResponse.setMemberID(pondCreationRequest.getMemberID());
         response.setResult(pondResponse);
 

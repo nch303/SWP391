@@ -19,8 +19,13 @@ public class WaterReportService {
 
     @Autowired
     ModelMapper modelMapper;
+
     public WaterReport createWaterReport(WaterReportRequest waterReportRequest) {
 
-        return waterReportRepository.save(modelMapper.map(waterReportRequest, WaterReport.class));
+        WaterReport waterReport = modelMapper.map(waterReportRequest, WaterReport.class);
+
+        waterReport.setPond(pondRepository.getPondByPondID(waterReportRequest.getPondID()));
+
+        return waterReportRepository.save(waterReport);
     }
 }

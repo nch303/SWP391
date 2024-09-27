@@ -26,8 +26,9 @@ public class WaterReportController {
 
         APIResponse<WaterReportResponse> response = new APIResponse<>();
 
-        WaterReportResponse waterReportResponse = modelMapper.map(request, WaterReportResponse.class);
+        WaterReportResponse waterReportResponse = modelMapper.map(waterReportService.createWaterReport(request), WaterReportResponse.class);
         waterReportResponse.setPondID(request.getPondID());
+
         response.setResult(waterReportResponse);
         return response;
 
