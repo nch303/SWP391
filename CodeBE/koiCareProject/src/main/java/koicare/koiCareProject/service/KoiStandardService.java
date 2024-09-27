@@ -6,6 +6,7 @@ import koicare.koiCareProject.entity.KoiStandard;
 import koicare.koiCareProject.exception.AppException;
 import koicare.koiCareProject.exception.ErrorCode;
 import koicare.koiCareProject.repository.KoiStandardRepository;
+import koicare.koiCareProject.repository.KoiVarietyRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,16 +21,15 @@ public class KoiStandardService {
     KoiStandardRepository koiStandardRepository;
 
     @Autowired
+    KoiVarietyRepository koiVarietyRepository;
+
+    @Autowired
     ModelMapper modelMapper;
 
-    // Lấy KoiStandard
-    public List<KoiStandard> getKoiStandards() {
-        return koiStandardRepository.findAll();
-    }
 
     // Lấy KoiStandard theo ID
-    public KoiStandard getKoiStandard(long koiStandID) {
-        KoiStandard koiStandard = koiStandardRepository.getKoiStandardByKoiStandID(koiStandID);
+    public KoiStandard getKoiStandard(KoiStandardRequest request) {
+        KoiStandard koiStandard = koiStandardRepository.getKoiStandardByKoiVarietyAndPeriod(koiVarietyRepository.getKoiVarietyByKoiVarietyID(request.getKoiVarietyID()),request.getPeriod());
         if (koiStandard != null)
             return koiStandard;
         else

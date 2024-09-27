@@ -32,7 +32,7 @@ public class KoiReportController {
         KoiReportResponse koiReportResponse = modelMapper.map(koiReport, KoiReportResponse.class);
 
         response.setResult(koiReportResponse);
-        System.out.println("bao cao duọc tao thanh cong");
+
         return response;
     }
 

@@ -30,12 +30,6 @@ public class KoiStandard {
     private double lowWeightFemale;
     private double medWeightFemale;
     private double hiWeightFemale;
-    private double lowFoodMale;
-    private double medFoodMale;
-    private double hiFoodMale;
-    private double lowFoodFemale;
-    private double medFoodFemale;
-    private double hiFoodFemale;
 
     @ManyToOne
     @JoinColumn(name = "koivarietyid")
