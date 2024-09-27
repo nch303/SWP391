@@ -29,7 +29,16 @@ public class PondService {
     //tạo Pond
     public Pond createPond(PondCreationRequest request) {
 
-        Pond pond = modelMapper.map(request, Pond.class);
+        Pond pond = new Pond();
+
+        pond.setPondName(request.getPondName());
+        pond.setPondImage(request.getPondImage());
+        pond.setArea(request.getArea());
+        pond.setDepth(request.getDepth());
+        pond.setVolume(request.getVolume());
+        pond.setPumpingCapacity(request.getPumpingCapacity());
+        pond.setSkimmerCount(request.getSkimmerCount());
+        pond.setDrainCount(request.getDrainCount());
 
         pond.setMember(memberRepository.getMemberByMemberID(request.getMemberID()));
 

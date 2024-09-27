@@ -8,6 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class WaterReportService {
 
@@ -22,9 +24,22 @@ public class WaterReportService {
 
     public WaterReport createWaterReport(WaterReportRequest waterReportRequest) {
 
-        WaterReport waterReport = modelMapper.map(waterReportRequest, WaterReport.class);
+        WaterReport waterReport = new WaterReport();
+
+        waterReport.setWaterReportUpdatedDate(new Date());
+        waterReport.setWaterReportTemperature(waterReportRequest.getWaterReportTemperature());
+        waterReport.setWaterReportSalt(waterReportRequest.getWaterReportSalt());
+        waterReport.setWaterReportOxygen(waterReportRequest.getWaterReportOxygen());
+        waterReport.setWaterReportNitrite(waterReportRequest.getWaterReportNitrite());
+        waterReport.setWaterReportNitrate(waterReportRequest.getWaterReportNitrate());
+        waterReport.setWaterReportHardness(waterReportRequest.getWaterReportHardness());
+        waterReport.setWaterReportCarbonDioxide(waterReportRequest.getWaterReportCarbonDioxide());
+        waterReport.setWaterReportCarbonate(waterReportRequest.getWaterReportCarbonate());
+        waterReport.setWaterReportAmmonia(waterReportRequest.getWaterReportAmmonia());
+        waterReport.setWaterReport_pH(waterReportRequest.getWaterReport_pH());
 
         waterReport.setPond(pondRepository.getPondByPondID(waterReportRequest.getPondID()));
+
 
         return waterReportRepository.save(waterReport);
     }
