@@ -2,6 +2,8 @@ package koicare.koiCareProject.service;
 
 import koicare.koiCareProject.dto.request.WaterReportRequest;
 import koicare.koiCareProject.entity.WaterReport;
+import koicare.koiCareProject.exception.AppException;
+import koicare.koiCareProject.exception.ErrorCode;
 import koicare.koiCareProject.repository.PondRepository;
 import koicare.koiCareProject.repository.WaterReportRepository;
 import org.modelmapper.ModelMapper;
@@ -42,5 +44,26 @@ public class WaterReportService {
 
 
         return waterReportRepository.save(waterReport);
+    }
+
+    public WaterReport getWaterReportByID(Long waterReportID) {
+        WaterReport waterReport = waterReportRepository.getWaterReportByWaterReportId(waterReportID);
+        if (waterReport == null) {
+            throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
+        }
+        else{
+            return waterReport;
+        }
+
+    }
+    public void deleteWaterReport(Long waterReportId) {
+        WaterReport waterReport = waterReportRepository.getWaterReportByWaterReportId(waterReportId);
+        if (waterReport == null) {
+            throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
+        }
+        else{
+            waterReportRepository.deleteById(waterReportId);
+        }
+
     }
 }
