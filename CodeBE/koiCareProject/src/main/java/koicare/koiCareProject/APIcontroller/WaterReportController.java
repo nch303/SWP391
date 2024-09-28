@@ -9,6 +9,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("waterreport")
 public class WaterReportController {
@@ -46,5 +49,16 @@ public class WaterReportController {
         waterReportService.deleteWaterReport(waterReportID);
         response.setResult("DELETED SUCCESSFULLY");
         return response;
+    }
+
+    @GetMapping("/view/{pondID}")
+    public List<WaterReportResponse> getWaterReportByPondID(@PathVariable("pondID") long pondID) {
+        List<WaterReport> waterReports = waterReportService.getAllWaterReportsByPondID(pondID);
+
+        List<WaterReportResponse> responses = new ArrayList<>();
+        waterReports.forEach(r -> responses.add(modelMapper.map(r, WaterReportResponse.class)));
+        return responses;
+
+
     }
 }

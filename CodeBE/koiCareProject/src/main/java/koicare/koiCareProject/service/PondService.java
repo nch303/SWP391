@@ -103,6 +103,8 @@ public class PondService {
                 filteredPonds.add(pond);
             }
         }
-        return filteredPonds;
+        if (filteredPonds.isEmpty()) {
+            throw new AppException(ErrorCode.LIST_NOT_EXISTED);
+        } else return filteredPonds;
     }
 }

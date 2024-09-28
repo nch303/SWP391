@@ -10,7 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class WaterReportService {
@@ -65,5 +67,23 @@ public class WaterReportService {
             waterReportRepository.deleteById(waterReportId);
         }
 
+    }
+
+    //get all reports by pond
+
+    public List<WaterReport> getAllWaterReportsByPondID(Long pondID) {
+        List<WaterReport> waterReports = waterReportRepository.findAll();
+
+        List<WaterReport> filteredWaterReports = new ArrayList<>();
+
+        for (WaterReport waterReport : waterReports) {
+            if (waterReport.getPond().getPondID() == pondID) {
+                filteredWaterReports.add(waterReport);
+            }
+        }
+        if (filteredWaterReports.isEmpty()){
+            throw new AppException(ErrorCode.LIST_NOT_EXISTED);
+        }
+        else return filteredWaterReports;
     }
 }

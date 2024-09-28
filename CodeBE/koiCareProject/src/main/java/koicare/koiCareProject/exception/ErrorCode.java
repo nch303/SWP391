@@ -21,7 +21,9 @@ public enum ErrorCode {
     KOISTATUS_NOT_EXISTED(1013,"Koistatus not existed"),
     KOIREPORT_NOT_EXISTED(1014,"Koireport not existed"),
     KOISTANDARD_NOT_EXISTED(1014,"Koistandard not existed"),
-    WATER_REPORT_NOT_EXISTED(1015, "WaterReport not existed");
+    WATER_REPORT_NOT_EXISTED(1015, "WaterReport not existed"),
+    LIST_NOT_EXISTED(1016, "List not existed");
+
 
 
 
