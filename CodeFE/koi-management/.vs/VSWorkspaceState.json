@@ -4,10 +4,12 @@
     "\\public",
     "\\src",
     "\\src\\component",
+    "\\src\\component\\header",
     "\\src\\page",
-    "\\src\\page\\koiPond",
-    "\\src\\page\\login"
+    "\\src\\page\\home",
+    "\\src\\page\\koiFish",
+    "\\src\\page\\koiPond"
   ],
-  "SelectedNode": "\\src\\index.js",
+  "SelectedNode": "\\src\\page\\koiFish\\manager-koi.js",
   "PreviewInSolutionExplorer": false
 }

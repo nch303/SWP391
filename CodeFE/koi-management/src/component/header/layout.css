@@ -7,10 +7,10 @@
 }
 
 .logo {
-    font-size: 12px;
+    font-size: 50px;
     color: white;
-    font-family: 'Arial', sans-serif;
-    vertical-align: top;
+    font-family: 'Bookman Old Style', sans-serif;
+    vertical-align: middle;
 }
 
 .nav-links {

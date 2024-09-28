@@ -19,9 +19,9 @@
 }
 
 .koi-fish-image {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    width: 120px;
+    height: 160px;
+    margin: auto;
 }
 
 .koi-fish-info {

@@ -1,12 +1,14 @@
 import React from 'react';
 import './layout.css';
 import { Link } from 'react-router-dom';
-const logoIcon = '/iconlogo.png';
+const logoIcon = 'Icon.png';
 
 const NavBar = () => {
     return (
         <nav className="navbar">
-            <div className="logo"><img src={logoIcon} alt="Sunside Koi Care Logo" style={{ width: '25%' }} />Sunside Koi Care</div>
+            <div className="logo">
+                <img src={logoIcon} alt="Sunside Koi Care Logo" style={{ width: '6%' }} /> Sunside Koi Care
+            </div>
             <ul className="nav-links">
                 <li className="nav-link"><a href="/">Home</a></li>
                 <li className="nav-link dropdown">
