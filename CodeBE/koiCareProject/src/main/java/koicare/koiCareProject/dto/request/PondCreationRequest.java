@@ -15,7 +15,8 @@ public class PondCreationRequest {
     private long volume;
     private long drainCount;
     private long skimmerCount;
+    private long amountFish;
     private long pumpingCapacity;
-    private long memberID;
+    private Long memberID;
 
 }

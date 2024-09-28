@@ -13,5 +13,5 @@ public class KoiReportRequest {
     private double length;
     private double weight;
     private long koiFishID;
-    private long koiStatusID;
+
 }

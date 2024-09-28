@@ -32,11 +32,11 @@ public class KoiReportController {
         KoiReportResponse koiReportResponse = modelMapper.map(koiReport, KoiReportResponse.class);
 
         response.setResult(koiReportResponse);
-        System.out.println("bao cao duọc tao thanh cong");
+
         return response;
     }
 
-    //lấy danh sách KoiReport
+    //lấy danh sách KoiReport từ DB
     @GetMapping("")
     public APIResponse<List<KoiReportResponse>> getKoiReports() {
         APIResponse<List<KoiReportResponse>> response = new APIResponse<>();

@@ -26,19 +26,31 @@ public class PondService {
     @Autowired
     ModelMapper modelMapper;
 
+    //tạo Pond
     public Pond createPond(PondCreationRequest request) {
 
-        Pond pond = modelMapper.map(request, Pond.class);
+        Pond pond = new Pond();
+
+        pond.setPondName(request.getPondName());
+        pond.setPondImage(request.getPondImage());
+        pond.setArea(request.getArea());
+        pond.setDepth(request.getDepth());
+        pond.setVolume(request.getVolume());
+        pond.setPumpingCapacity(request.getPumpingCapacity());
+        pond.setSkimmerCount(request.getSkimmerCount());
+        pond.setDrainCount(request.getDrainCount());
 
         pond.setMember(memberRepository.getMemberByMemberID(request.getMemberID()));
 
         return pondRepository.save(pond);
     }
 
+    //Lấy danh sách Pond
     public List<Pond> getAllPonds() {
         return pondRepository.findAll();
     }
 
+    //lấy Pond theo ID
     public Pond getPondById(Long pondID) {
         Pond pond = pondRepository.getPondByPondID(pondID);
         if (pond == null) {
@@ -47,6 +59,12 @@ public class PondService {
         else return pond;
     }
 
+//    public List<Pond> getPondsByMemberID(Long memberID) {
+//
+//        return pondRepository.getPondByMemberID(memberID);
+//    }
+
+    //Update Pond
     public Pond updatePond(long pondID, PondCreationRequest request) {
         Pond pond = pondRepository.getPondByPondID(pondID);
         if (pond != null) {
@@ -65,7 +83,7 @@ public class PondService {
             throw new AppException(ErrorCode.POND_NOT_EXISTED);
     }
 
-
+    //delete Pond
     public void deletePond(long pondID) {
         Pond pond = pondRepository.getPondByPondID(pondID);
         if (pond == null) {

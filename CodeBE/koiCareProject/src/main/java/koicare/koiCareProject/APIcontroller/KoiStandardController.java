@@ -27,26 +27,15 @@ public class KoiStandardController {
     ModelMapper modelMapper;
 
 
-    // Lấy KoiStandard
+    // Lấy KoiStandard theo KoiVarietyID va Period
     @GetMapping("")
-    public APIResponse<List<KoiStandardResponse>> getKoiStandards(){
-        APIResponse<List<KoiStandardResponse>> response = new APIResponse<>();
+    public APIResponse<KoiStandardResponse> getKoiStandard(@RequestBody KoiStandardRequest request){
+        APIResponse<KoiStandardResponse> response =new APIResponse<>();
 
-        List<KoiStandard> koiStandards = koiStandardService.getKoiStandards();
-        List<KoiStandardResponse> koiStandardResponses = koiStandards.stream()
-                .map(koiStandard -> modelMapper.map(koiStandard, KoiStandardResponse.class))
-                .collect(Collectors.toList());
-
-        response.setResult(koiStandardResponses);
-        return response;
-    }
-
-    // Lấy KoiStandard theo ID
-    @GetMapping("{koiStandID}")
-    public APIResponse<KoiStandard> getKoiStandard(@PathVariable("koiStandID")long koiStandID){
-        APIResponse<KoiStandard> response =new APIResponse<>();
-
-        response.setResult(koiStandardService.getKoiStandard(koiStandID));
+        KoiStandard koiStandard = koiStandardService.getKoiStandard(request);
+        KoiStandardResponse koiStandardResponse = modelMapper.map(koiStandard, KoiStandardResponse.class);
+        koiStandardResponse.setKoiVarietyID(koiStandard.getKoiVariety().getKoiVarietyID());
+        response.setResult(koiStandardResponse);
 
         return response;
     }

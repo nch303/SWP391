@@ -7,13 +7,20 @@ import lombok.Data;
 public class KoiStandardResponse {
 
     private long koiStandID;
+
     private long period;
-    private double lengthMale;
-    private double lengthFemale;
-    private double weightMale;
-    private double weightFemale;
-    private double foodMale;
-    private double foodFemale;
+    private double lowLengthMale;
+    private double medLengthMale;
+    private double hiLengthMale;
+    private double lowLengthFemale;
+    private double medLengthFemale;
+    private double hiLengthFemale;
+    private double lowWeightMale;
+    private double medWeightMale;
+    private double hiWeightMale;
+    private double lowWeightFemale;
+    private double medWeightFemale;
+    private double hiWeightFemale;
     private long koiVarietyID;
 
 }
