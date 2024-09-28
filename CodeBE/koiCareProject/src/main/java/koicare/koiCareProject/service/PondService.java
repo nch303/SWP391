@@ -59,6 +59,11 @@ public class PondService {
         else return pond;
     }
 
+//    public List<Pond> getPondsByMemberID(Long memberID) {
+//
+//        return pondRepository.getPondByMemberID(memberID);
+//    }
+
     //Update Pond
     public Pond updatePond(long pondID, PondCreationRequest request) {
         Pond pond = pondRepository.getPondByPondID(pondID);

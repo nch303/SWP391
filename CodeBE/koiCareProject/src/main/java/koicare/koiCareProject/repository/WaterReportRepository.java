@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WaterReportRepository extends JpaRepository<WaterReport, Long> {
+    WaterReport getWaterReportByWaterReportId(long waterReportId);
 }

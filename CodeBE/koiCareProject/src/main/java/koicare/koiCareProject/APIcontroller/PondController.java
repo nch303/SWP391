@@ -6,9 +6,12 @@ import koicare.koiCareProject.dto.response.KoiFishResponse;
 import koicare.koiCareProject.dto.response.PondResponse;
 import koicare.koiCareProject.entity.Pond;
 import koicare.koiCareProject.repository.MemberRepository;
+import koicare.koiCareProject.repository.PondRepository;
 import koicare.koiCareProject.service.PondService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,6 +23,9 @@ import java.util.stream.Collectors;
 public class PondController {
     @Autowired
     private PondService pondService;
+
+    @Autowired
+    private PondRepository pondRepository;
 
 //    @PostMapping
 //    public APIResponse<Pond> createPond(@RequestBody PondCreationRequest request) {
@@ -50,9 +56,24 @@ public class PondController {
         List<Pond> ponds = pondService.getAllPonds();
         List<PondResponse> pondResponses = ponds.stream()
                 .map(Pond -> modelMapper.map(Pond, PondResponse.class)).collect(Collectors.toList());
-
         return pondResponses;
     }
+
+//    @GetMapping("/view/{memberID}")
+//    public List<PondResponse> viewPondsByMemberID(@PathVariable long memberID) {
+//        List<Pond> ponds = pondService.getPondsByMemberID(memberID);
+//        return ponds.stream()
+//                .map(Pond -> modelMapper.map(Pond, PondResponse.class)).collect(Collectors.toList());
+//    }
+
+//    @GetMapping("/view/{memberID}")
+//    public ResponseEntity<List<Pond>> getPondsByMemberID(@PathVariable("memberID") Long memberID) {
+//        return new ResponseEntity<List<Pond>>(pondRepository.getPondByMemberID(memberID), HttpStatus.OK);
+//    }
+
+
+
+
 
     @GetMapping("{pondID}")
     public APIResponse<PondResponse> getPondById(@PathVariable("pondID") long pondID) {
