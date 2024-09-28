@@ -1,0 +1,166 @@
+﻿.manager-pond-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.pond-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.pond {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.pond-image {
+    width: 250px;
+    height: auto;
+}
+
+.pond-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.pond-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.pond-detail {
+    font-size: 1rem;
+    margin-bottom: 0px;
+    font-family: 'Arial', sans-serif;
+}
+
+.filter-search {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 200px;
+}
+
+.filter-select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 200px;
+}
+
+.update-pond {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #e97f33;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    outline: none;
+    margin-top: 20px;
+    margin-inline: auto;
+}
+
+.update-pond:active {
+    transform: translateY(-10px);
+}
+
+.modal-content {
+    background: #ccc;
+    width: 500px;
+    padding: 20px; 
+    border-radius: 10px;
+    z-index: 99;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    color: #000;
+    font-size: 30px;
+}
+
+.modal-body p {
+    font-size: 22px;
+    line-height: 1.5;
+}
+
+.hidden-modal {
+    display: none;
+}
+
+.close-modal {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    width: 20px;
+    font-size: 40px;
+    margin-right: 100px;
+}
+
+.close-modal:hover {
+    color: red;
+}
+
+.accept-modal {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    width: 20px;
+    font-size: 30px;
+    margin-left: 100px;
+}
+
+.accept-modal:hover {
+    color: green;
+}
+
+.blur-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.hidden-blur {
+    display: none;
+}
+
+.pond-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+.pond {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+}
