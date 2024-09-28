@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,10 +60,6 @@ public class PondService {
         else return pond;
     }
 
-//    public List<Pond> getPondsByMemberID(Long memberID) {
-//
-//        return pondRepository.getPondByMemberID(memberID);
-//    }
 
     //Update Pond
     public Pond updatePond(long pondID, PondCreationRequest request) {
@@ -92,5 +89,20 @@ public class PondService {
         else{
             pondRepository.deleteById(pondID);
         }
+    }
+
+
+    //find ponds by id
+
+    public List<Pond> getPondsByMemberId(Long memberId) {
+        List<Pond> ponds = pondRepository.findAll();
+
+        List<Pond> filteredPonds = new ArrayList<>();
+        for (Pond pond : ponds) {
+            if (pond.getMember().getMemberID() == memberId) {
+                filteredPonds.add(pond);
+            }
+        }
+        return filteredPonds;
     }
 }

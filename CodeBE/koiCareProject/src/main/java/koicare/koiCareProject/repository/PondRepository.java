@@ -15,8 +15,9 @@ public interface PondRepository extends JpaRepository<Pond, Long> {
 
     Pond getPondByPondID(Long pondID);
 
-//    @Query("From Pond where member.memberID=: memberID")
-//    List<Pond> getPondByMemberID(@Param("memberID") Long memberID);
+
+
+
 
 
 

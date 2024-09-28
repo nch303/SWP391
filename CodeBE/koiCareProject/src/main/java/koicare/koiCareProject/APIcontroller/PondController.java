@@ -59,17 +59,16 @@ public class PondController {
         return pondResponses;
     }
 
-//    @GetMapping("/view/{memberID}")
-//    public List<PondResponse> viewPondsByMemberID(@PathVariable long memberID) {
-//        List<Pond> ponds = pondService.getPondsByMemberID(memberID);
-//        return ponds.stream()
-//                .map(Pond -> modelMapper.map(Pond, PondResponse.class)).collect(Collectors.toList());
-//    }
 
-//    @GetMapping("/view/{memberID}")
-//    public ResponseEntity<List<Pond>> getPondsByMemberID(@PathVariable("memberID") Long memberID) {
-//        return new ResponseEntity<List<Pond>>(pondRepository.getPondByMemberID(memberID), HttpStatus.OK);
-//    }
+    @GetMapping("/view/{memberID}")
+    public List<PondResponse> viewPonds(@PathVariable("memberID") long memberID) {
+        List<Pond> ponds = pondService.getPondsByMemberId(memberID);
+
+        List<PondResponse> pondResponses = new ArrayList<>();
+        ponds.forEach(p -> pondResponses.add(modelMapper.map(p, PondResponse.class)));
+
+        return pondResponses;
+    }
 
 
 
