@@ -16,8 +16,8 @@ const NavBar = () => {
                     <div className="dropdown-content">
                         <Link to="/manage-koi">My Koi</Link>
                         <Link to="/manage-pond">My Pond</Link>
-                        <a href="#">Calculate Food</a>
-                        <a href="#">Calculate Salt</a>
+                        <Link to="/calculate-food">Calculate Food</Link>
+                        <Link to="/calculate-salt">Calculate Salt</Link>
                     </div>
                 </li>
                 <li className="nav-link">About us</li>

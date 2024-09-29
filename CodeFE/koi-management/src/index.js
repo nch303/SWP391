@@ -10,6 +10,8 @@ import Profile from './page/user/profile';
 import ManagerPond from './page/koiPond/manager-pond';
 import KoiInfo from './page/koiFish/koi-info';
 import WaterParameter from './page/waterParameter/waterParameter';
+import SaltCalculator from './page/saltCalculator/salt-calculator';
+import FoodCalculator from './page/foodCalculator/food-calculator';
 function App() {
   return (
     <Router>
@@ -19,6 +21,8 @@ function App() {
         <Route path="/manage-koi" element={<ManagerKoi />} />
         <Route path="/manage-pond" element={<ManagerPond />} />
         <Route path="/water-parameters" element={<WaterParameter />} />
+        <Route path="/calculate-food" element={<FoodCalculator />} />
+        <Route path="/calculate-salt" element={<SaltCalculator />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/koi-info/:id" element={<KoiInfo />} />
         <Route path="*" element={<NotFound />} />
