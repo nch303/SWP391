@@ -1,0 +1,150 @@
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+/* Header styles */
+header {
+  background-color: #e53e3e;
+  padding: 15px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li {
+  display: inline;
+  color: white;
+}
+
+/* Water Parameters section */
+.water-parameters {
+  padding: 20px;
+  text-align: center;
+}
+
+.water-parameters h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Filter options */
+.filter-options {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.filter-icon {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+/* Parameter cards */
+.parameters-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.card-date {
+  color: #666;
+}
+
+.card-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.parameter {
+  text-align: left;
+}
+
+.parameter-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.parameter-value {
+  color: #333;
+}
+
+/* Add measurement button */
+.add-measurement {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4CAF50;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+.pagination button:hover:not(.active) {
+  background-color: #ddd;
+}

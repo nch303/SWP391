@@ -9,7 +9,7 @@ import ManagerKoi from './page/koiFish/manager-koi';
 import Profile from './page/user/profile';
 import ManagerPond from './page/koiPond/manager-pond';
 import KoiInfo from './page/koiFish/koi-info';
-
+import WaterParameter from './page/waterParameter/waterParameter';
 function App() {
   return (
     <Router>
@@ -18,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/manage-koi" element={<ManagerKoi />} />
         <Route path="/manage-pond" element={<ManagerPond />} />
+        <Route path="/water-parameters" element={<WaterParameter />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/koi-info/:id" element={<KoiInfo />} />
         <Route path="*" element={<NotFound />} />
