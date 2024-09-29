@@ -20,6 +20,8 @@ const NavBar = () => {
                         <a href="#">Calculate Salt</a>
                         <Link to="/view-statistics">View Statistics</Link>
                         <Link to="/shopping-recommendations">Shopping Recommendations</Link>
+                        <Link to="/calculate-food">Calculate Food</Link>
+                        <Link to="/calculate-salt">Calculate Salt</Link>
                     </div>
                 </li>
                 <li className="nav-link">About us</li>

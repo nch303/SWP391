@@ -1,15 +1,17 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
     "\\src",
     "\\src\\component",
     "\\src\\component\\header",
     "\\src\\page",
+    "\\src\\page\\foodCalculator",
     "\\src\\page\\home",
     "\\src\\page\\koiFish",
-    "\\src\\page\\koiPond"
+    "\\src\\page\\koiPond",
+    "\\src\\page\\saltCalculator",
+    "\\src\\page\\waterParameter"
   ],
-  "SelectedNode": "\\src\\page\\koiFish\\manager-koi.js",
+  "SelectedNode": "\\src\\page\\waterParameter\\waterParameter.js",
   "PreviewInSolutionExplorer": false
 }
