@@ -3,6 +3,7 @@ import './waterParameter.css';
 
 const WaterParameter = () => {
     const [parameters, setParameters] = useState([]);
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         // Simulated data fetch
@@ -49,6 +50,22 @@ const WaterParameter = () => {
         setParameters(sampleData);
     }, []);
 
+    const handleAddParameter = () => {
+        setShowPopup(true);
+    };
+
+    const handleClosePopup = () => {
+        setShowPopup(false);
+    };
+
+    const popupContent = (
+        <div className="popup-content">
+            <h2>Add New Water Parameter</h2>
+            <p>Feature not supported</p>
+            <button onClick={handleClosePopup}>Close</button>
+        </div>
+    );
+
     return (
         <div className="water-parameter-container">
             <h1 className="parameter-title">Water Parameters</h1>
@@ -60,24 +77,64 @@ const WaterParameter = () => {
                             <span>{param.pondName}</span>
                         </div>
                         <div className="parameter-details">
-                            <p>Oxygen: {param.oxygen}</p>
-                            <p>Temperature: {param.temperature}</p>
-                            <p>pH: {param.ph}</p>
-                            <p>Nitrite: {param.nitrite}</p>
-                            <p>Nitrate: {param.nitrate}</p>
-                            <p>Phosphate: {param.phosphate}</p>
-                            <p>Ammonia: {param.ammonia}</p>
-                            <p>Hardness: {param.hardness}</p>
-                            <p>Alkalinity: {param.alkalinity}</p>
-                            <p>CO2: {param.co2}</p>
-                            <p>Salt: {param.salt}</p>
-                            <p>Total chlorine: {param.totalChlorine}</p>
-                            <p>Free chlorine: {param.freeChlorine}</p>
+                            <div className="parameter-item">
+                                <span className="parameter-label">Oxygen:</span>
+                                <span className="parameter-value">{param.oxygen}</span>
+                            </div>
+                            <div className="parameter-item">
+                                <span className="parameter-label">Temperature:</span>
+                                <span className="parameter-value">{param.temperature}</span>
+                            </div>
+                            <div className="parameter-item">
+                                <span className="parameter-label">pH:</span>
+                                <span className="parameter-value">{param.ph}</span>
+                            </div>
+                            <div className="parameter-item">
+                                <span className="parameter-label">Nitrite:</span>
+                                <span className="parameter-value">{param.nitrite}</span>
+                            </div>
+                            <div className="parameter-item">
+                                <span className="parameter-label">Nitrate:</span>
+                                <span className="parameter-value">{param.nitrate}</span>
+                            </div>
+                            <div className="parameter-item">
+                                <span className="parameter-label">Phosphate:</span>
+                                <span className="parameter-value">{param.phosphate}</span>
+                            </div>
+                            <div className="parameter-item">
+                                <span className="parameter-label">Ammonia:</span>
+                                <span className="parameter-value">{param.ammonia}</span>
+                            </div>
+                            <div className="parameter-item">
+                                <span className="parameter-label">Hardness:</span>
+                                <span className="parameter-value">{param.hardness}</span>
+                            </div>
+                            <div className="parameter-item">
+                                <span className="parameter-label">Alkalinity:</span>
+                                <span className="parameter-value">{param.alkalinity}</span>
+                            </div>
+                            <div className="parameter-item">
+                                <span className="parameter-label">CO2:</span>
+                                <span className="parameter-value">{param.co2}</span>
+                            </div>
+                            <div className="parameter-item">
+                                <span className="parameter-label">Salt:</span>
+                                <span className="parameter-value">{param.salt}</span>
+                            </div>
+                            <div className="parameter-item">
+                                <span className="parameter-label">Total chlorine:</span>
+                                <span className="parameter-value">{param.totalChlorine}</span>
+                            </div>
+                            <div className="parameter-item">
+                                <span className="parameter-label">Free chlorine:</span>
+                                <span className="parameter-value">{param.freeChlorine}</span>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
-            <button className="add-parameter-btn">+</button>
+            <button className="add-parameter-btn" onClick={handleAddParameter}>+</button>
+            {showPopup && popupContent}
         </div>
     );
 };
