@@ -9,6 +9,8 @@ import ManagerKoi from './page/koiFish/manager-koi';
 import Profile from './page/user/profile';
 import ManagerPond from './page/koiPond/manager-pond';
 import KoiInfo from './page/koiFish/koi-info';
+import KoiStatistics from './page/statistics/koi-statistics';
+import ShoppingRecommendations from './page/shop/recommendation';
 
 function App() {
   return (
@@ -20,6 +22,9 @@ function App() {
         <Route path="/manage-pond" element={<ManagerPond />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/koi-info/:id" element={<KoiInfo />} />
+        <Route path="/view-statistics" element={<KoiStatistics />} />
+        <Route path="/shopping-recommendations" element={<ShoppingRecommendations />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
