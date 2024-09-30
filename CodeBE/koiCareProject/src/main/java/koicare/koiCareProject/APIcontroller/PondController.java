@@ -30,13 +30,6 @@ public class PondController {
     @Autowired
     private PondRepository pondRepository;
 
-//    @PostMapping
-//    public APIResponse<Pond> createPond(@RequestBody PondCreationRequest request) {
-//
-//        APIResponse<Pond> response = new APIResponse<>();
-//        response.setResult(pondService.createPond(request));
-//        return response;
-//    }
 
     @Autowired
     private MemberRepository memberRepository;
@@ -60,21 +53,6 @@ public class PondController {
                 .map(Pond -> modelMapper.map(Pond, PondResponse.class)).collect(Collectors.toList());
         return pondResponses;
     }
-
-
-    @GetMapping("/view/{memberID}")
-    public List<PondResponse> viewPonds(@PathVariable("memberID") long memberID) {
-        List<Pond> ponds = pondService.getPondsByMemberId(memberID);
-
-        List<PondResponse> pondResponses = new ArrayList<>();
-        ponds.forEach(p -> pondResponses.add(modelMapper.map(p, PondResponse.class)));
-
-        return pondResponses;
-    }
-
-
-
-
 
     @GetMapping("{pondID}")
     public APIResponse<PondResponse> getPondById(@PathVariable("pondID") long pondID) {

@@ -104,20 +104,4 @@ public class PondService {
         }
     }
 
-
-    //find ponds by id
-
-    public List<Pond> getPondsByMemberId(Long memberId) {
-        List<Pond> ponds = pondRepository.findAll();
-
-        List<Pond> filteredPonds = new ArrayList<>();
-        for (Pond pond : ponds) {
-            if (pond.getMember().getMemberID() == memberId) {
-                filteredPonds.add(pond);
-            }
-        }
-        if (filteredPonds.isEmpty()) {
-            throw new AppException(ErrorCode.LIST_NOT_EXISTED);
-        } else return filteredPonds;
-    }
 }

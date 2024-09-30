@@ -29,15 +29,7 @@ public class MemberService {
     @Autowired
     AuthenticationService authenticationService;
 
-//    public Member createMember(MemberCreationRequest request) {
-//        Member member =  modelMapper.map(request, Member.class);
-//
-//        //Lưu thông tin người tạo
-//        Account account = authenticationService.getCurrentAccount();
-//        member.setAccount(account);
-//
-//        return memberRepository.save(member);
-//    }
+
 
     public List<Pond> getPondsByMemberId(Long memberId) {
         List<Pond> ponds = pondRepository.findAll();
