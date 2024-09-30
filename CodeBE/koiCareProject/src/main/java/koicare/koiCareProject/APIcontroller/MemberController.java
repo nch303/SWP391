@@ -31,15 +31,6 @@ public class MemberController {
     @Autowired
     ModelMapper modelMapper;
 
-//    @PostMapping
-//    public APIResponse<Member> createMember(@RequestBody MemberCreationRequest request) {
-//        APIResponse<Member> response = new APIResponse<>();
-//
-//        response.setResult(memberService.createMember(request));
-//        return response;
-//    }
-
-
     @GetMapping("{memberID}")
     public List<PondResponse> viewPonds(@PathVariable("memberID") long memberID) {
         List<Pond> ponds = memberService.getPondsByMemberId(memberID);

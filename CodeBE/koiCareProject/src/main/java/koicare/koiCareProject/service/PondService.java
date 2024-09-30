@@ -53,7 +53,7 @@ public class PondService {
         return pondRepository.save(pond);
     }
 
-    //Lấy danh sách Pond theo MemberID
+    //Lấy danh sách Pond theo Member
     public List<Pond> getAllPonds() {
 
         Account account = authenticationService.getCurrentAccount();
