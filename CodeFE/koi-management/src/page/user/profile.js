@@ -1,22 +1,23 @@
-// Sample user
-const sampleUser = { name: "John Doe", email: "john@example.com", plan: "Premium" };
+import React from 'react';
 
-// Example usage
-<ViewingProfile user={sampleUser} />
+const Profile = () => {
+    const profile = {
+        name: 'John Doe',
+        email: 'john@example.com',
+        password: 'password123',
+        currentPlan: 'Premium',
+    };
 
-function ViewingProfile({ user }) {
     return (
-        <div className="profile">
-            <div className="column">
-                <h1>{user.name}</h1>
-                <p>Email: {user.email}</p>
-            </div>
-            <div className="column">
-                <h2>Current Plan: {user.plan}</h2>
-            </div>
+        <div className="profile-container">
+            <h2>Profile</h2>
+            <p>Name: {profile.name}</p>
+            <p>Email: {profile.email}</p>
+            <p>Password: {profile.password}</p>
+            <p>Current Plan: {profile.currentPlan}</p>
         </div>
     );
-}
+};
 
-export default ViewingProfile; // Added default export
+export default Profile;
 

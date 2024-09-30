@@ -6,10 +6,10 @@
     "\\src\\component",
     "\\src\\component\\header",
     "\\src\\page",
+    "\\src\\page\\foodCalculator",
     "\\src\\page\\home",
-    "\\src\\page\\koiFish",
-    "\\src\\page\\koiPond"
+    "\\src\\page\\saltCalculator"
   ],
-  "SelectedNode": "\\src\\page\\koiFish\\manager-koi.js",
+  "SelectedNode": "\\src\\component\\header\\layout.js",
   "PreviewInSolutionExplorer": false
 }
