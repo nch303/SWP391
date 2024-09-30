@@ -17,14 +17,21 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "memberid")
     private long memberID;
-    private String memberName;
-    private String memberEmail;
-    private String memberPhone;
+    private String name;
+    private String email;
+    private String phone;
     private int premiumStatus;
     private Date expiredDate;
 
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pond> ponds;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<KoiFish> koiFishes;
+
+    @OneToOne
+    @JoinColumn(name = "accountid")
+    private Account account;
 
 }

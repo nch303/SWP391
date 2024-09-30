@@ -1,5 +1,6 @@
 package koicare.koiCareProject.APIcontroller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import koicare.koiCareProject.dto.request.PondCreationRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.dto.response.KoiFishResponse;
@@ -20,6 +21,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("pond")
+//dán qua các controller thì mới xài được token
+@SecurityRequirement(name = "api")
 public class PondController {
     @Autowired
     private PondService pondService;
@@ -46,7 +49,6 @@ public class PondController {
         APIResponse<PondResponse> response = new APIResponse<>();
 
         PondResponse pondResponse = modelMapper.map(pondService.createPond(pondCreationRequest), PondResponse.class);
-        pondResponse.setMemberID(pondCreationRequest.getMemberID());
         response.setResult(pondResponse);
 
         return response;

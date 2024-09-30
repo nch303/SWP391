@@ -1,12 +1,14 @@
 package koicare.koiCareProject.service;
 
 import koicare.koiCareProject.dto.request.MemberCreationRequest;
+import koicare.koiCareProject.entity.Account;
 import koicare.koiCareProject.entity.Member;
 import koicare.koiCareProject.entity.Pond;
 import koicare.koiCareProject.exception.AppException;
 import koicare.koiCareProject.exception.ErrorCode;
 import koicare.koiCareProject.repository.MemberRepository;
 import koicare.koiCareProject.repository.PondRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,16 +22,22 @@ public class MemberService {
 
     @Autowired
     private PondRepository pondRepository;
-    public Member createMember(MemberCreationRequest request) {
-        Member member = new Member();
 
-        member.setMemberName(request.getMemberName());
-        member.setMemberEmail(request.getMemberEmail());
-        member.setMemberPhone(request.getMemberPhone());
+    @Autowired
+    ModelMapper modelMapper;
 
+    @Autowired
+    AuthenticationService authenticationService;
 
-        return memberRepository.save(member);
-    }
+//    public Member createMember(MemberCreationRequest request) {
+//        Member member =  modelMapper.map(request, Member.class);
+//
+//        //Lưu thông tin người tạo
+//        Account account = authenticationService.getCurrentAccount();
+//        member.setAccount(account);
+//
+//        return memberRepository.save(member);
+//    }
 
     public List<Pond> getPondsByMemberId(Long memberId) {
         List<Pond> ponds = pondRepository.findAll();

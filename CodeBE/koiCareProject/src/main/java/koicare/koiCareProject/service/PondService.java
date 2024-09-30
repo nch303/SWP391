@@ -2,6 +2,7 @@ package koicare.koiCareProject.service;
 
 import koicare.koiCareProject.dto.request.KoiFishRequest;
 import koicare.koiCareProject.dto.request.PondCreationRequest;
+import koicare.koiCareProject.entity.Account;
 import koicare.koiCareProject.entity.KoiFish;
 import koicare.koiCareProject.entity.Member;
 import koicare.koiCareProject.entity.Pond;
@@ -27,6 +28,9 @@ public class PondService {
     @Autowired
     ModelMapper modelMapper;
 
+    @Autowired
+    AuthenticationService authenticationService;
+
     //tạo Pond
     public Pond createPond(PondCreationRequest request) {
 
@@ -41,23 +45,29 @@ public class PondService {
         pond.setSkimmerCount(request.getSkimmerCount());
         pond.setDrainCount(request.getDrainCount());
 
-        pond.setMember(memberRepository.getMemberByMemberID(request.getMemberID()));
+        Account account = authenticationService.getCurrentAccount();
+        Member member = memberRepository.getMemberByAccount(account);
+
+        pond.setMember(member);
 
         return pondRepository.save(pond);
     }
 
-    //Lấy danh sách Pond
+    //Lấy danh sách Pond theo MemberID
     public List<Pond> getAllPonds() {
-        return pondRepository.findAll();
+
+        Account account = authenticationService.getCurrentAccount();
+        Member member = memberRepository.getMemberByAccount(account);
+
+        return pondRepository.findAllByMember(member);
     }
 
     //lấy Pond theo ID
     public Pond getPondById(Long pondID) {
         Pond pond = pondRepository.getPondByPondID(pondID);
         if (pond == null) {
-             throw new AppException(ErrorCode.POND_NOT_EXISTED);
-        }
-        else return pond;
+            throw new AppException(ErrorCode.POND_NOT_EXISTED);
+        } else return pond;
     }
 
 
@@ -73,7 +83,11 @@ public class PondService {
             pond.setDrainCount(request.getDrainCount());
             pond.setSkimmerCount(request.getSkimmerCount());
             pond.setPumpingCapacity(request.getPumpingCapacity());
-            pond.setMember(memberRepository.getMemberByMemberID(request.getMemberID()));
+
+            Account account = authenticationService.getCurrentAccount();
+            Member member = memberRepository.getMemberByAccount(account);
+            pond.setMember(member);
+
             pond.setPondID(pondID);
             return pondRepository.save(pond);
         } else
@@ -85,8 +99,7 @@ public class PondService {
         Pond pond = pondRepository.getPondByPondID(pondID);
         if (pond == null) {
             throw new AppException(ErrorCode.POND_NOT_EXISTED);
-        }
-        else{
+        } else {
             pondRepository.deleteById(pondID);
         }
     }

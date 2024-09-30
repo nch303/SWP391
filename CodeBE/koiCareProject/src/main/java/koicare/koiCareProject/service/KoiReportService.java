@@ -2,7 +2,6 @@ package koicare.koiCareProject.service;
 
 
 import koicare.koiCareProject.dto.request.KoiReportRequest;
-import koicare.koiCareProject.dto.request.KoiStandardRequest;
 import koicare.koiCareProject.entity.KoiFish;
 import koicare.koiCareProject.entity.KoiReport;
 import koicare.koiCareProject.entity.KoiStandard;
@@ -49,11 +48,10 @@ public class KoiReportService {
         koiReport.setWeight(request.getWeight());
         koiReport.setKoiFish(koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()));
 
-
-        long koiStatus = createKoiStatus(request);
-
-        koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(koiStatus));
-
+        long koiStatusID = createKoiStatus(request);
+        koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(koiStatusID));
+        //System.out.println(koiStatusID);
+        System.out.println(koiReport.getKoiStatus().getKoiStatusID());
 
         return koiReportRepository.save(koiReport);
     }

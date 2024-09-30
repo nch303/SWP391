@@ -25,4 +25,12 @@ public class KoiReport {
     @ManyToOne
     @JoinColumn(name = "koistatusid", nullable = false)
     private KoiStatus koiStatus;
+
+    @Override
+    public String toString() {
+        return "KoiReport{" +
+                "koiFish=" + (koiFish != null ? koiFish.getKoiFishID() : "null") +
+                // không gọi toString() của koiFish nếu nó có thể gây ra đệ quy
+                '}';
+    }
 }

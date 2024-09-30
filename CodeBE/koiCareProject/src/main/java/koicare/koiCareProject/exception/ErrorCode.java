@@ -22,7 +22,9 @@ public enum ErrorCode {
     KOIREPORT_NOT_EXISTED(1014,"Koireport not existed"),
     KOISTANDARD_NOT_EXISTED(1014,"Koistandard not existed"),
     WATER_REPORT_NOT_EXISTED(1015, "WaterReport not existed"),
-    LIST_NOT_EXISTED(1016, "List not existed");
+    LIST_NOT_EXISTED(1016, "List not existed"),
+    EMAIL_EXISTED(1017, "Email is duplicated"),
+    EMPTY_TOKEN(1018, "Empty token");
 
 
 

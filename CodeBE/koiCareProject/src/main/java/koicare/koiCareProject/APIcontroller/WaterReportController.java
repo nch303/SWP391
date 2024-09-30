@@ -1,5 +1,6 @@
 package koicare.koiCareProject.APIcontroller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import koicare.koiCareProject.dto.request.WaterReportRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.dto.response.WaterReportResponse;
@@ -14,6 +15,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("waterreport")
+//dán qua các controller thì mới xài được token
+@SecurityRequirement(name = "api")
 public class WaterReportController {
     @Autowired
     private WaterReportService waterReportService;

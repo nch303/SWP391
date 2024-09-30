@@ -1,6 +1,7 @@
 package koicare.koiCareProject.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Account implements UserDetails {
+public class Account implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "accountid", nullable = false)
@@ -25,8 +26,18 @@ public class Account implements UserDetails {
     @Size(min = 6, message = "Password must be at least 6 characters!")
     private String password;
 
+    @Email(message = "Invalid email!")
+    private String email;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    Role role;
+
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Member member;
+
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Shop shop;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -34,22 +45,28 @@ public class Account implements UserDetails {
     }
 
     @Override
+    public String getUsername() {
+        return this.username;
+    }
+
+
+    @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return true;
     }
 }

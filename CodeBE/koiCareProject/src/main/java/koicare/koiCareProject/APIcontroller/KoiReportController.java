@@ -1,11 +1,11 @@
 package koicare.koiCareProject.APIcontroller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import koicare.koiCareProject.dto.request.KoiReportRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.dto.response.KoiReportResponse;
 import koicare.koiCareProject.entity.KoiReport;
 import koicare.koiCareProject.service.KoiReportService;
-import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("koireport")
+//dán qua các controller thì mới xài được token
+@SecurityRequirement(name = "api")
 public class KoiReportController {
 
     @Autowired

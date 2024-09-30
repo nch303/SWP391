@@ -36,6 +36,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(apiResponse);
     }
 
+
+
     //trả về lỗi được Valid trong EntityRequest
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     ResponseEntity<APIResponse> handlingValidation(MethodArgumentNotValidException exception){

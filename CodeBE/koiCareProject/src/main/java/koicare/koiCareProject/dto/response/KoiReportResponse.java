@@ -19,4 +19,5 @@ public class KoiReportResponse {
     private double weight;
     private long koiFishID;
     private long koiStatusID;
+
 }
