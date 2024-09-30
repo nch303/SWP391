@@ -3,6 +3,38 @@
   "WorkspaceRootPath": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\component\\header\\layout.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\component\\header\\layout.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\home\\home.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\home\\home.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\foodCalculator\\food-calculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\foodCalculator\\food-calculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\shop\\recommendation.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\shop\\recommendation.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\statistics\\koi-statistics.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\statistics\\koi-statistics.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\saltCalculator\\salt-calculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\saltCalculator\\salt-calculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\public\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\saltCalculator\\salt-calculator.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\saltCalculator\\salt-calculator.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
@@ -23,26 +55,6 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\koiFish\\manager-koi.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\component\\header\\layout.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\component\\header\\layout.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\home\\home.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\home\\home.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\saltCalculator\\salt-calculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\saltCalculator\\salt-calculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\foodCalculator\\food-calculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\foodCalculator\\food-calculator.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\foodCalculator\\food-calculator.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\foodCalculator\\food-calculator.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
@@ -57,10 +69,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\component\\header\\layout.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\component\\header\\layout.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\public\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\public\\manifest.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -98,11 +106,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 19,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
+              "Title": "recommendation.js",
+              "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\shop\\recommendation.js",
+              "RelativeDocumentMoniker": "src\\page\\shop\\recommendation.js",
+              "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\shop\\recommendation.js",
+              "RelativeToolTip": "src\\page\\shop\\recommendation.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-09-30T01:32:16.117Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "koi-statistics.js",
+              "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\statistics\\koi-statistics.js",
+              "RelativeDocumentMoniker": "src\\page\\statistics\\koi-statistics.js",
+              "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\statistics\\koi-statistics.js",
+              "RelativeToolTip": "src\\page\\statistics\\koi-statistics.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-09-30T01:25:12.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "salt-calculator.css",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\saltCalculator\\salt-calculator.css",
               "RelativeDocumentMoniker": "src\\page\\saltCalculator\\salt-calculator.css",
@@ -110,24 +144,24 @@
               "RelativeToolTip": "src\\page\\saltCalculator\\salt-calculator.css",
               "ViewState": "AgIAACsAAAAAAAAAAAAAAEkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-09-29T17:36:51.564Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-29T17:36:51.564Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 5,
               "Title": "salt-calculator.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\saltCalculator\\salt-calculator.js",
               "RelativeDocumentMoniker": "src\\page\\saltCalculator\\salt-calculator.js",
               "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\saltCalculator\\salt-calculator.js",
               "RelativeToolTip": "src\\page\\saltCalculator\\salt-calculator.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEkAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAEkAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-09-29T17:36:31.823Z"
+              "WhenOpened": "2024-09-29T17:36:31.823Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "food-calculator.css",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\foodCalculator\\food-calculator.css",
               "RelativeDocumentMoniker": "src\\page\\foodCalculator\\food-calculator.css",
@@ -139,19 +173,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 2,
               "Title": "food-calculator.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\foodCalculator\\food-calculator.js",
               "RelativeDocumentMoniker": "src\\page\\foodCalculator\\food-calculator.js",
               "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\foodCalculator\\food-calculator.js",
               "RelativeToolTip": "src\\page\\foodCalculator\\food-calculator.js",
-              "ViewState": "AgIAADsAAAAAAAAAAAAowFgAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAowCsAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-09-29T17:35:27.34Z"
+              "WhenOpened": "2024-09-29T17:35:27.34Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "waterParameter.css",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\waterParameter\\waterParameter.css",
               "RelativeDocumentMoniker": "src\\page\\waterParameter\\waterParameter.css",
@@ -159,12 +194,11 @@
               "RelativeToolTip": "src\\page\\waterParameter\\waterParameter.css",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-09-29T17:32:18.414Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-29T17:32:18.414Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 9,
               "Title": "waterParameter.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\waterParameter\\waterParameter.js",
               "RelativeDocumentMoniker": "src\\page\\waterParameter\\waterParameter.js",
@@ -172,12 +206,11 @@
               "RelativeToolTip": "src\\page\\waterParameter\\waterParameter.js",
               "ViewState": "AgIAADwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-09-29T17:31:59.621Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-29T17:31:59.621Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 6,
               "Title": "index.html",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\public\\index.html",
               "RelativeDocumentMoniker": "public\\index.html",
@@ -185,11 +218,12 @@
               "RelativeToolTip": "public\\index.html",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2024-09-28T18:20:57.944Z"
+              "WhenOpened": "2024-09-28T18:20:57.944Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "manifest.json",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\public\\manifest.json",
               "RelativeDocumentMoniker": "public\\manifest.json",
@@ -201,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "layout.css",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\component\\header\\layout.css",
               "RelativeDocumentMoniker": "src\\component\\header\\layout.css",
@@ -213,7 +247,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "api.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\config\\api.js",
               "RelativeDocumentMoniker": "src\\config\\api.js",
@@ -225,7 +259,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "manager-prodct.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\shop\\manager-prodct.js",
               "RelativeDocumentMoniker": "src\\page\\shop\\manager-prodct.js",
@@ -237,7 +271,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "profile.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\user\\profile.js",
               "RelativeDocumentMoniker": "src\\page\\user\\profile.js",
@@ -249,7 +283,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "koi-info.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiFish\\koi-info.js",
               "RelativeDocumentMoniker": "src\\page\\koiFish\\koi-info.js",
@@ -261,7 +295,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 22,
               "Title": "index.css",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\index.css",
               "RelativeDocumentMoniker": "src\\index.css",
@@ -273,7 +307,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 12,
               "Title": "manager-koi.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiFish\\manager-koi.js",
               "RelativeDocumentMoniker": "src\\page\\koiFish\\manager-koi.js",
@@ -285,7 +319,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 11,
               "Title": "manager-pond.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\manager-pond.js",
               "RelativeDocumentMoniker": "src\\page\\koiPond\\manager-pond.js",
@@ -293,12 +327,11 @@
               "RelativeToolTip": "src\\page\\koiPond\\manager-pond.js",
               "ViewState": "AgIAADcAAAAAAAAAAAAAADcAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-09-25T14:46:39.793Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-25T14:46:39.793Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "manager-pond.css",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\manager-pond.css",
               "RelativeDocumentMoniker": "src\\page\\koiPond\\manager-pond.css",
@@ -310,27 +343,29 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "layout.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\component\\header\\layout.js",
               "RelativeDocumentMoniker": "src\\component\\header\\layout.js",
               "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\component\\header\\layout.js",
               "RelativeToolTip": "src\\component\\header\\layout.js",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABMAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABMAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-09-25T14:48:15.879Z"
+              "WhenOpened": "2024-09-25T14:48:15.879Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "home.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\home\\home.js",
               "RelativeDocumentMoniker": "src\\page\\home\\home.js",
               "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\home\\home.js",
               "RelativeToolTip": "src\\page\\home\\home.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABUAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABQAAABUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-09-25T14:47:59.833Z"
+              "WhenOpened": "2024-09-25T14:47:59.833Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -340,13 +375,14 @@
               "RelativeDocumentMoniker": "src\\index.js",
               "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\index.js",
               "RelativeToolTip": "src\\index.js",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAqwBcAAAA+AAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAqwBcAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-09-25T14:45:13.568Z"
+              "WhenOpened": "2024-09-25T14:45:13.568Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 23,
               "Title": "Notfound.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\notfound\\Notfound.js",
               "RelativeDocumentMoniker": "src\\page\\notfound\\Notfound.js",
@@ -358,7 +394,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "manager-koi.css",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiFish\\manager-koi.css",
               "RelativeDocumentMoniker": "src\\page\\koiFish\\manager-koi.css",

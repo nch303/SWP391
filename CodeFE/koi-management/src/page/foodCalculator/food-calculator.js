@@ -41,7 +41,7 @@ const FoodCalculator = () => {
         <div className="food-calculator-container">
             <h1>Koi Fish Food Calculator</h1>
             <div className="input-group">
-                <label htmlFor="fishWeight">Total Fish Weight (lbs):</label>
+                <label htmlFor="fishWeight">Total Fish Weight (lbs): </label>
                 <input
                     type="number"
                     id="fishWeight"
@@ -52,7 +52,7 @@ const FoodCalculator = () => {
                 />
             </div>
             <div className="input-group">
-                <label htmlFor="waterTemp">Water Temperature (°F):</label>
+                <label htmlFor="waterTemp">Water Temperature (Celsius): </label>
                 <input
                     type="number"
                     id="waterTemp"
@@ -63,7 +63,7 @@ const FoodCalculator = () => {
                 />
             </div>
             <div className="input-group">
-                <label htmlFor="season">Season:</label>
+                <label htmlFor="season">Season: </label>
                 <select
                     id="season"
                     value={season}
@@ -78,7 +78,7 @@ const FoodCalculator = () => {
             <button onClick={calculateFood} className="calculate-button">Calculate Food Amount</button>
             {foodAmount !== null && (
                 <div className="result">
-                    <h2>Recommended Daily Food Amount:</h2>
+                    <h2>Recommended Daily Food Amount: </h2>
                     <p>{foodAmount} lbs</p>
                 </div>
             )}

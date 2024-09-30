@@ -9,18 +9,18 @@ const Recommendation = () => {
             name: 'Koi Food',
             description: 'High quality koi food for optimal growth and health',
             price: 10.99,
-            image: 'koi-food.jpg',
+            image: 'koi-food.png',
         },
         {
             name: 'Pond Salt',
             description: 'Natural salt for maintaining healthy water parameters',
-            price: 5.99,
+            price: 24.99,
             image: 'pond-salt.jpg',
         },
         {
             name: 'Water Test Kit',
             description: 'Monitor your pond water parameters with this complete kit',
-            price: 14.99,
+            price: 34.98,
             image: 'water-test-kit.jpg',
         },
     ];

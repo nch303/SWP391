@@ -16,12 +16,10 @@ const NavBar = () => {
                     <div className="dropdown-content">
                         <Link to="/manage-koi">My Koi</Link>
                         <Link to="/manage-pond">My Pond</Link>
-                        <a href="#">Calculate Food</a>
-                        <a href="#">Calculate Salt</a>
-                        <Link to="/view-statistics">View Statistics</Link>
-                        <Link to="/shopping-recommendations">Shopping Recommendations</Link>
                         <Link to="/calculate-food">Calculate Food</Link>
                         <Link to="/calculate-salt">Calculate Salt</Link>
+                        <Link to="/view-statistics">View Statistics</Link>
+                        <Link to="/shopping-recommendations">Shopping Recommendations</Link>
                     </div>
                 </li>
                 <li className="nav-link">About us</li>
