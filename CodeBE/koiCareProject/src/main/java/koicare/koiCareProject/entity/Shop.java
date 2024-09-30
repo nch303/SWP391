@@ -20,4 +20,10 @@ public class Shop {
     @OneToOne
     @JoinColumn(name = "accountid")
     private Account account;
+
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostDetail> postDetails;
+
+
+
 }

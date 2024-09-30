@@ -31,7 +31,7 @@ public class MemberController {
     @Autowired
     ModelMapper modelMapper;
 
-    @GetMapping("{memberID}")
+    @GetMapping("ponds/{memberID}")
     public List<PondResponse> viewPonds(@PathVariable("memberID") long memberID) {
         List<Pond> ponds = memberService.getPondsByMemberId(memberID);
 

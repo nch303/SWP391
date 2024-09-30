@@ -35,4 +35,7 @@ public class Member {
     @JoinColumn(name = "accountid")
     private Account account;
 
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private MemberOrder memberOrder;
+
 }
