@@ -1,6 +1,7 @@
 package koicare.koiCareProject.service;
 
 import koicare.koiCareProject.dto.request.WaterReportRequest;
+import koicare.koiCareProject.entity.Pond;
 import koicare.koiCareProject.entity.WaterReport;
 import koicare.koiCareProject.exception.AppException;
 import koicare.koiCareProject.exception.ErrorCode;
@@ -30,22 +31,26 @@ public class WaterReportService {
 
         WaterReport waterReport = new WaterReport();
 
-        waterReport.setWaterReportUpdatedDate(new Date());
-        waterReport.setWaterReportTemperature(waterReportRequest.getWaterReportTemperature());
-        waterReport.setWaterReportSalt(waterReportRequest.getWaterReportSalt());
-        waterReport.setWaterReportOxygen(waterReportRequest.getWaterReportOxygen());
-        waterReport.setWaterReportNitrite(waterReportRequest.getWaterReportNitrite());
-        waterReport.setWaterReportNitrate(waterReportRequest.getWaterReportNitrate());
-        waterReport.setWaterReportHardness(waterReportRequest.getWaterReportHardness());
-        waterReport.setWaterReportCarbonDioxide(waterReportRequest.getWaterReportCarbonDioxide());
-        waterReport.setWaterReportCarbonate(waterReportRequest.getWaterReportCarbonate());
-        waterReport.setWaterReportAmmonia(waterReportRequest.getWaterReportAmmonia());
-        waterReport.setWaterReport_pH(waterReportRequest.getWaterReport_pH());
+        Pond pond = pondRepository.getPondByPondID(waterReportRequest.getPondID());
+        if (pond != null){
+            waterReport.setWaterReportUpdatedDate(new Date());
+            waterReport.setWaterReportTemperature(waterReportRequest.getWaterReportTemperature());
+            waterReport.setWaterReportSalt(waterReportRequest.getWaterReportSalt());
+            waterReport.setWaterReportOxygen(waterReportRequest.getWaterReportOxygen());
+            waterReport.setWaterReportNitrite(waterReportRequest.getWaterReportNitrite());
+            waterReport.setWaterReportNitrate(waterReportRequest.getWaterReportNitrate());
+            waterReport.setWaterReportHardness(waterReportRequest.getWaterReportHardness());
+            waterReport.setWaterReportCarbonDioxide(waterReportRequest.getWaterReportCarbonDioxide());
+            waterReport.setWaterReportCarbonate(waterReportRequest.getWaterReportCarbonate());
+            waterReport.setWaterReportAmmonia(waterReportRequest.getWaterReportAmmonia());
+            waterReport.setWaterReport_pH(waterReportRequest.getWaterReport_pH());
 
-        waterReport.setPond(pondRepository.getPondByPondID(waterReportRequest.getPondID()));
+            waterReport.setPond(pond);
+            return waterReportRepository.save(waterReport);
+        } else{
+            throw new AppException(ErrorCode.POND_NOT_EXISTED);
+        }
 
-
-        return waterReportRepository.save(waterReport);
     }
 
     public WaterReport getWaterReportByID(Long waterReportID) {

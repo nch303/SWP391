@@ -63,7 +63,7 @@ public class AuthenticationService implements UserDetailsService {
         account.setPassword(registerRequest.getPassword());
         account.setRole(registerRequest.getRole());
         account.setEmail(registerRequest.getEmail());
-
+        account.setStatus(true);
         Account existedAccount = accountRepository.findAccountByUsername(registerRequest.getUsername());
         if (existedAccount == null) {
             try {
@@ -133,4 +133,7 @@ public class AuthenticationService implements UserDetailsService {
         Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return authorizationRepository.findAccountByAccountID(account.getAccountID());
     }
+
+
 }
+

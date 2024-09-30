@@ -41,23 +41,31 @@ public class KoiFishService {
     public KoiFish createKoiFish(KoiFishRequest request) {
 
         KoiFish newKoiFish = new KoiFish();
-        newKoiFish.setKoiSex(request.getKoiSex());
-        newKoiFish.setKoiName(request.getKoiName());
-        newKoiFish.setImage(request.getImage());
-        newKoiFish.setBirthday(request.getBirthday());
-        newKoiFish.setKoiVariety(koiVarietyRepository.getKoiVarietyByKoiVarietyID(request.getKoiVarietyID()));
-        newKoiFish.setPond(pondRepository.getPondByPondID(request.getPondID()));
 
-        Account account = authenticationService.getCurrentAccount();
-        Member member = memberRepository.getMemberByAccount(account);
-        newKoiFish.setMember(member);
-
-        //sau khi tạo cá sẽ tăng số lượng cá trong hồ lên 1
         Pond pond = pondRepository.getPondByPondID(request.getPondID());
-        pond.setAmountFish(pond.getAmountFish() + 1);
-        pondRepository.save(pond);
+        if (pond != null) {
+            newKoiFish.setKoiSex(request.getKoiSex());
+            newKoiFish.setKoiName(request.getKoiName());
+            newKoiFish.setImage(request.getImage());
+            newKoiFish.setBirthday(request.getBirthday());
+            newKoiFish.setKoiVariety(koiVarietyRepository.getKoiVarietyByKoiVarietyID(request.getKoiVarietyID()));
+            newKoiFish.setPond(pondRepository.getPondByPondID(request.getPondID()));
 
-        return koiFishRepository.save(newKoiFish);
+            Account account = authenticationService.getCurrentAccount();
+            Member member = memberRepository.getMemberByAccount(account);
+            newKoiFish.setMember(member);
+
+            //sau khi tạo cá sẽ tăng số lượng cá trong hồ lên 1
+            //Pond pond = pondRepository.getPondByPondID(request.getPondID());
+            pond.setAmountFish(pond.getAmountFish() + 1);
+            pondRepository.save(pond);
+            return koiFishRepository.save(newKoiFish);
+        }
+        else{
+            throw new AppException(ErrorCode.POND_NOT_EXISTED);
+        }
+
+
     }
 
     //lấy lên danh sách cá koi theo MemberID
@@ -97,7 +105,10 @@ public class KoiFishService {
     //xóa cá khỏi danh sách
     public void deleteKoiFish(long koiFishID){
         KoiFish koiFish = koiFishRepository.getKoiFishByKoiFishID(koiFishID);
+
         if (koiFish != null) {
+            Pond pond = pondRepository.getPondByPondID(koiFish.getPond().getPondID());
+            pond.setAmountFish(pond.getAmountFish() - 1);
             koiFishRepository.deleteById(koiFishID);
         }else
             throw new AppException(ErrorCode.KOIFISH_NOT_EXISTED);

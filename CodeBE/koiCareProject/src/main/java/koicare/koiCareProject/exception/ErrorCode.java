@@ -24,7 +24,9 @@ public enum ErrorCode {
     WATER_REPORT_NOT_EXISTED(1015, "WaterReport not existed"),
     LIST_NOT_EXISTED(1016, "List not existed"),
     EMAIL_EXISTED(1017, "Email is duplicated"),
-    EMPTY_TOKEN(1018, "Empty token");
+    EMPTY_TOKEN(1018, "Empty token"),
+    FISH_IS_EXISTED_IN_POND(1019, "Cannot be deleted because there are still fish in the pond"),
+    STANDARD_EXISTED(1020, "Standard existed. Please update the existed standard");
 
 
 

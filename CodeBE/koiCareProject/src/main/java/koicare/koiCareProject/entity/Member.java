@@ -24,6 +24,7 @@ public class Member {
     private Date expiredDate;
 
 
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pond> ponds;
 

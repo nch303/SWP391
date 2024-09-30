@@ -23,8 +23,12 @@ public class Account implements UserDetails{
 
     private String username;
 
+
+    private boolean status ;
+
     @Size(min = 6, message = "Password must be at least 6 characters!")
     private String password;
+
 
     @Email(message = "Invalid email!")
     private String email;
