@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import NavBar from './component/header/layout';
+import {NavBar, Background} from './component/header/layout';
 import Home from './page/home/home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NotFound from './page/notfound/Notfound';
@@ -14,6 +14,7 @@ import ShoppingRecommendations from './page/shop/recommendation';
 import WaterParameter from './page/waterParameter/waterParameter';
 import SaltCalculator from './page/saltCalculator/salt-calculator';
 import FoodCalculator from './page/foodCalculator/food-calculator';
+<<<<<<< Updated upstream
 import ShopManager from './page/shop/manager-product';
 const App = () => (
   <Router>
@@ -35,6 +36,33 @@ const App = () => (
     </Routes>
   </Router>
 );
+=======
+import Login from './page/login-register/login';
+import Welcome from './page/welcome/welcome.js';
+function App() {
+  return (
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Welcome />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/manage-koi" element={<ManagerKoi />} />
+        <Route path="/manage-pond" element={<ManagerPond />} />
+        <Route path="/water-parameters" element={<WaterParameter />} />
+        <Route path="/calculate-food" element={<FoodCalculator />} />
+        <Route path="/calculate-salt" element={<SaltCalculator />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/koi-info/:id" element={<KoiInfo />} />
+        <Route path="/view-statistics" element={<KoiStatistics />} />
+        <Route path="/shopping-recommendations" element={<ShoppingRecommendations />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
+  );
+}
+>>>>>>> Stashed changes
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

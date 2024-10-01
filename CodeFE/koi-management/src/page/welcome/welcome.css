@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.welcome-container {
+    text-align: center;
+    background-color: #ffffff; /* Red background */
+    color: white;
+    padding: 20px;
+}
+
+.header {
+    background-color: #d66417; /* Grey background for header */
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.highlight {
+    color: #ecf0f1; /* Light color for highlight */
+    font-weight: bold;
+}
+
+.content {
+    margin: 20px 0;
+}
+
+.koi-image {
+    width: 50%; /* Adjust the width according to your image size */
+    height: auto; /* Keep the aspect ratio */
+    background-color: #C91E13;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    margin: 20px 0;
+    font-size: 18px;
+    background-color: #C91E13;
+}
+
+/* Styles for the login button */
+.login-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px; /* Add space from the content */
+    background-color: #2f80c2; /* Green background */
+    color: white; /* White text */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Transition effect */
+}
+
+.login-button:hover {
+    background-color: #219653; /* Darker green on hover */
+}
