@@ -31,6 +31,7 @@ const NavBar = () => {
                         <a href="#">Log Out</a>
                     </div>
                 </li>
+                <li className="nav-link"><a href="/Shop-manager">Shop</a></li>
             </ul>
         </nav>
     );
