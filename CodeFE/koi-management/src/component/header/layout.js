@@ -3,17 +3,16 @@ import './layout.css';
 import { Link } from 'react-router-dom';
 const logoIcon = 'Icon.png';
 
-const NavBar = () => {
+export const NavBar = () => {
     return (
         <nav className="navbar">
             <div className="logo">
-                <img src={logoIcon} alt="Sunside Koi Care Logo" className="logo-img" /> 
-                Sunside Koi Care
+                <img src={logoIcon} alt="Sunside Koi Care Logo" style={{ width: '6%' }} /> Sunside Koi Care
             </div>
             <ul className="nav-links">
-                <li className="nav-link"><a href="/home">Home</a></li>
+                <li className="nav-link"><a href="/">Home</a></li>
                 <li className="nav-link dropdown">
-                    <span className="nav-link">Features</span>
+                    <li className="nav-link">Features</li>
                     <div className="dropdown-content">
                         <Link to="/manage-koi">My Koi</Link>
                         <Link to="/manage-pond">My Pond</Link>
@@ -23,9 +22,9 @@ const NavBar = () => {
                         <Link to="/shopping-recommendations">Shopping Recommendations</Link>
                     </div>
                 </li>
-                <li className="nav-link"><a href="/about-us">About us</a></li>
+                <li className="nav-link">About us</li>
                 <li className="nav-link dropdown">
-                    <span className="nav-link">User</span>
+                    <a href="#">User</a>
                     <div className="dropdown-content">
                         <Link to="/profile">View Profile</Link>
                         <a href="#">Buy Plan</a>
@@ -38,13 +37,3 @@ const NavBar = () => {
     );
 };
 
-
-const Background = () => {
-    return (
-        <div className="background" image = 'koi-bg.jpg'>
-            {/* You can set a background image or gradient here */}
-        </div>
-    );
-};
-
-export {Background, NavBar};

@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+/*************  ✨ Codeium Command 🌟  *************/
 const ManagerProduct = () => {
     const [products, setProducts] = useState([]);
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState(0);
-    const [description, setDescription] = useState('');
-    const [image, setImage] = useState('');
-    const [category, setCategory] = useState('');
     const [productId, setProductId] = useState(null);
+    const product = products.find(p => p.id === productId);
 
     useEffect(() => {
         const sampleData = [
@@ -20,31 +17,13 @@ const ManagerProduct = () => {
         setProducts(sampleData);
     }, []);
 
-    useEffect(() => {
-        const id = productId;
-        if (id) {
-            const product = products.find(product => product.id === parseInt(id));
-            setName(product.name);
-            setPrice(product.price);
-            setDescription(product.description);
-            setImage(product.image);
-            setCategory(product.category);
-        }
-    }, [productId, products]);
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        const product = {
-            name,
-            price,
-            description,
-            image,
-            category,
-        };
-        if (productId) {
-            const index = products.findIndex(product => product.id === parseInt(productId));
+        const idx = products.findIndex(p => p.id === productId);
+        if (idx >= 0) {
+            const newProduct = { ...products[idx], ...product };
             const newProducts = [...products];
-            newProducts[index] = product;
+            newProducts[idx] = newProduct;
             setProducts(newProducts);
         } else {
             const newProduct = { ...product, id: products.length + 1 };
@@ -53,40 +32,13 @@ const ManagerProduct = () => {
     };
 
     const handleDelete = (id) => {
-        setProducts(products.filter(product => product.id !== id));
+        setProducts(products.filter(p => p.id !== id));
     };
 
     return (
         <div className="manager-product">
             <h2 className='title mt-5 text-center'>Manager Products</h2>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Name:
-                    <input type="text" value={name} onChange={e => setName(e.target.value)} />
-                </label>
-                <label>
-                    Price:
-                    <input type="number" value={price} onChange={e => setPrice(e.target.value)} />
-                </label>
-                <label>
-                    Description:
-                    <textarea value={description} onChange={e => setDescription(e.target.value)} />
-                </label>
-                <label>
-                    Image:
-                    <input type="text" value={image} onChange={e => setImage(e.target.value)} />
-                </label>
-                <label>
-                    Category:
-                    <select value={category} onChange={e => setCategory(e.target.value)}>
-                        <option value="">Select a category</option>
-                        <option value="food">Food</option>
-                        <option value="accessories">Accessories</option>
-                    </select>
-                </label>
-                <button type="submit">Submit</button>
-                {productId && <button onClick={() => handleDelete(productId)}>Delete</button>}
-            </form>
+
             <table>
                 <thead>
                     <tr>

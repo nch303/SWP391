@@ -1,4 +1,3 @@
-/* Navbar container */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -7,7 +6,6 @@
     background-image: linear-gradient(to bottom, #c0392b 33.33%, #808080 33.33%, #808080 66.66%, #000000 66.66%);
 }
 
-/* Logo Styling */
 .logo {
     font-size: 50px;
     color: white;
@@ -15,12 +13,6 @@
     vertical-align: middle;
 }
 
-.logo-img {
-    width: 50px;
-    margin-right: 10px;
-}
-
-/* Navigation links */
 .nav-links {
     list-style: none;
     display: flex;
@@ -28,13 +20,17 @@
     position: relative;
 }
 
-/* Individual nav items */
 .nav-links li {
     color: white;
     cursor: pointer;
 }
 
-/* Dropdown Menu */
+.nav-link a {
+    color: white;
+    text-decoration: none;
+}
+
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -42,10 +38,8 @@
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    border-radius: 5px;
 }
 
-/* Links inside the dropdown */
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -53,24 +47,6 @@
     display: block;
 }
 
-/* Dropdown interaction */
 .dropdown:hover .dropdown-content {
     display: block;
-}
-
-/* Dropdown content item hover effect */
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-    color: #333;
-}
-
-.background {
-    background-size: cover; /* Cover the entire area */
-    background-position: center; /* Center the background image */
-    position: absolute; /* Position it absolutely to cover the entire viewport */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh; /* Full viewport height */
-    z-index: -3; /* Set behind other elements */
 }
