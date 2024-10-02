@@ -27,7 +27,10 @@ public enum ErrorCode {
     EMPTY_TOKEN(1018, "Empty token"),
     FISH_IS_EXISTED_IN_POND(1019, "Cannot be deleted because there are still fish in the pond"),
     STANDARD_EXISTED(1020, "Standard existed. Please update the existed standard"),
-    TEMP_TOO_HOT(1021, "Temperature is too high, please control lower 30.");
+
+    TEMP_TOO_HOT(1021, "Temperature is too high, please control lower 30."),
+
+    POST_DOES_NOT_EXIST(1022, "Post does not exist");
 
 
 
