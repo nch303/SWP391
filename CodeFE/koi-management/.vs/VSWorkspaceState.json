@@ -4,12 +4,9 @@
     "\\public",
     "\\src",
     "\\src\\component",
-    "\\src\\component\\header",
     "\\src\\page",
-    "\\src\\page\\foodCalculator",
-    "\\src\\page\\home",
-    "\\src\\page\\saltCalculator"
+    "\\src\\page\\koiFish"
   ],
-  "SelectedNode": "\\src\\component\\header\\layout.js",
+  "SelectedNode": "\\src\\page\\koiFish\\manager-koi.js",
   "PreviewInSolutionExplorer": false
 }

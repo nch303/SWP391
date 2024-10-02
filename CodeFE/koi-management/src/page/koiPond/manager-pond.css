@@ -62,6 +62,18 @@
     width: 200px;
 }
 
+.add-pond-button {
+    padding: 0px 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: #e97f33;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-inline: auto;
+}
+
 .update-pond {
     padding: 10px 20px;
     border: none;

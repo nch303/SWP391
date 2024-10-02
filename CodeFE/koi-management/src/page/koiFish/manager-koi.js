@@ -13,9 +13,9 @@ const ManagerKoi = () => {
     useEffect(() => {
         // Sample data for Koi fish
         const sampleData = [
-            { id: 1, name: 'Goldie', age: 3, variety: 'Kohaku', length: 10, weight: 2, image: defaultImage },
-            { id: 2, name: 'Scales', age: 2, variety: 'Sanke', length: 8, weight: 1.5, image: defaultImage },
-            { id: 3, name: 'Finley', age: 4, variety: 'Showa', length: 12, weight: 3, image: defaultImage },
+            { id: 1, name: 'Goldie', age: 3, variety: 'Kohaku', length: 10, weight: 2, image: 'koi-goldie-kohaku.jpg' },
+            { id: 2, name: 'Scales', age: 2, variety: 'Sanke', length: 8, weight: 1.5, image: 'koi-scales-sanke.jpg' },
+            { id: 3, name: 'Finley', age: 4, variety: 'Showa', length: 12, weight: 3, image: 'koi-finley-showa.jpg' },
         ];
         setKoiFish(sampleData);
     }, []);

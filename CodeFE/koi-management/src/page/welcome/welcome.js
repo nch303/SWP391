@@ -6,6 +6,7 @@ const koiImage = 'Icon.png'; // Adjust the path to your koi image
 const Welcome = () => {
   return (
     <div className="welcome-container">
+      <Link to="/login" className="login-button-header">Login/Register</Link>
       <header className="header">
         <h1>Welcome to <span className="highlight">Sunside Koi Care</span></h1>
       </header>

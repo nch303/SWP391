@@ -17,6 +17,22 @@ body {
     border-radius: 10px;
 }
 
+.login-button-header {
+    display: block;
+    padding: 10px 20px;
+    margin: 0px 0px 20px 1338px; /* Add space from the content */
+    background-color: #2f80c2; /* Green background */
+    color: white; /* White text */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Transition effect */
+    text-align: right;
+}
+
+.login-button-header:hover {
+    background-color: #219653; /* Darker green on hover */
+}
+
 .highlight {
     color: #ecf0f1; /* Light color for highlight */
     font-weight: bold;
@@ -33,9 +49,10 @@ body {
 }
 
 .info {
-    display: flex;
+    display: block;
     justify-content: space-between;
     align-items: center;
+    text-align: center;
     padding: 10px 20px;
     margin: 20px 0;
     font-size: 18px;
@@ -45,7 +62,7 @@ body {
 /* Styles for the login button */
 .login-button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 10px 2px;
     margin-top: 20px; /* Add space from the content */
     background-color: #2f80c2; /* Green background */
     color: white; /* White text */

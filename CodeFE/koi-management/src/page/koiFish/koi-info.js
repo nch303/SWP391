@@ -12,7 +12,7 @@ const KoiInfo = () => {
     // Sample data for Koi fish
     const sampleData = [
       {
-        id: 1, name: 'Goldie', age: 3, variety: 'Kohaku', length: 10, weight: 2, image: '/images/goldie.png', color: 'Red and White',
+            id: 1, name: 'Goldie', age: 3, variety: 'Kohaku', length: 10, weight: 2, image: '/koi-goldie-kohaku.jpg', color: 'White and Red',
         growthHistory: {
           year1: { date: '2020-01-01', length: 5, weight: 1 },
           year2: { date: '2021-01-01', length: 7, weight: 1.5 },
@@ -22,14 +22,14 @@ const KoiInfo = () => {
         }
       },
       {
-        id: 2, name: 'Scales', age: 2, variety: 'Sanke', length: 8, weight: 1.5, image: '/images/scales.png', color: 'White and Black',
+          id: 2, name: 'Scales', age: 2, variety: 'Sanke', length: 8, weight: 1.5, image: '/koi-scales-sanke.jpg', color: 'White, Red and Black',
         growthHistory: {
           year1: { date: '2021-01-01', length: 5, weight: 1 },
           year2: { date: '2022-01-01', length: 7, weight: 1.5 },
         }
       },
       {
-        id: 3, name: 'Finley', age: 4, variety: 'Showa', length: 12, weight: 3, image: '/images/finley.png', color: 'Black and White',
+          id: 3, name: 'Finley', age: 4, variety: 'Showa', length: 12, weight: 3, image: '/koi-finley-showa.jpg', color: 'Black, White and Red',
         growthHistory: {
           year1: { date: '2020-01-01', length: 5, weight: 1 },
           year2: { date: '2021-01-01', length: 7, weight: 1.5 },
