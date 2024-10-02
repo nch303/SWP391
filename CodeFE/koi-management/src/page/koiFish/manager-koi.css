@@ -63,6 +63,18 @@
     width: 200px;
 }
 
+.add-koi-button {
+    padding: 0px 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: #e97f33;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-inline: auto;
+}
+
 .see-more-button {
     padding: 10px 20px;
     border: none;
@@ -72,6 +84,7 @@
     font-size: 1rem;
     cursor: pointer;
 }
+
 .koi-fish-dashboard {
     display: flex;
     flex-wrap: wrap;

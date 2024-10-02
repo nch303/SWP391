@@ -3,6 +3,34 @@
   "WorkspaceRootPath": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\AddPondModal.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\koiPond\\AddPondModal.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\manager-pond.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\koiPond\\manager-pond.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiFish\\manager-koi.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\koiFish\\manager-koi.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\welcome\\welcome.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\welcome\\welcome.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\welcome\\welcome.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\welcome\\welcome.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\component\\header\\layout.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\component\\header\\layout.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\component\\header\\layout.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\component\\header\\layout.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiFish\\manager-koi.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\koiFish\\manager-koi.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
@@ -19,20 +47,8 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\koiPond\\UpdatePondModal.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiFish\\manager-koi.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\koiFish\\manager-koi.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\AddPondModal.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\koiPond\\AddPondModal.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\AddPondModal.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\koiPond\\AddPondModal.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\manager-pond.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\page\\koiPond\\manager-pond.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,11 +58,63 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "welcome.js",
+              "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\welcome\\welcome.js",
+              "RelativeDocumentMoniker": "src\\page\\welcome\\welcome.js",
+              "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\welcome\\welcome.js",
+              "RelativeToolTip": "src\\page\\welcome\\welcome.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-10-02T06:41:04.973Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "welcome.css",
+              "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\welcome\\welcome.css",
+              "RelativeDocumentMoniker": "src\\page\\welcome\\welcome.css",
+              "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\welcome\\welcome.css",
+              "RelativeToolTip": "src\\page\\welcome\\welcome.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD8AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-10-02T06:34:26.049Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "layout.js",
+              "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\component\\header\\layout.js",
+              "RelativeDocumentMoniker": "src\\component\\header\\layout.js",
+              "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\component\\header\\layout.js",
+              "RelativeToolTip": "src\\component\\header\\layout.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-10-02T06:32:47.676Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "layout.css",
+              "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\component\\header\\layout.css",
+              "RelativeDocumentMoniker": "src\\component\\header\\layout.css",
+              "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\component\\header\\layout.css",
+              "RelativeToolTip": "src\\component\\header\\layout.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-10-02T06:32:34.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "UpdatePondModal.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\UpdatePondModal.js",
               "RelativeDocumentMoniker": "src\\page\\koiPond\\UpdatePondModal.js",
@@ -54,12 +122,11 @@
               "RelativeToolTip": "src\\page\\koiPond\\UpdatePondModal.js",
               "ViewState": "AgIAAC0AAAAAAAAAAAAAAAEAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-10-01T21:01:38.132Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-01T21:01:38.132Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 9,
               "Title": "UpdatePondModal.css",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\UpdatePondModal.css",
               "RelativeDocumentMoniker": "src\\page\\koiPond\\UpdatePondModal.css",
@@ -67,64 +134,63 @@
               "RelativeToolTip": "src\\page\\koiPond\\UpdatePondModal.css",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-10-01T21:01:17.58Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-01T21:01:17.58Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "manager-koi.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiFish\\manager-koi.js",
               "RelativeDocumentMoniker": "src\\page\\koiFish\\manager-koi.js",
               "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiFish\\manager-koi.js",
               "RelativeToolTip": "src\\page\\koiFish\\manager-koi.js",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAEEAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAAAHoAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-10-01T20:06:53.536Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "manager-koi.css",
-              "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiFish\\manager-koi.css",
-              "RelativeDocumentMoniker": "src\\page\\koiFish\\manager-koi.css",
-              "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiFish\\manager-koi.css",
-              "RelativeToolTip": "src\\page\\koiFish\\manager-koi.css",
-              "ViewState": "AgIAAIMAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-10-01T20:06:50.004Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "manager-pond.css",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\manager-pond.css",
               "RelativeDocumentMoniker": "src\\page\\koiPond\\manager-pond.css",
               "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\manager-pond.css",
               "RelativeToolTip": "src\\page\\koiPond\\manager-pond.css",
-              "ViewState": "AgIAADIAAAAAAAAAAAAAAEkAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2024-10-01T20:01:30.893Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
+              "Title": "manager-koi.css",
+              "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiFish\\manager-koi.css",
+              "RelativeDocumentMoniker": "src\\page\\koiFish\\manager-koi.css",
+              "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiFish\\manager-koi.css",
+              "RelativeToolTip": "src\\page\\koiFish\\manager-koi.css",
+              "ViewState": "AgIAADYAAAAAAAAAAAAYwHEAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-10-01T20:06:50.004Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "AddPondModal.css",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\AddPondModal.css",
               "RelativeDocumentMoniker": "src\\page\\koiPond\\AddPondModal.css",
               "ToolTip": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\AddPondModal.css",
               "RelativeToolTip": "src\\page\\koiPond\\AddPondModal.css",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACAAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAgwEoAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2024-10-01T19:56:55.249Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "AddPondModal.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\AddPondModal.js",
               "RelativeDocumentMoniker": "src\\page\\koiPond\\AddPondModal.js",
@@ -132,12 +198,11 @@
               "RelativeToolTip": "src\\page\\koiPond\\AddPondModal.js",
               "ViewState": "AgIAABkAAAAAAAAAAAAAACQAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-10-01T19:56:07.494Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-01T19:56:07.494Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "manager-pond.js",
               "DocumentMoniker": "D:\\FPTU\\SWP391\\SWP391_BE\\CodeFE\\koi-management\\src\\page\\koiPond\\manager-pond.js",
               "RelativeDocumentMoniker": "src\\page\\koiPond\\manager-pond.js",
@@ -145,8 +210,7 @@
               "RelativeToolTip": "src\\page\\koiPond\\manager-pond.js",
               "ViewState": "AgIAALYAAAAAAAAAAAAAANoAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-10-01T19:53:48.556Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-01T19:53:48.556Z"
             }
           ]
         }
