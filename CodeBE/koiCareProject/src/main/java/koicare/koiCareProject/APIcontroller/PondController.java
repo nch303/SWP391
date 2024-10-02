@@ -30,8 +30,6 @@ public class PondController {
     @Autowired
     private PondRepository pondRepository;
 
-
-
     @Autowired
     private MemberRepository memberRepository;
 
