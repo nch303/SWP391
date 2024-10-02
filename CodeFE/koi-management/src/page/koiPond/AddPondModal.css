@@ -15,11 +15,12 @@
     background-color: white;
     padding: 20px;
     border-radius: 5px;
-    width: 350px;
+    width: 400px;
 }
 
 .modal-content h2 {
     margin-top: 0;
+    text-align: center;
 }
 
 .modal-content form {
@@ -35,6 +36,7 @@
 .input-box {
     display: block;
     padding: 50px;
+    border-radius: 8px;
     float: right;
 }
 

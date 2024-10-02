@@ -15,22 +15,22 @@
     background-color: white;
     padding: 20px;
     border-radius: 5px;
-    width: 300px;
+    width: 400px;
 }
 
-    .modal-content h2 {
-        margin-top: 0;
-    }
+.modal-content h2 {
+    margin-top: 0;
+}
 
-    .modal-content form {
-        display: flex;
-        flex-direction: column;
-    }
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+}
 
-    .modal-content input {
-        margin-bottom: 10px;
-        padding: 5px;
-    }
+.modal-content input {
+    margin-bottom: 10px;
+    padding: 5px;
+}
 
 .button-group {
     display: flex;
@@ -38,6 +38,6 @@
     margin-top: 10px;
 }
 
-    .button-group button {
-        padding: 5px 10px;
-    }
+.button-group button {
+    padding: 5px 10px;
+}
