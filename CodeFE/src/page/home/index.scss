@@ -1,0 +1,37 @@
+.header .btn{
+    padding: 10px 20px;
+}
+
+.header .btn button ,.col button{
+    padding: 10px 30px;
+    background-color: #ff0000;
+    border: 1px solid #ff0000;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;    
+}
+
+.home-container {
+    display: flex;
+    height: 80%;
+    align-items: center;
+}
+
+.col {
+    flex-basis: 50%;
+    margin-left: 40px; ;
+}
+
+.col h1 {
+    font-size: 50px;
+    color: #ff0000;
+    font-weight: 500;
+}
+
+.col p {
+    font-weight: 300;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}

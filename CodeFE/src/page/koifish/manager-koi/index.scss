@@ -1,0 +1,39 @@
+.fish-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0;
+    margin: 10px 0;
+  
+    .fish-item {
+      width: calc(33.33% - 10px);
+      margin-bottom: 20px;
+      background-color: #f7f7f7;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+  
+      .fish-image {
+        width: 20%;
+        height: 150px;
+        margin-bottom: 10px;
+        border-radius: 10px 10px 0 0;
+      }
+  
+      .fish-info {
+        padding: 20px;
+  
+        .fish-name {
+          font-weight: bold;
+          font-size: 18px;
+          margin-bottom: 10px;
+        }
+  
+        .fish-type {
+          color: #666;
+          font-size: 14px;
+        }
+      }
+    }
+  }
