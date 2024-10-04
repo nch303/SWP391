@@ -11,6 +11,7 @@ import lombok.Data;
 @Data
 public class RegisterRequest {
 
+
     private String username;
 
     @Size(min = 6, message = "Password must be at least 6 characters!")

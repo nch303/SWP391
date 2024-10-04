@@ -3,13 +3,15 @@ package koicare.koiCareProject.APIcontroller;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import koicare.koiCareProject.dto.request.PondStandardRequest;
+import koicare.koiCareProject.dto.request.ProductTypeRequest;
 import koicare.koiCareProject.dto.request.WaterStandardRequest;
 import koicare.koiCareProject.dto.response.*;
 
 import koicare.koiCareProject.entity.PostDetail;
+import koicare.koiCareProject.entity.ProductType;
 import koicare.koiCareProject.service.AdminService;
 
-import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +26,6 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
-
-
 
 
 
@@ -149,4 +149,7 @@ public class AdminController {
 
         return response;
     }
+
+
+
 }

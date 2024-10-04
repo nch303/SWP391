@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ProductTypeRequest {
-    private String productTypeName;
 
+    private String productTypeName;
 }

@@ -12,4 +12,6 @@ public interface PostDetailRepository extends JpaRepository<PostDetail, Long> {
 
     PostDetail findByPostID(long postID);
     List<PostDetail> findByPostStatus(Boolean postStatus);
+
+
 }
