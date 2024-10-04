@@ -26,7 +26,11 @@ function Register() {
       <div className="register-form-container">
         <Form onFinish={handleSubmit}>
           <div className="register-title">Register</div>
-          <Form.Item label="Username" name="username">
+          <Form.Item
+            className="register-form-inputbox"
+            label="Username"
+            name="username"
+          >
             <Input />
           </Form.Item>
           <Form.Item label="Password" name="password">
