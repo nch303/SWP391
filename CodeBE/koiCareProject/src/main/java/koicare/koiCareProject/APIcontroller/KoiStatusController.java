@@ -50,4 +50,5 @@ public class KoiStatusController {
         response.setResult(modelMapper.map(koiStatus, KoiStatusResponse.class));
         return response;
     }
+
 }
