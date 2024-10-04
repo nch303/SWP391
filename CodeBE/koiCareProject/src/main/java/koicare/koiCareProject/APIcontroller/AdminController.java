@@ -36,7 +36,7 @@ public class AdminController {
     public List<PostDetailResponse> getPendingPosts() {
 
 
-        List<PostDetail> postDetails =  adminService.getAllPendingPostDetails();
+        List<PostDetail> postDetails = adminService.getAllPendingPostDetails();
         List<PostDetailResponse> postDetailResponses = new ArrayList<>();
         for (PostDetail postDetail : postDetails) {
             PostDetailResponse postDetailResponse = new PostDetailResponse();
@@ -76,7 +76,7 @@ public class AdminController {
 
     //Standard Controller
     @PutMapping("waterstandard/update")
-    public APIResponse<WaterStandardResponse> updateWaterStandard(@RequestBody WaterStandardRequest request){
+    public APIResponse<WaterStandardResponse> updateWaterStandard(@RequestBody WaterStandardRequest request) {
         APIResponse<WaterStandardResponse> response = new APIResponse<>();
 
 
@@ -119,7 +119,7 @@ public class AdminController {
 
 
     @PutMapping("pondstandard/update")
-    public APIResponse<PondStandardResponse> updatePondStandard(@RequestBody PondStandardRequest request){
+    public APIResponse<PondStandardResponse> updatePondStandard(@RequestBody PondStandardRequest request) {
         APIResponse<PondStandardResponse> response = new APIResponse<>();
 
         PondStandardResponse pondStandardResponse = new PondStandardResponse();
@@ -151,24 +151,31 @@ public class AdminController {
         return response;
     }
 
-
-
-
-
     @PostMapping("postprice/create")
-    public APIResponse<PostPriceResponse> createPostPrice(@RequestBody PostPriceRequest request){
+    public APIResponse<PostPriceResponse> createPostPrice(@RequestBody PostPriceRequest request) {
         APIResponse<PostPriceResponse> response = new APIResponse<>();
-        PostPriceResponse postPriceResponse = new PostPriceResponse();
         PostPrice postPrice = postPriceService.createPostPrice(request);
-
-        postPriceResponse.setPriceID(postPrice.getPriceID());
-        postPriceResponse.setDuration(postPrice.getDuration());
+        PostPriceResponse postPriceResponse = new PostPriceResponse();
         postPriceResponse.setPrice(postPrice.getPrice());
-
+        postPriceResponse.setDuration(postPrice.getDuration());
+        postPriceResponse.setPriceID(postPrice.getPriceID());
         response.setResult(postPriceResponse);
         return response;
+
     }
 
-
-
+    @GetMapping("postprice/view")
+    public List<PostPriceResponse> getPostPriceViews() {
+        PostPriceResponse postPriceResponse = new PostPriceResponse();
+        List<PostPrice> postPriceList = postPriceService.getAllPostPrice();
+        List<PostPriceResponse> postPriceResponseList = new ArrayList<>();
+        for (PostPrice postPrice : postPriceList) {
+            PostPriceResponse postPriceResponse1 = new PostPriceResponse();
+            postPriceResponse1.setPrice(postPrice.getPrice());
+            postPriceResponse1.setDuration(postPrice.getDuration());
+            postPriceResponse1.setPriceID(postPrice.getPriceID());
+            postPriceResponseList.add(postPriceResponse1);
+        }
+        return postPriceResponseList;
+    }
 }
