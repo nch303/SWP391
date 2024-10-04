@@ -7,6 +7,10 @@
 .login{
 
     background-image: url('../../assets/LoginBg.png');
+    background-size: cover;         /* Scales the image to cover the entire background */
+    background-position: center;    /* Centers the image */
+    background-repeat: no-repeat;   /* Prevents the image from repeating */
+    background-attachment: fixed;   /* Keeps the background fixed on scroll */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -55,18 +59,26 @@
     color: #666;
 }
 
-.loginForm-remember-forgot {
+.loginForm-remember  {
+    input {margin-right: 5px;}
+    display: flex;
+    justify-content: left;
+    margin-bottom: 20px;
+    margin-left: 5px;
+}
+
+ .loginForm-forgot {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 }
 
-.loginForm-remember-forgot label {
+ .loginForm-forgot label {
     font-size: 16px;
     color: #666;
 }
 
-.loginForm-remember-forgot a {
+ .loginForm-forgot a {
     font-size: 16px;
     color: #337ab7;
     text-decoration: none;

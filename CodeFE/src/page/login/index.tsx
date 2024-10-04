@@ -29,14 +29,20 @@ localStorage.setItem("token",token);
                     <Form.Item label="Username" name="username" >
                         <Input/>
                     </Form.Item>
+                    <div className='loginForm-remember'>
+                        <input type="checkbox" name="remember" /> Remember Me
+                    </div>
                     <Form.Item label="Password" name="password">
                         <Input/>
                     </Form.Item>
+                    <div className='loginForm-forgot'>
+                        <p>Forgot your password? Click <a href="/forgot-password">here</a></p>
+                    </div>
                     <Form.Item >
                         <Button type="primary" htmlType="submit">Submit</Button>
                     </Form.Item>
                 </Form>
-              <div className="loginForm-register">
+                <div className="loginForm-register">
                     <p>Don't have an account? <a href="/Register">register</a> </p>
                     
                 </div>

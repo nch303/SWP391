@@ -1,11 +1,12 @@
 import { Button, Form, Input, } from 'antd'
 import React from 'react'
+import './index.scss'
 
 function Register() {
   return (
     <div className='register'>
-      <div className='regis-form-container'>
-        <div className='regis-title'>Register</div>
+      <div className='register-form-container'>
+        <div className='register-title'>Register</div>
         <Form>
           <Form.Item label= "Email" name= "email">
             <Input/>
@@ -20,7 +21,7 @@ function Register() {
             <Button type="primary" htmlType="submit">Submit</Button>
           </Form.Item>
         </Form>
-        <div className="loginForm-register">
+        <div className="registerForm-login">
                     <p>Already have an account? Click <a href="/Login">here</a> </p>            
         </div>
       </div>
