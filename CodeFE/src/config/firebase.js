@@ -6,13 +6,13 @@ import { getStorage } from "firebase/storage";
 
 // just change config below to start
 const firebaseConfig = {
-  apiKey: "AIzaSyBY1PxLeYzNdL-mzV9x1cJzPIF66UNBqkg",
-  authDomain: "swp-asp.firebaseapp.com",
-  projectId: "swp-asp",
-  storageBucket: "swp-asp.appspot.com",
-  messagingSenderId: "840654227120",
-  appId: "1:840654227120:web:f86f024ab8f4ad9e755d75",
-  measurementId: "G-X2L1D29BGG",
+  apiKey: "AIzaSyBARFc4DEtKumMYVa_qdaQNUO55ya7l33g",
+  authDomain: "swp291-3cac5.firebaseapp.com",
+  projectId: "swp291-3cac5",
+  storageBucket: "swp291-3cac5.appspot.com",
+  messagingSenderId: "439878282831",
+  appId: "1:439878282831:web:35253f7cee449c1749043a",
+  measurementId: "G-JNJHJ5PT0G"
 };
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
