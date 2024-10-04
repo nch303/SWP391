@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("koireport")
+@RequestMapping("api/koireport")
 //dán qua các controller thì mới xài được token
 @SecurityRequirement(name = "api")
 public class KoiReportController {

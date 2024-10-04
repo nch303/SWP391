@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("pond")
+@RequestMapping("api/pond")
 //dán qua các controller thì mới xài được token
 @SecurityRequirement(name = "api")
 public class PondController {

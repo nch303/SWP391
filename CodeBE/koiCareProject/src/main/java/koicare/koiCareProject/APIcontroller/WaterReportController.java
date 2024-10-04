@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("waterreport")
+@RequestMapping("api/waterreport")
 //dán qua các controller thì mới xài được token
 @SecurityRequirement(name = "api")
 public class WaterReportController {

@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     //dùng để bắt các Exception ngẫu nhiên chưa setup
-    @ExceptionHandler(value = Exception.class)
-    ResponseEntity<APIResponse> handlingException(RuntimeException exception) {
-        APIResponse apiResponse = new APIResponse();
-
-        //set-up code và message cho Error
-        apiResponse.setCode(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode());
-        apiResponse.setMessage(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage());
-
-        return ResponseEntity.badRequest().body(apiResponse);
-    }
+//    @ExceptionHandler(value = Exception.class)
+//    ResponseEntity<APIResponse> handlingException(RuntimeException exception) {
+//        APIResponse apiResponse = new APIResponse();
+//
+//        //set-up code và message cho Error
+//        apiResponse.setCode(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode());
+//        apiResponse.setMessage(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage());
+//
+//        return ResponseEntity.badRequest().body(apiResponse);
+//    }
 
     //AppException dùng để format các lỗi đã được throw trong một Exception cụ thể, khác với RuntimeException
     @ExceptionHandler(value = AppException.class)
