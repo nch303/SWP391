@@ -34,7 +34,6 @@ public class PostDetailController {
                 (postDetailService.createPostDetail(postDetailRequest), PostDetailResponse.class);
         postDetailResponse.setProducTypeID(postDetailRequest.getProducTypeID());
         postDetailResponse.setPaymentID(postDetailRequest.getPaymentID());
-        postDetailResponse.setShopID(postDetailRequest.getShopID());
         postDetailResponse.setPriceID(postDetailRequest.getPriceID());
 
         response.setResult(postDetailResponse);

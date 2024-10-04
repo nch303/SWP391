@@ -4,17 +4,18 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import koicare.koiCareProject.dto.request.PondStandardRequest;
 import koicare.koiCareProject.dto.request.WaterStandardRequest;
-import koicare.koiCareProject.dto.response.APIResponse;
+import koicare.koiCareProject.dto.response.*;
 
-import koicare.koiCareProject.dto.response.PondStandardResponse;
-import koicare.koiCareProject.dto.response.WaterStandardResponse;
 import koicare.koiCareProject.entity.PostDetail;
 import koicare.koiCareProject.service.AdminService;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/admin")
@@ -28,10 +29,32 @@ public class AdminController {
 
 
 
+
     //POST CONTROLLER
     @GetMapping("post/view/pending")
-    public List<PostDetail> getPendingPosts() {
-        return adminService.getAllPendingPostDetails();
+    public List<PostDetailResponse> getPendingPosts() {
+
+
+        List<PostDetail> postDetails =  adminService.getAllPendingPostDetails();
+        List<PostDetailResponse> postDetailResponses = new ArrayList<>();
+        for (PostDetail postDetail : postDetails) {
+            PostDetailResponse postDetailResponse = new PostDetailResponse();
+
+            postDetailResponse.setProductPrice(postDetail.getProductPrice());
+            postDetailResponse.setProductName(postDetail.getProductName());
+            postDetailResponse.setPostDate(postDetail.getPostDate());
+            postDetailResponse.setImage(postDetail.getImage());
+            postDetailResponse.setDescription(postDetail.getDescription());
+            postDetailResponse.setLink(postDetail.getLink());
+            postDetailResponse.setPostStatus(postDetail.isPostStatus());
+            postDetailResponse.setShopID(postDetail.getShop().getShopID());
+            postDetailResponse.setProducTypeID(postDetail.getProductType().getProductTypeID());
+            postDetailResponse.setPaymentID(postDetail.getPayment().getPaymentID());
+            postDetailResponse.setPriceID(postDetail.getPostPrice().getPriceID());
+
+            postDetailResponses.add(postDetailResponse);
+        }
+        return postDetailResponses;
     }
 
     @PutMapping("post/view/{postID}")
