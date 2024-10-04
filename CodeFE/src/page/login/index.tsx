@@ -37,7 +37,7 @@ localStorage.setItem("token",token);
                     </Form.Item>
                 </Form>
               <div className="loginForm-register">
-                    <p>Don't have an account? <a href="#">register</a> </p>
+                    <p>Don't have an account? <a href="/Register">register</a> </p>
                     
                 </div>
 

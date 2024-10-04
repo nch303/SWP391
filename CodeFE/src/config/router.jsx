@@ -6,6 +6,7 @@ import Layout from "../component/layout";
 import Home from "../page/home";
 import Login from "../page/login";
 import ManagerKoi from "../page/koifish/manager-koi";
+import Register from "../page/register";
 
 
 // const ProtectedRouteAuth = ({ children }) => {
@@ -47,6 +48,7 @@ export const router = createBrowserRouter([
         { path : "/Home", element: <Home /> },
         { path : "/Login", element: <Login /> },
         { path : "/MyKoi", element: <ManagerKoi  /> },
+        { path : "/Register", element: <Register/> },
       ],
   },
   {
