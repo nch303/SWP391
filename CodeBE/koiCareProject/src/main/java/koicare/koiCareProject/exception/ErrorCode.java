@@ -30,7 +30,9 @@ public enum ErrorCode {
 
     TEMP_TOO_HOT(1021, "Temperature is too high, please control lower 30."),
 
-    POST_DOES_NOT_EXIST(1022, "Post does not exist");
+    POST_DOES_NOT_EXIST(1022, "Post does not exist"),
+    POST_PRICE_NOT_EXISTED(1023, "Post price not existed"),
+    PRODUCT_TYPE_IS_NOT_EXISTED(1024, "Product type is not existed");
 
 
 

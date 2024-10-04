@@ -166,7 +166,6 @@ public class AdminController {
 
     @GetMapping("postprice/view")
     public List<PostPriceResponse> getPostPriceViews() {
-        PostPriceResponse postPriceResponse = new PostPriceResponse();
         List<PostPrice> postPriceList = postPriceService.getAllPostPrice();
         List<PostPriceResponse> postPriceResponseList = new ArrayList<>();
         for (PostPrice postPrice : postPriceList) {
@@ -177,5 +176,24 @@ public class AdminController {
             postPriceResponseList.add(postPriceResponse1);
         }
         return postPriceResponseList;
+    }
+
+    @PutMapping("postprice/update/{priceID}")
+    public PostPriceResponse updatePostPrice(@PathVariable("priceID") long priceID, @RequestBody PostPriceRequest request) {
+        PostPriceResponse postPriceResponse = new PostPriceResponse();
+        postPriceService.updatePostPrice(priceID, request);
+        postPriceResponse.setPriceID(priceID);
+        postPriceResponse.setPrice(request.getPrice());
+        postPriceResponse.setDuration(request.getDuration());
+        return postPriceResponse;
+    }
+
+    @DeleteMapping("postprice/delete/{priceID}")
+    public APIResponse deletePostPrice(@PathVariable("priceID") long priceID) {
+        APIResponse apiResponse = new APIResponse();
+        postPriceService.deletePostPrice(priceID);
+        apiResponse.setResult("DELETED SUCCESSFULLY");
+        return apiResponse;
+
     }
 }
