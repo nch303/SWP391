@@ -1,20 +1,47 @@
 import React from "react";
 import BannerBackground from "../../assets/background.png";
 import "./index.scss";
+import { Col, Row } from "antd";
 
 function Home() {
-  return (
-    <div className="home-container">
-      <div className="col">
-         <h1>SunSide Koi Care </h1>
-         <p>Welcome to SunSide Koi Care! We are a team of koi enthusiasts who share a passion for raising healthy and beautiful koi. Our goal is to provide useful information and resources to help you care for your koi and create a thriving ecosystem in your pond. Whether you are a beginner or an experienced koi keeper, we hope you find our website helpful and informative. Please feel free to explore our website and let us know if you have any questions or need any assistance.</p>
-         <button type="button">Know More</button>
-      </div>
-      <div className="col">
-        <img src={BannerBackground} alt="BannerBackground" style={{ width: "80%" }}/>
-      </div>
+  return (<div className="home-container">
+    <h1 className="title">Sunside Koi Care</h1>
+    <Row className="home-container-1" align="middle" gutter={30}>
+      <Col span={12}>
+        <img src={BannerBackground} alt="BannerBack" />
+      </Col>
+      <Col span={12}>
+        <h1>Hhhhh</h1>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa voluptas cum perferendis numquam quae sapiente dolorum recusandae debitis perspiciatis a, mollitia quas illum reprehenderit neque tempora hic, eaque in beatae.
+        </p>
+      </Col>
+    </Row>
+
+    <Row className="home-container-2" align="middle" gutter={30}>
+      <Col span={12}>
+        <h1>Hhhhh</h1>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa voluptas cum perferendis numquam quae sapiente dolorum recusandae debitis perspiciatis a, mollitia quas illum reprehenderit neque tempora hic, eaque in beatae.
+        </p>
+      </Col>
+      <Col span={12}>
+        <img src={BannerBackground} alt="BannerBack" />
+      </Col>
+    </Row>
+
+    <Row className="home-container-3" align="middle" gutter={30}>
+      <Col span={12}>
+        <img src={BannerBackground} alt="BannerBack" />
+      </Col>
+      <Col span={12}>
+        <h1>Hhhhh</h1>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa voluptas cum perferendis numquam quae sapiente dolorum recusandae debitis perspiciatis a, mollitia quas illum reprehenderit neque tempora hic, eaque in beatae.
+        </p>
+      </Col>
+    </Row>
     </div>
-  
   );
 }
 

@@ -1,37 +1,97 @@
-.header .btn{
-    padding: 10px 20px;
-}
 
-.header .btn button ,.col button{
-    padding: 10px 30px;
-    background-color: #ff0000;
-    border: 1px solid #ff0000;
-    border-radius: 6px;
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;    
-}
 
-.home-container {
-    display: flex;
-    height: 80%;
+.title{
+    justify-content: center;
+    text-align: center;
+    color: #ff1100;
     align-items: center;
+    margin: 50px;
+    font-family: 'Book Man Old Styles';
+    font-size: 3rem;
 }
 
-.col {
-    flex-basis: 50%;
-    margin-left: 40px; ;
-}
+.home-container-1 {
+    padding: 20px;
+    text-align: left;
+  
+    .ant-col {
+      justify-content: center;
+      align-items: center;
+    }
+  
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+    }
+  
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+  
+    p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.6;
+    }
+  }
+  
 
-.col h1 {
-    font-size: 50px;
-    color: #ff0000;
-    font-weight: 500;
-}
-
-.col p {
-    font-weight: 300;
-    margin-top: 40px;
-    margin-bottom: 30px;
-}
+  .home-container-2 {
+    padding: 20px;
+    text-align: left;
+  
+    .ant-col {
+      justify-content: center;
+      align-items: center;
+    }
+  
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+    }
+  
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+  
+    p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.6;
+    }
+  }
+  
+  .home-container-3 {
+    padding: 20px;
+    text-align: left;
+  
+    .ant-col {
+      justify-content: center;
+      align-items: center;
+    }
+  
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+    }
+  
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+  
+    p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.6;
+    }
+  }
+  
