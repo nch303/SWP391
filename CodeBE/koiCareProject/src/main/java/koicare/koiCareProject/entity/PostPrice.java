@@ -14,6 +14,7 @@ public class PostPrice {
     @Column(name = "priceid")
     private Long priceID;
     private int duration;
+    private double price;
 
     @OneToMany(mappedBy = "postPrice", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostDetail> postDetails;

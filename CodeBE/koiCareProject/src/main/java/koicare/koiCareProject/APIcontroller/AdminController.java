@@ -3,12 +3,15 @@ package koicare.koiCareProject.APIcontroller;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import koicare.koiCareProject.dto.request.PondStandardRequest;
+import koicare.koiCareProject.dto.request.PostPriceRequest;
 import koicare.koiCareProject.dto.request.WaterStandardRequest;
 import koicare.koiCareProject.dto.response.*;
 
 import koicare.koiCareProject.entity.PostDetail;
+import koicare.koiCareProject.entity.PostPrice;
 import koicare.koiCareProject.service.AdminService;
 
+import koicare.koiCareProject.service.PostPriceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +27,8 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
-
-
-
-
+    @Autowired
+    private PostPriceService postPriceService;
 
 
     //POST CONTROLLER
@@ -149,4 +150,25 @@ public class AdminController {
 
         return response;
     }
+
+
+
+
+
+    @PostMapping("postprice/create")
+    public APIResponse<PostPriceResponse> createPostPrice(@RequestBody PostPriceRequest request){
+        APIResponse<PostPriceResponse> response = new APIResponse<>();
+        PostPriceResponse postPriceResponse = new PostPriceResponse();
+        PostPrice postPrice = postPriceService.createPostPrice(request);
+
+        postPriceResponse.setPriceID(postPrice.getPriceID());
+        postPriceResponse.setDuration(postPrice.getDuration());
+        postPriceResponse.setPrice(postPrice.getPrice());
+
+        response.setResult(postPriceResponse);
+        return response;
+    }
+
+
+
 }
