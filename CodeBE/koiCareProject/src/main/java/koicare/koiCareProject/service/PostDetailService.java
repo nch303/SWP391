@@ -51,10 +51,7 @@ public class PostDetailService {
         postDetail.setProductPrice(postDetailRequest.getProductPrice());
 
 
-
-
         postDetail.setPostPrice(postPriceRepository.findByPriceID(postDetailRequest.getPriceID()));
-
         postDetail.setProductType(productTypeRepository.findByProductTypeID(postDetailRequest.getProducTypeID()));
         postDetail.setPayment(paymentRepository.findByPaymentID(postDetailRequest.getPaymentID()));
 
