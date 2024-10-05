@@ -11,18 +11,18 @@ function Header() {
 
   const menu = (
     <Menu>
-      <Menu.Item onClick={() => navigate("/ManagerKoi")}>My Koi</Menu.Item>
-      <Menu.Item onClick={() => navigate("/ManagerPond")}>My Pond</Menu.Item>
-      <Menu.Item onClick={() => navigate("/CalculateSalt")}>Calculate Salt</Menu.Item>
-      <Menu.Item onClick={() => navigate("/CalculateFood")}>Calculate Food</Menu.Item>
-      <Menu.Item onClick={() => navigate("/ShoppingRecommendation")}>Shopping Recommendation</Menu.Item>
-      <Menu.Item onClick={() => navigate("/Statistics")}>Statistics</Menu.Item>
+      <Menu.Item onClick={() => navigate("/managerKoi")}>My Koi</Menu.Item>
+      <Menu.Item onClick={() => navigate("/managerPond")}>My Pond</Menu.Item>
+      <Menu.Item onClick={() => navigate("/calculateSalt")}>Calculate Salt</Menu.Item>
+      <Menu.Item onClick={() => navigate("/calculateFood")}>Calculate Food</Menu.Item>
+      <Menu.Item onClick={() => navigate("/shoppingRecommendation")}>Shopping Recommendation</Menu.Item>
+      <Menu.Item onClick={() => navigate("/statistics")}>Statistics</Menu.Item>
     </Menu>
   );
 
   const menu_user = (
     <Menu>
-      <Menu.Item onClick={() => navigate("/login")}>Profile</Menu.Item>
+      <Menu.Item onClick={() => navigate("/profile")}>Profile</Menu.Item>
       <Menu.Item onClick={() => navigate("/register")}>Logout</Menu.Item>
     </Menu>
   )

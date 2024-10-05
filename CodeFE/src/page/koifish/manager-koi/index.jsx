@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./index.scss";
 import api from "../../../config/axios";
 import { useNavigate } from "react-router-dom";
-import Card from "../../../component/koi-card";
+import KoiCard from "../../../component/koi-card";
 
 function ManagerKoi() {
   const navigate = useNavigate();
@@ -11,41 +11,17 @@ function ManagerKoi() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedVariety, setSelectedVariety] = useState("");
 
-  const defaultImage =
-    "png-transparent-koi-fish-koi-aquarium-japanese-pond-water-japan-swim-aquatic-goldfish-thumbnail.png";
-
   useEffect(() => {
-    // Sample data for Koi fish
-    const sampleData = [
-      {
-        id: 1,
-        name: "Goldie",
-        age: 3,
-        variety: "Kohaku",
-        length: 10,
-        weight: 2,
-        image: "koi-goldie-kohaku.jpg",
-      },
-      {
-        id: 2,
-        name: "Scales",
-        age: 2,
-        variety: "Sanke",
-        length: 8,
-        weight: 1.5,
-        image: "koi-scales-sanke.jpg",
-      },
-      {
-        id: 3,
-        name: "Finley",
-        age: 4,
-        variety: "Showa",
-        length: 12,
-        weight: 3,
-        image: "koi-finley-showa.jpg",
-      },
-    ];
-    setKoiFish(sampleData);
+    const fetchKoiFish = async () => {
+      try {
+        const response = await api.get("koifish");
+        setKoiFish(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchKoiFish();
   }, []);
 
   useEffect(() => {
@@ -83,7 +59,7 @@ function ManagerKoi() {
 
       <div className="koi-fish-dashboard">
         {filteredKoiFish.map((koi) => (
-          <Card key={koi.id} koi={koi} />
+          <KoiCard key={koi.id} koi={koi} />
         ))}
       </div>
     </div>

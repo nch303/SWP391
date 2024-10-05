@@ -11,19 +11,21 @@ import ManagerKoi from "../page/koifish/manager-koi";
 import AddingKoi from "../page/koifish/adding-koi";
 import ManagerPond from "../page/pond/manager-pond";
 import AddingPond from "../page/pond/adding-pond";
+import Profile from "../page/profile";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
-      { path: "/Home", element: <Home /> },
-      { path: "/Login", element: <Login /> },
-      { path: "/Register", element: <Resgiter /> },
-      { path: "/ManagerKoi", element: <ManagerKoi /> },
-      { path: "/AddKoi", element: <AddingKoi /> },
-      { path: "/ManagerPond", element: <ManagerPond /> },
-      { path: "/AddPond", element: <AddingPond /> },
+      { path: "/home", element: <Home /> },
+      { path: "/profile", element: <Profile /> },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Resgiter /> },
+      { path: "/managerKoi", element: <ManagerKoi /> },
+      { path: "/addKoi", element: <AddingKoi /> },
+      { path: "/managerPond", element: <ManagerPond /> },
+      { path: "/addPond", element: <AddingPond /> },
     ],
   },
   {
