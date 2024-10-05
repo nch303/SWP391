@@ -1,5 +1,6 @@
 package koicare.koiCareProject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
@@ -36,8 +37,10 @@ public class Account implements UserDetails{
     @Enumerated(EnumType.STRING)
     Role role;
 
+
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private Member member;
+
 
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private Shop shop;

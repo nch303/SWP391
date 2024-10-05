@@ -25,6 +25,7 @@ public class AdminService {
     private ProductTypeRepository productTypeRepository;
 
     public List<PostDetail> getAllPendingPostDetails(){
+
         return postDetailRepository.findByPostStatus(false);
     }
 

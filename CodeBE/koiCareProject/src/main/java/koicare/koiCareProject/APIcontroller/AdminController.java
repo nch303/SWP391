@@ -35,8 +35,6 @@ public class AdminController {
     //POST CONTROLLER
     @GetMapping("post/view/pending")
     public ResponseEntity getPendingPosts() {
-
-
         List<PostDetail> postDetails = adminService.getAllPendingPostDetails();
         List<PostDetailResponse> postDetailResponses = new ArrayList<>();
         for (PostDetail postDetail : postDetails) {

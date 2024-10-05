@@ -61,6 +61,9 @@ public class PostDetailService {
         if (productType == null) {
             throw new AppException(ErrorCode.PRODUCT_TYPE_IS_NOT_EXISTED);
         }
+        else{
+            postDetail.setProductType(productType);
+        }
         Payment payment = paymentRepository.findByPaymentID(postDetailRequest.getPaymentID());
         if (payment == null) {
             throw new AppException(ErrorCode.PAYMENT_METHOD_NOT_FOUND);

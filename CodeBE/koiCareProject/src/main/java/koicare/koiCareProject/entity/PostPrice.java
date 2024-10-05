@@ -1,5 +1,6 @@
 package koicare.koiCareProject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class PostPrice {
     private int duration;
     private double price;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "postPrice", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostDetail> postDetails;
 }
