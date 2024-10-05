@@ -62,7 +62,7 @@ public class AuthenticationAPI {
             accountResponse.setName(memberRepository.getMemberByAccount(account).getName());
             accountResponse.setPhone(memberRepository.getMemberByAccount(account).getPhone());
         }
-       
+
 
         return ResponseEntity.ok(accountResponse);
     }
