@@ -2,7 +2,9 @@ package koicare.koiCareProject.exception;
 
 
 import koicare.koiCareProject.dto.response.APIResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -39,24 +41,15 @@ public class GlobalExceptionHandler {
 
 
     //trả về lỗi được Valid trong EntityRequest
-    @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    ResponseEntity<APIResponse> handlingValidation(MethodArgumentNotValidException exception){
-        String enumKey = exception.getFieldError().getDefaultMessage();
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity handleValidation(MethodArgumentNotValidException exception){
 
-        ErrorCode errorCode = ErrorCode.INVALID_KEY;
+        String message = "";
 
-        try {
-            errorCode = ErrorCode.valueOf(enumKey);
-        } catch (IllegalArgumentException e){
-
+        for(FieldError fieldError: exception.getBindingResult().getFieldErrors()){
+            message += fieldError.getDefaultMessage() + "\n";
         }
 
-        APIResponse apiResponse = new APIResponse();
-
-        apiResponse.setCode(errorCode.getCode());
-        apiResponse.setMessage(errorCode.getMessage());
-
-        return ResponseEntity.badRequest().body(apiResponse);
+        return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
     }
-
 }
