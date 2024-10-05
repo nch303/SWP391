@@ -43,6 +43,7 @@ public class KoiFishService {
         KoiFish newKoiFish = new KoiFish();
 
         Pond pond = pondRepository.getPondByPondID(request.getPondID());
+
         if (pond != null) {
             newKoiFish.setKoiSex(request.getKoiSex());
             newKoiFish.setKoiName(request.getKoiName());

@@ -46,11 +46,11 @@ public class PondController {
         return response;
     }
     @GetMapping
-    public List<PondResponse> getAllPonds() {
+    public ResponseEntity getAllPonds() {
         List<Pond> ponds = pondService.getAllPonds();
         List<PondResponse> pondResponses = ponds.stream()
                 .map(Pond -> modelMapper.map(Pond, PondResponse.class)).collect(Collectors.toList());
-        return pondResponses;
+        return ResponseEntity.ok(pondResponses);
     }
 
 
