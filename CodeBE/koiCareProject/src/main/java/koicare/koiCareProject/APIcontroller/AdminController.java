@@ -2,15 +2,18 @@ package koicare.koiCareProject.APIcontroller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+import koicare.koiCareProject.dto.request.MemberPackageRequest;
 import koicare.koiCareProject.dto.request.PondStandardRequest;
 import koicare.koiCareProject.dto.request.PostPriceRequest;
 import koicare.koiCareProject.dto.request.WaterStandardRequest;
 import koicare.koiCareProject.dto.response.*;
 
+import koicare.koiCareProject.entity.MemberPackage;
 import koicare.koiCareProject.entity.PostDetail;
 import koicare.koiCareProject.entity.PostPrice;
 import koicare.koiCareProject.service.AdminService;
 
+import koicare.koiCareProject.service.MemberPackageService;
 import koicare.koiCareProject.service.PostPriceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +31,14 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
     @Autowired
     private PostPriceService postPriceService;
 
+    @Autowired
+    private MemberPackageService memberPackageService;
 
-    //POST CONTROLLER
+    //POST DETAIL CONTROLLER
     @GetMapping("post/view/pending")
     public ResponseEntity getPendingPosts() {
         List<PostDetail> postDetails = adminService.getAllPendingPostDetails();
@@ -40,6 +46,7 @@ public class AdminController {
         for (PostDetail postDetail : postDetails) {
             PostDetailResponse postDetailResponse = new PostDetailResponse();
 
+            postDetailResponse.setPostDetailId(postDetail.getPostID());
             postDetailResponse.setProductPrice(postDetail.getProductPrice());
             postDetailResponse.setProductName(postDetail.getProductName());
             postDetailResponse.setPostDate(postDetail.getPostDate());
@@ -69,7 +76,27 @@ public class AdminController {
 
     @GetMapping("post/view/approved")
     public ResponseEntity getApprovedPosts() {
-        return ResponseEntity.ok(adminService.getAllApprovedPostDetails()) ;
+        List<PostDetail> postDetails = adminService.getAllApprovedPostDetails();
+        List<PostDetailResponse> postDetailResponses = new ArrayList<>();
+        for (PostDetail postDetail : postDetails) {
+            PostDetailResponse postDetailResponse = new PostDetailResponse();
+
+            postDetailResponse.setPostDetailId(postDetail.getPostID());
+            postDetailResponse.setProductPrice(postDetail.getProductPrice());
+            postDetailResponse.setProductName(postDetail.getProductName());
+            postDetailResponse.setPostDate(postDetail.getPostDate());
+            postDetailResponse.setImage(postDetail.getImage());
+            postDetailResponse.setDescription(postDetail.getDescription());
+            postDetailResponse.setLink(postDetail.getLink());
+            postDetailResponse.setPostStatus(postDetail.isPostStatus());
+            postDetailResponse.setShopID(postDetail.getShop().getShopID());
+            postDetailResponse.setProducTypeID(postDetail.getProductType().getProductTypeID());
+            postDetailResponse.setPaymentID(postDetail.getPayment().getPaymentID());
+            postDetailResponse.setPriceID(postDetail.getPostPrice().getPriceID());
+
+            postDetailResponses.add(postDetailResponse);
+        }
+        return ResponseEntity.ok(postDetailResponses);
     }
 
 
@@ -150,6 +177,7 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    //POST PRICE CONTROLLER
     @PostMapping("postprice/create")
     public ResponseEntity createPostPrice(@RequestBody PostPriceRequest request) {
         APIResponse<PostPriceResponse> response = new APIResponse<>();
@@ -195,4 +223,56 @@ public class AdminController {
         return ResponseEntity.ok(apiResponse);
 
     }
+
+    //MEMBER PACKAGE CONTROLLER
+
+    @PostMapping("memberpackage/create")
+    public ResponseEntity createMemberPackage(@RequestBody MemberPackageRequest request) {
+        APIResponse<MemberPackageResponse> response = new APIResponse<>();
+
+        MemberPackageResponse memberPackageResponse = new MemberPackageResponse();
+        MemberPackage memberPackage = memberPackageService.createMemberPackage(request);
+        memberPackageResponse.setPackageID(memberPackage.getPackageID());
+        memberPackageResponse.setDuration(memberPackage.getDuration());
+        memberPackageResponse.setPrice(memberPackage.getPrice());
+        response.setResult(memberPackageResponse);
+        return ResponseEntity.ok(response);
+
+    }
+
+    @GetMapping("memberpackage/view")
+    public ResponseEntity getMemberPackageViews() {
+        List<MemberPackage> memberPackageList = memberPackageService.getAllMemberPackages();
+        List<MemberPackageResponse> memberPackageResponseList = new ArrayList<>();
+        for (MemberPackage memberPackage : memberPackageList) {
+            MemberPackageResponse memberPackageResponse1 = new MemberPackageResponse();
+            memberPackageResponse1.setPackageID(memberPackage.getPackageID());
+            memberPackageResponse1.setDuration(memberPackage.getDuration());
+            memberPackageResponse1.setPrice(memberPackage.getPrice());
+            memberPackageResponseList.add(memberPackageResponse1);
+
+        }
+        return ResponseEntity.ok(memberPackageResponseList);
+    }
+
+    @PutMapping("memberpackage/update/{packageID}")
+    public ResponseEntity updateMemberPackage(@PathVariable("packageID") long packageID, @RequestBody MemberPackageRequest request) {
+        APIResponse<MemberPackageResponse> response = new APIResponse<>();
+        MemberPackage memberPackage = memberPackageService.updateMemberPackage(packageID, request);
+        MemberPackageResponse memberPackageResponse = new MemberPackageResponse();
+        memberPackageResponse.setPackageID(memberPackage.getPackageID());
+        memberPackageResponse.setDuration(memberPackage.getDuration());
+        memberPackageResponse.setPrice(memberPackage.getPrice());
+        response.setResult(memberPackageResponse);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("memberpackage/delete/{packageID}")
+    public ResponseEntity deleteMemberPackage(@PathVariable("packageID") long packageID) {
+        APIResponse apiResponse = new APIResponse();
+        memberPackageService.deleteMemberPackage(packageID);
+        apiResponse.setResult("DELETED SUCCESSFULLY");
+        return ResponseEntity.ok(apiResponse);
+    }
+
 }
