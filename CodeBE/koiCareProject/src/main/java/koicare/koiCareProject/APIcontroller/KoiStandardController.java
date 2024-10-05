@@ -11,6 +11,7 @@ import koicare.koiCareProject.service.KoiStandardService;
 import org.modelmapper.AbstractProvider;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class KoiStandardController {
 
     // Lấy KoiStandard theo KoiVarietyID va Period
     @GetMapping("")
-    public APIResponse<KoiStandardResponse> getKoiStandard(@RequestBody KoiStandardRequest request){
+    public ResponseEntity getKoiStandard(@RequestBody KoiStandardRequest request){
         APIResponse<KoiStandardResponse> response =new APIResponse<>();
 
         KoiStandard koiStandard = koiStandardService.getKoiStandard(request);
@@ -40,6 +41,6 @@ public class KoiStandardController {
         koiStandardResponse.setKoiVarietyID(koiStandard.getKoiVariety().getKoiVarietyID());
         response.setResult(koiStandardResponse);
 
-        return response;
+        return ResponseEntity.ok(response);
     }
 }

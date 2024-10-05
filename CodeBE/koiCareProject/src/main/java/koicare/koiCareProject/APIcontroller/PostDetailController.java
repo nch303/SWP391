@@ -10,6 +10,7 @@ import koicare.koiCareProject.entity.PostDetail;
 import koicare.koiCareProject.service.PostDetailService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class PostDetailController {
     private ModelMapper modelMapper;
 
     @PostMapping("create")
-    public APIResponse<PostDetailResponse> createPost(@RequestBody PostDetailRequest postDetailRequest) {
+    public ResponseEntity createPost(@RequestBody PostDetailRequest postDetailRequest) {
         APIResponse<PostDetailResponse> response = new APIResponse<>();
         PostDetailResponse postDetailResponse = modelMapper.map
                 (postDetailService.createPostDetail(postDetailRequest), PostDetailResponse.class);
@@ -37,14 +38,14 @@ public class PostDetailController {
         postDetailResponse.setPriceID(postDetailRequest.getPriceID());
 
         response.setResult(postDetailResponse);
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("view")
-    public List<PostDetailResponse>getAllPosts() {
+    public  ResponseEntity getAllPosts() {
         List<PostDetail> postDetails = postDetailService.getAllPostDetails();
         List<PostDetailResponse> postDetailResponses = postDetails.stream()
                 .map(postDetail -> modelMapper.map(postDetail, PostDetailResponse.class)).collect(Collectors.toList());
-        return postDetailResponses;
+        return ResponseEntity.ok(postDetailResponses);
     }
 }

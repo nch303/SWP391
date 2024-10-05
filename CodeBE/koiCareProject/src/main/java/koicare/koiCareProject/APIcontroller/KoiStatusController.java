@@ -7,6 +7,7 @@ import koicare.koiCareProject.entity.KoiStatus;
 import koicare.koiCareProject.service.KoiStatusService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,7 @@ public class KoiStatusController {
 
     //lấy tất cả các koiStatus trong danh sách
     @GetMapping("")
-    public APIResponse<List<KoiStatusResponse>> getKoiStatuses(){
+    public ResponseEntity getKoiStatuses(){
         APIResponse<List<KoiStatusResponse>> response = new APIResponse<>();
 
         List<KoiStatus> koiStatuses = koiStatusService.getKoiStatuses();
@@ -38,17 +39,17 @@ public class KoiStatusController {
                 .collect(Collectors.toList());
 
         response.setResult(koiStatusResponses);
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     //lấy koiStatus bằng ID
     @GetMapping("/{koiStatusID}")
-    public APIResponse<KoiStatusResponse> getKoiStatus(@PathVariable("koiStatusID") long koiStatusID){
+    public ResponseEntity getKoiStatus(@PathVariable("koiStatusID") long koiStatusID){
         APIResponse<KoiStatusResponse> response = new APIResponse<>();
 
         KoiStatus koiStatus = koiStatusService.getKoiStatus(koiStatusID);
         response.setResult(modelMapper.map(koiStatus, KoiStatusResponse.class));
-        return response;
+        return ResponseEntity.ok(response);
     }
 
 }

@@ -14,6 +14,7 @@ import koicare.koiCareProject.service.AdminService;
 import koicare.koiCareProject.service.PostPriceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class AdminController {
 
     //POST CONTROLLER
     @GetMapping("post/view/pending")
-    public List<PostDetailResponse> getPendingPosts() {
+    public ResponseEntity getPendingPosts() {
 
 
         List<PostDetail> postDetails = adminService.getAllPendingPostDetails();
@@ -55,28 +56,28 @@ public class AdminController {
 
             postDetailResponses.add(postDetailResponse);
         }
-        return postDetailResponses;
+        return ResponseEntity.ok(postDetailResponses);
     }
 
     @PutMapping("post/view/{postID}")
-    public APIResponse approvePost(@PathVariable long postID) {
+    public ResponseEntity approvePost(@PathVariable long postID) {
         APIResponse response = new APIResponse();
 
         adminService.approvedPostDetail(postID);
 
         response.setResult("POST HAS BEEN APPROVED");
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("post/view/approved")
-    public List<PostDetail> getApprovedPosts() {
-        return adminService.getAllApprovedPostDetails();
+    public ResponseEntity getApprovedPosts() {
+        return ResponseEntity.ok(adminService.getAllApprovedPostDetails()) ;
     }
 
 
     //Standard Controller
     @PutMapping("waterstandard/update")
-    public APIResponse<WaterStandardResponse> updateWaterStandard(@RequestBody WaterStandardRequest request) {
+    public ResponseEntity updateWaterStandard(@RequestBody WaterStandardRequest request) {
         APIResponse<WaterStandardResponse> response = new APIResponse<>();
 
 
@@ -114,12 +115,12 @@ public class AdminController {
         waterStandardResponse.setMinSaltStandard(request.getMinSaltStandard());
 
         response.setResult(waterStandardResponse);
-        return response;
+        return ResponseEntity.ok(response);
     }
 
 
     @PutMapping("pondstandard/update")
-    public APIResponse<PondStandardResponse> updatePondStandard(@RequestBody PondStandardRequest request) {
+    public ResponseEntity updatePondStandard(@RequestBody PondStandardRequest request) {
         APIResponse<PondStandardResponse> response = new APIResponse<>();
 
         PondStandardResponse pondStandardResponse = new PondStandardResponse();
@@ -148,11 +149,11 @@ public class AdminController {
 
         response.setResult(pondStandardResponse);
 
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("postprice/create")
-    public APIResponse<PostPriceResponse> createPostPrice(@RequestBody PostPriceRequest request) {
+    public ResponseEntity createPostPrice(@RequestBody PostPriceRequest request) {
         APIResponse<PostPriceResponse> response = new APIResponse<>();
         PostPrice postPrice = postPriceService.createPostPrice(request);
         PostPriceResponse postPriceResponse = new PostPriceResponse();
@@ -160,12 +161,12 @@ public class AdminController {
         postPriceResponse.setDuration(postPrice.getDuration());
         postPriceResponse.setPriceID(postPrice.getPriceID());
         response.setResult(postPriceResponse);
-        return response;
+        return ResponseEntity.ok(response);
 
     }
 
     @GetMapping("postprice/view")
-    public List<PostPriceResponse> getPostPriceViews() {
+    public ResponseEntity getPostPriceViews() {
         List<PostPrice> postPriceList = postPriceService.getAllPostPrice();
         List<PostPriceResponse> postPriceResponseList = new ArrayList<>();
         for (PostPrice postPrice : postPriceList) {
@@ -175,25 +176,25 @@ public class AdminController {
             postPriceResponse1.setPriceID(postPrice.getPriceID());
             postPriceResponseList.add(postPriceResponse1);
         }
-        return postPriceResponseList;
+        return ResponseEntity.ok(postPriceList);
     }
 
     @PutMapping("postprice/update/{priceID}")
-    public PostPriceResponse updatePostPrice(@PathVariable("priceID") long priceID, @RequestBody PostPriceRequest request) {
+    public ResponseEntity updatePostPrice(@PathVariable("priceID") long priceID, @RequestBody PostPriceRequest request) {
         PostPriceResponse postPriceResponse = new PostPriceResponse();
         postPriceService.updatePostPrice(priceID, request);
         postPriceResponse.setPriceID(priceID);
         postPriceResponse.setPrice(request.getPrice());
         postPriceResponse.setDuration(request.getDuration());
-        return postPriceResponse;
+        return ResponseEntity.ok(postPriceResponse);
     }
 
     @DeleteMapping("postprice/delete/{priceID}")
-    public APIResponse deletePostPrice(@PathVariable("priceID") long priceID) {
+    public ResponseEntity deletePostPrice(@PathVariable("priceID") long priceID) {
         APIResponse apiResponse = new APIResponse();
         postPriceService.deletePostPrice(priceID);
         apiResponse.setResult("DELETED SUCCESSFULLY");
-        return apiResponse;
+        return ResponseEntity.ok(apiResponse);
 
     }
 }

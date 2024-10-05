@@ -11,6 +11,7 @@ import koicare.koiCareProject.service.MemberService;
 import koicare.koiCareProject.service.PondService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -32,13 +33,13 @@ public class MemberController {
     ModelMapper modelMapper;
 
     @GetMapping("ponds/{memberID}")
-    public List<PondResponse> viewPonds(@PathVariable("memberID") long memberID) {
+    public ResponseEntity viewPonds(@PathVariable("memberID") long memberID) {
         List<Pond> ponds = memberService.getPondsByMemberId(memberID);
 
         List<PondResponse> pondResponses = new ArrayList<>();
         ponds.forEach(p -> pondResponses.add(modelMapper.map(p, PondResponse.class)));
 
-        return pondResponses;
+        return ResponseEntity.ok(pondResponses);
     }
 
 

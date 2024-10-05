@@ -36,7 +36,7 @@ public class KoiFishController {
 
     //tạo cá koi
     @PostMapping("create")
-    public APIResponse<KoiFishResponse> createKoiFish(@RequestBody KoiFishRequest request){
+    public ResponseEntity createKoiFish(@RequestBody KoiFishRequest request){
         APIResponse<KoiFishResponse> apiResponse = new APIResponse<>();
 
         KoiFishResponse koiFishResponse = modelMapper.map(koiFishService.createKoiFish(request), KoiFishResponse.class);
@@ -45,7 +45,7 @@ public class KoiFishController {
 
         apiResponse.setResult(koiFishResponse);
 
-        return apiResponse;
+        return ResponseEntity.ok(apiResponse);
     }
 
     //lấy lên danh sách cá koi theo MemberID
@@ -60,33 +60,33 @@ public class KoiFishController {
 
     //lấy lên cá koi theo koiFishID
     @GetMapping("{koiFishID}")
-    public APIResponse<KoiFishResponse> getKoiFish(@PathVariable("koiFishID") long koiFishID){
+    public ResponseEntity getKoiFish(@PathVariable("koiFishID") long koiFishID){
         APIResponse<KoiFishResponse> response = new APIResponse<>();
 
         KoiFishResponse koiFishResponse = modelMapper.map(koiFishService.getKoiFish(koiFishID), KoiFishResponse.class);
         response.setResult(koiFishResponse);
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     //update cá koi
     @PutMapping("{koiFishID}")
-    public APIResponse<KoiFishResponse> updateKoiFish(@PathVariable("koiFishID") long koiFishID, @RequestBody KoiFishRequest request){
+    public ResponseEntity updateKoiFish(@PathVariable("koiFishID") long koiFishID, @RequestBody KoiFishRequest request){
         APIResponse<KoiFishResponse> response = new APIResponse<>();
 
         KoiFishResponse koiFishResponse = modelMapper.map(koiFishService.updateKoiFish(koiFishID, request), KoiFishResponse.class);
         response.setResult(koiFishResponse);
 
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     //xóa cá khỏi danh sách
     @DeleteMapping("{koiFishID}")
-    public APIResponse deleteKoiFish(@PathVariable("koiFishID") long koiFishID){
+    public ResponseEntity deleteKoiFish(@PathVariable("koiFishID") long koiFishID){
         APIResponse response = new APIResponse();
 
         response.setResult("Deleted a koifish successfully!!!");
 
         koiFishService.deleteKoiFish(koiFishID);
-        return response;
+        return ResponseEntity.ok(response);
     }
 }

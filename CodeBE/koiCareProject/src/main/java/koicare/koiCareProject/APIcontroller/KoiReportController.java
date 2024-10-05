@@ -8,6 +8,7 @@ import koicare.koiCareProject.entity.KoiReport;
 import koicare.koiCareProject.service.KoiReportService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class KoiReportController {
 
     //tạo KoiReport
     @PostMapping("create")
-    public APIResponse<KoiReportResponse> createKoiReport(@RequestBody KoiReportRequest request) {
+    public ResponseEntity createKoiReport(@RequestBody KoiReportRequest request) {
         APIResponse<KoiReportResponse> response = new APIResponse<>();
 
         KoiReport koiReport = koiReportService.createKoiReport(request);
@@ -35,12 +36,12 @@ public class KoiReportController {
 
         response.setResult(koiReportResponse);
 
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     //lấy danh sách KoiReport theo KoiFishID từ DB
     @GetMapping("koiReports/{koiFishID}")
-    public APIResponse<List<KoiReportResponse>> getKoiReports(@PathVariable("koiFishID")long koiFishID) {
+    public ResponseEntity getKoiReports(@PathVariable("koiFishID")long koiFishID) {
         APIResponse<List<KoiReportResponse>> response = new APIResponse<>();
 
         List<KoiReport> koiReports = koiReportService.getKoiReports(koiFishID);
@@ -49,46 +50,46 @@ public class KoiReportController {
                 .collect(Collectors.toList());
 
         response.setResult(koiReportResponses);
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     //lấy KoiReport mới nhất của 1 koiFishID
     @GetMapping("latestKoiReport/{koiFishID}")
-    public APIResponse<KoiReportResponse> getLatestKoiReport(@PathVariable("koiFishID")long koiFishID) {
+    public ResponseEntity getLatestKoiReport(@PathVariable("koiFishID")long koiFishID) {
         APIResponse<KoiReportResponse> response = new APIResponse<>();
 
         KoiReport latestKoiReport = koiReportService.getLatestKoiReport(koiFishID);
 
         response.setResult(modelMapper.map(latestKoiReport, KoiReportResponse.class));
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     //lấy KoiReport theo KoiReportID
     @GetMapping("{koiReportID}")
-    public APIResponse<KoiReportResponse> getKoiReport(@PathVariable("koiReportID") long koiReportID) {
+    public ResponseEntity getKoiReport(@PathVariable("koiReportID") long koiReportID) {
         APIResponse<KoiReportResponse> response = new APIResponse<>();
 
         response.setResult(modelMapper.map(koiReportService.getKoiReport(koiReportID), KoiReportResponse.class));
 
-        return response;
+        return ResponseEntity.ok(response);
     }
 
 
     //update KoiReport
     @PutMapping("{koiReportID}")
-    public APIResponse<KoiReportResponse> updateKoiReport(@PathVariable("koiReportID") long koiReportID
+    public ResponseEntity updateKoiReport(@PathVariable("koiReportID") long koiReportID
                                                         , @RequestBody KoiReportRequest request) {
         APIResponse<KoiReportResponse> response = new APIResponse<>();
 
         response.setResult(modelMapper.map(koiReportService.updateKoiReport(koiReportID,request), KoiReportResponse.class));
 
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     //Xóa KoiReport khỏi danh sách
     @DeleteMapping("{koiReportID}")
-    public String deleteKoiReport(@PathVariable("koiReportID") long koiReportID) {
+    public ResponseEntity deleteKoiReport(@PathVariable("koiReportID") long koiReportID) {
         koiReportService.deleteKoiReport(koiReportID);
-        return "Detele koiReport " + koiReportID + " successfully!!!";
+        return ResponseEntity.ok("Detele koiReport " + koiReportID + " successfully!!!") ;
     }
 }
