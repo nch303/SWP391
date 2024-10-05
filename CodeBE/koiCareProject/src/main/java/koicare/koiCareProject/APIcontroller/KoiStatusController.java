@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("koistatus")
+@RequestMapping("api/koistatus")
 //dán qua các controller thì mới xài được token
 @SecurityRequirement(name = "api")
 public class KoiStatusController {
@@ -42,7 +42,7 @@ public class KoiStatusController {
     }
 
     //lấy koiStatus bằng ID
-    @GetMapping("{koiStatusID}")
+    @GetMapping("/{koiStatusID}")
     public APIResponse<KoiStatusResponse> getKoiStatus(@PathVariable("koiStatusID") long koiStatusID){
         APIResponse<KoiStatusResponse> response = new APIResponse<>();
 
@@ -50,4 +50,5 @@ public class KoiStatusController {
         response.setResult(modelMapper.map(koiStatus, KoiStatusResponse.class));
         return response;
     }
+
 }

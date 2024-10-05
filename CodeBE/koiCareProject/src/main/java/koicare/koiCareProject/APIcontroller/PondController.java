@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("pond")
+@RequestMapping("api/pond")
 //dán qua các controller thì mới xài được token
 @SecurityRequirement(name = "api")
 public class PondController {
@@ -46,11 +46,11 @@ public class PondController {
         return response;
     }
     @GetMapping
-    public List<PondResponse> getAllPonds() {
+    public ResponseEntity getAllPonds() {
         List<Pond> ponds = pondService.getAllPonds();
         List<PondResponse> pondResponses = ponds.stream()
                 .map(Pond -> modelMapper.map(Pond, PondResponse.class)).collect(Collectors.toList());
-        return pondResponses;
+        return ResponseEntity.ok(pondResponses);
     }
 
 

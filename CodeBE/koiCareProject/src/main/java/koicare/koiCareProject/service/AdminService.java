@@ -4,13 +4,11 @@ import koicare.koiCareProject.dto.request.PondStandardRequest;
 import koicare.koiCareProject.dto.request.WaterStandardRequest;
 import koicare.koiCareProject.entity.PondStandard;
 import koicare.koiCareProject.entity.PostDetail;
+import koicare.koiCareProject.entity.ProductType;
 import koicare.koiCareProject.entity.WaterStandard;
 import koicare.koiCareProject.exception.AppException;
 import koicare.koiCareProject.exception.ErrorCode;
-import koicare.koiCareProject.repository.PondStandardRepository;
-import koicare.koiCareProject.repository.PostDetailRepository;
-import koicare.koiCareProject.repository.PostPriceRepository;
-import koicare.koiCareProject.repository.WaterStandardRepository;
+import koicare.koiCareProject.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +20,9 @@ public class AdminService {
 
     @Autowired
     private PostDetailRepository postDetailRepository;
+
+    @Autowired
+    private ProductTypeRepository productTypeRepository;
 
     public List<PostDetail> getAllPendingPostDetails(){
         return postDetailRepository.findByPostStatus(false);
@@ -47,7 +48,6 @@ public class AdminService {
 
     @Autowired
     private WaterStandardRepository waterStandardRepository;
-
 
 
     public void updateWaterStandard(WaterStandardRequest request) {
@@ -183,4 +183,12 @@ public class AdminService {
 
         pondStandardRepository.save(pondStandard);
     }
+
+    public ProductType createProductType(ProductType type){
+        ProductType productType = new ProductType();
+        return productTypeRepository.save(productType);
+    }
+
+
+
 }

@@ -11,6 +11,7 @@ import koicare.koiCareProject.repository.PondRepository;
 import koicare.koiCareProject.service.KoiFishService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("koifish")
+@RequestMapping("api/koifish")
 //dán qua các controller thì mới xài được token
 @SecurityRequirement(name = "api")
 public class KoiFishController {
@@ -49,12 +50,12 @@ public class KoiFishController {
 
     //lấy lên danh sách cá koi theo MemberID
     @GetMapping("")
-    public List<KoiFishResponse> getKoiFishes(){
+    public ResponseEntity getKoiFishes(){
         List<KoiFish> koiFishes = koiFishService.getKoiFishes();
         List<KoiFishResponse> koiFishResponses = koiFishes.stream()
                 .map(koiFish -> modelMapper.map(koiFish, KoiFishResponse.class))
                 .collect(Collectors.toList());
-        return koiFishResponses;
+        return ResponseEntity.ok(koiFishResponses);
     }
 
     //lấy lên cá koi theo koiFishID

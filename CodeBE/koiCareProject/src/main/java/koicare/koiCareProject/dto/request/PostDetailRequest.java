@@ -14,7 +14,6 @@ public class PostDetailRequest {
     private String link;
     private Date postDate;
     private boolean postStatus;
-    private Long shopID;
     private Long producTypeID;
     private Long priceID;
     private Long paymentID;

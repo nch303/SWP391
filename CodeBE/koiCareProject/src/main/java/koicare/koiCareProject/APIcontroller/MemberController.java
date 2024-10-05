@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("member")
+@RequestMapping("api/member")
 //dán qua các controller thì mới xài được token
 @SecurityRequirement(name = "api")
 public class MemberController {

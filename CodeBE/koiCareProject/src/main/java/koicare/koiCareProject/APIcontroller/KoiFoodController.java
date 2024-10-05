@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("koifood")
+@RequestMapping("api/koifood")
 //dán qua các controller thì mới xài được token
 @SecurityRequirement(name = "api")
 public class KoiFoodController {
