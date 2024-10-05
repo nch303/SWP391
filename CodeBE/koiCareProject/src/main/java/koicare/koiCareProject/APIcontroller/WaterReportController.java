@@ -1,5 +1,6 @@
 package koicare.koiCareProject.APIcontroller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import koicare.koiCareProject.dto.request.WaterReportRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.dto.response.WaterReportResponse;
@@ -9,8 +10,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("waterreport")
+//dán qua các controller thì mới xài được token
+@SecurityRequirement(name = "api")
 public class WaterReportController {
     @Autowired
     private WaterReportService waterReportService;
@@ -46,5 +52,16 @@ public class WaterReportController {
         waterReportService.deleteWaterReport(waterReportID);
         response.setResult("DELETED SUCCESSFULLY");
         return response;
+    }
+
+    @GetMapping("/view/{pondID}")
+    public List<WaterReportResponse> getWaterReportByPondID(@PathVariable("pondID") long pondID) {
+        List<WaterReport> waterReports = waterReportService.getAllWaterReportsByPondID(pondID);
+
+        List<WaterReportResponse> responses = new ArrayList<>();
+        waterReports.forEach(r -> responses.add(modelMapper.map(r, WaterReportResponse.class)));
+        return responses;
+
+
     }
 }

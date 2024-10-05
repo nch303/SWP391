@@ -1,6 +1,7 @@
 package koicare.koiCareProject.APIcontroller;
 
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import koicare.koiCareProject.dto.request.KoiFishRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.dto.response.KoiFishResponse;
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("koifish")
+//dán qua các controller thì mới xài được token
+@SecurityRequirement(name = "api")
 public class KoiFishController {
 
     @Autowired
@@ -44,7 +47,7 @@ public class KoiFishController {
         return apiResponse;
     }
 
-    //lấy lên danh sách cá koi
+    //lấy lên danh sách cá koi theo MemberID
     @GetMapping("")
     public List<KoiFishResponse> getKoiFishes(){
         List<KoiFish> koiFishes = koiFishService.getKoiFishes();

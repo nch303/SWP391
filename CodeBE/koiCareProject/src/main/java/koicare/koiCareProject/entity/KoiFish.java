@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 @Data
 public class KoiFish {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long koiFishID;
@@ -23,9 +24,15 @@ public class KoiFish {
     private Pond pond;
 
     @ManyToOne
+    @JoinColumn(name = "memberid")
+    private Member member;
+
+    @ManyToOne
     @JoinColumn(name = "koivarietyid")
     private KoiVariety koiVariety;
 
     @OneToMany(mappedBy = "koiFish")
     private List<KoiReport> koiReports;
+
+
 }

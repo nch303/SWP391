@@ -21,7 +21,17 @@ public enum ErrorCode {
     KOISTATUS_NOT_EXISTED(1013,"Koistatus not existed"),
     KOIREPORT_NOT_EXISTED(1014,"Koireport not existed"),
     KOISTANDARD_NOT_EXISTED(1014,"Koistandard not existed"),
-    WATER_REPORT_NOT_EXISTED(1015, "WaterReport not existed");
+    WATER_REPORT_NOT_EXISTED(1015, "WaterReport not existed"),
+    LIST_NOT_EXISTED(1016, "List not existed"),
+    EMAIL_EXISTED(1017, "Email is duplicated"),
+    EMPTY_TOKEN(1018, "Empty token"),
+    FISH_IS_EXISTED_IN_POND(1019, "Cannot be deleted because there are still fish in the pond"),
+    STANDARD_EXISTED(1020, "Standard existed. Please update the existed standard"),
+
+    TEMP_TOO_HOT(1021, "Temperature is too high, please control lower 30."),
+
+    POST_DOES_NOT_EXIST(1022, "Post does not exist");
+
 
 
 
