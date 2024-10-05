@@ -1,8 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 function PondCard({ pond }) {
-  const { pondID, pondName, pondImage, area, depth, volume, drainCount, skimmerCount, pumpingCapacity, amountFish } = pond;
+  const {
+    pondID,
+    pondName,
+    pondImage,
+    area,
+    depth,
+    volume,
+    drainCount,
+    skimmerCount,
+    pumpingCapacity,
+    amountFish,
+  } = pond;
   return (
     <div className="card-pond">
       <p>Pond Name: {pondName}</p>
@@ -16,7 +27,7 @@ function PondCard({ pond }) {
       <p>Amount of Fish: {amountFish}</p>
       <Link to={`/pond-info/${pondID}`}>Detail</Link>
     </div>
-  )
+  );
 }
 
 export default PondCard;

@@ -1,22 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
-function KoiCard({ koi }) {
-  const { koiFishID, koiName, birthday, koiSex, image, pondID, koiVarietyID } =
-    koi;
+import { useNavigate } from "react-router-dom";
+function KoiCard({ koi: { koiFishID, koiName, birthday, koiSex, image, pondID, koiVarietyID } }) {
+  const navigate = useNavigate();
   return (
-    <div key={id} className="koi-fish">
+    <div key={koiFishID} className="koi-fish">
       <div className="koi-fish-info">
-        <h2 className="koi-fish-name">{name}</h2>
-        <img src={image} alt={name} className="koi-fish-image" />
+        <h1 className="koi-fish-title">Koi Fish</h1>
+        <h2 className="koi-fish-name">{koiName}</h2>
+        <img src={image} alt={koiName} className="koi-fish-image" />
         <hr />
+        <p className="koi-fish-birthday">Birthday: {birthday}</p>
+        <p className="koi-fish-sex">Sex: {koiSex}</p>
+        <p className="koi-fish-pond">Pond: {pondID}</p>
+        <p className="koi-fish-variety">Variety: {koiVarietyID}</p>
 
-        <div>vvvvvvvvvvvvvv</div>
-        <Link to={`/koi-info/${koiFishID}`} className="see-more-button">
+        <button className="see-more-button" onClick={() => navigate(`/koi-info/${koiFishID}`)}>
           See More Details
-        </Link>
+        </button>
       </div>
     </div>
   );
 }
 
 export default KoiCard;
+

@@ -12,26 +12,29 @@ function ManagerKoi() {
   const [selectedVariety, setSelectedVariety] = useState("");
 
   useEffect(() => {
-    const fetchKoiFish = async () => {
-      try {
-        const response = await api.get("koifish");
+    api
+      .get("koifish")
+      .then((response) => {
         setKoiFish(response.data);
-        console.log(response.data);
-      } catch (error) {
+        setFilteredKoiFish(response.data);
+      })
+      .catch((error) => {
         console.log(error);
-      }
-    };
-    fetchKoiFish();
+      });
   }, []);
 
   useEffect(() => {
-    const filtered = koiFish.filter(
-      (koi) =>
-        koi.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (selectedVariety === "" || koi.variety === selectedVariety)
+    const filtered = koiFish.filter((koi) =>
+      koi.koiName.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setFilteredKoiFish(filtered);
-  }, [koiFish, searchTerm, selectedVariety]);
+    if (selectedVariety) {
+      setFilteredKoiFish(
+        filtered.filter((koi) => koi.koiVarietyID === selectedVariety)
+      );
+    } else {
+      setFilteredKoiFish(filtered);
+    }
+  }, [searchTerm, selectedVariety, koiFish]);
 
   return (
     <div className="manager-koi-container">
@@ -54,14 +57,20 @@ function ManagerKoi() {
           <option value="Sanke">Sanke</option>
           <option value="Showa">Showa</option>
         </select>
-        <button onClick={() => navigate("/AddKoi")}>+</button>
+        <button onClick={() => navigate("/addKoi")}>+</button>
       </div>
 
-      <div className="koi-fish-dashboard">
-        {filteredKoiFish.map((koi) => (
-          <KoiCard key={koi.id} koi={koi} />
-        ))}
-      </div>
+      {filteredKoiFish.length === 0 ? (
+        <p style={{ textAlign: "center" }}>
+          You have no koi fish, Please add one
+        </p>
+      ) : (
+        <div className="koi-fish-dashboard">  
+          {filteredKoiFish.map((koi) => (
+            <KoiCard key={koi.koiFishID} koi={koi} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

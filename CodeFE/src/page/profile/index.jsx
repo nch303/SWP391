@@ -1,17 +1,16 @@
-import React from 'react'
-import { useAuthStore } from '../../zustand/useAuthStore'
-import { Avatar, Button, Card, Col, Row, Space, Typography } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import { useAuthStore } from "../../zustand/useAuthStore";
+import { Avatar, Button, Card, Col, Row, Space, Typography } from "antd";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
-  const navigate = useNavigate()
-  const { user } = useAuthStore()
+  const navigate = useNavigate();
+  const { user } = useAuthStore();
 
-  
   const handleLogout = () => {
-    localStorage.removeItem('user')
-    navigate('/login')
-  }
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
   return (
     <Row justify="center">
@@ -29,9 +28,7 @@ function Profile() {
         </Card>
       </Col>
     </Row>
-  )
+  );
 }
 
-export default Profile
-
-
+export default Profile;
