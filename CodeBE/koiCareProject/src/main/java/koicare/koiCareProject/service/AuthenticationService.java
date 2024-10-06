@@ -134,6 +134,20 @@ public class AuthenticationService implements UserDetailsService {
         return authorizationRepository.findAccountByAccountID(account.getAccountID());
     }
 
+    //xóa account bằng cách setStatus bằng 0
+    public Account deleteAccount(long accountID){
+        Account account = accountRepository.findAccountByAccountID(accountID);
+        account.setStatus(false);
 
+        return accountRepository.save(account);
+    }
+
+    //khôi phục account bị xóa
+    public Account restoreAccount(long accountID){
+        Account account = accountRepository.findAccountByAccountID(accountID);
+        account.setStatus(true);
+
+        return accountRepository.save(account);
+    }
 }
 

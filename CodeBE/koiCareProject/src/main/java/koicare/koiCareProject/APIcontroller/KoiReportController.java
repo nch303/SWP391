@@ -1,6 +1,7 @@
 package koicare.koiCareProject.APIcontroller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import koicare.koiCareProject.dto.request.KoiReportRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.dto.response.KoiReportResponse;
@@ -28,7 +29,7 @@ public class KoiReportController {
 
     //tạo KoiReport
     @PostMapping("create")
-    public ResponseEntity createKoiReport(@RequestBody KoiReportRequest request) {
+    public ResponseEntity createKoiReport(@Valid @RequestBody KoiReportRequest request) {
         APIResponse<KoiReportResponse> response = new APIResponse<>();
 
         KoiReport koiReport = koiReportService.createKoiReport(request);
@@ -77,7 +78,7 @@ public class KoiReportController {
 
     //update KoiReport
     @PutMapping("{koiReportID}")
-    public ResponseEntity updateKoiReport(@PathVariable("koiReportID") long koiReportID
+    public ResponseEntity updateKoiReport(@Valid @PathVariable("koiReportID") long koiReportID
                                                         , @RequestBody KoiReportRequest request) {
         APIResponse<KoiReportResponse> response = new APIResponse<>();
 

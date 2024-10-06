@@ -2,6 +2,7 @@ package koicare.koiCareProject.APIcontroller;
 
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import koicare.koiCareProject.dto.request.KoiFishRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.dto.response.KoiFishResponse;
@@ -36,7 +37,7 @@ public class KoiFishController {
 
     //tạo cá koi
     @PostMapping("create")
-    public ResponseEntity createKoiFish(@RequestBody KoiFishRequest request){
+    public ResponseEntity createKoiFish(@Valid @RequestBody KoiFishRequest request){
         APIResponse<KoiFishResponse> apiResponse = new APIResponse<>();
 
         KoiFishResponse koiFishResponse = modelMapper.map(koiFishService.createKoiFish(request), KoiFishResponse.class);
@@ -70,7 +71,7 @@ public class KoiFishController {
 
     //update cá koi
     @PutMapping("{koiFishID}")
-    public ResponseEntity updateKoiFish(@PathVariable("koiFishID") long koiFishID, @RequestBody KoiFishRequest request){
+    public ResponseEntity updateKoiFish(@Valid @PathVariable("koiFishID") long koiFishID, @RequestBody KoiFishRequest request){
         APIResponse<KoiFishResponse> response = new APIResponse<>();
 
         KoiFishResponse koiFishResponse = modelMapper.map(koiFishService.updateKoiFish(koiFishID, request), KoiFishResponse.class);

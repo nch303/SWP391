@@ -8,11 +8,10 @@ import koicare.koiCareProject.dto.request.PostPriceRequest;
 import koicare.koiCareProject.dto.request.WaterStandardRequest;
 import koicare.koiCareProject.dto.response.*;
 
-import koicare.koiCareProject.entity.MemberPackage;
-import koicare.koiCareProject.entity.PostDetail;
-import koicare.koiCareProject.entity.PostPrice;
+import koicare.koiCareProject.entity.*;
 import koicare.koiCareProject.service.AdminService;
 
+import koicare.koiCareProject.service.AuthenticationService;
 import koicare.koiCareProject.service.MemberPackageService;
 import koicare.koiCareProject.service.PostPriceService;
 import org.modelmapper.ModelMapper;
@@ -37,6 +36,9 @@ public class AdminController {
 
     @Autowired
     private MemberPackageService memberPackageService;
+
+    @Autowired
+    private AuthenticationService authenticationService;
 
     //POST DETAIL CONTROLLER
     @GetMapping("post/view/pending")
@@ -273,6 +275,18 @@ public class AdminController {
         memberPackageService.deleteMemberPackage(packageID);
         apiResponse.setResult("DELETED SUCCESSFULLY");
         return ResponseEntity.ok(apiResponse);
+    }
+
+    @DeleteMapping("deleteAccount/{accountID}")
+    public ResponseEntity deleteAccount(@PathVariable("accountID") long accountID){
+        Account account = authenticationService.deleteAccount(accountID);
+        return ResponseEntity.ok("Deleted account id: " + accountID + " successfully");
+    }
+
+    @PutMapping("restoreAccount/{accountID}")
+    public ResponseEntity unbanAccount(@PathVariable("accountID") long accountID){
+        Account account = authenticationService.restoreAccount(accountID);
+        return ResponseEntity.ok("Restore account id: " + accountID + " successfully");
     }
 
 }

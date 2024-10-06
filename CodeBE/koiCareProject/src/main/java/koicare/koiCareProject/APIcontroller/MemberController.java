@@ -2,11 +2,8 @@ package koicare.koiCareProject.APIcontroller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import koicare.koiCareProject.dto.request.MemberCreationRequest;
-import koicare.koiCareProject.dto.response.APIResponse;
-import koicare.koiCareProject.dto.response.PondResponse;
+import koicare.koiCareProject.dto.response.MemberResponse;
 import koicare.koiCareProject.entity.Member;
-import koicare.koiCareProject.entity.Pond;
-import koicare.koiCareProject.repository.MemberRepository;
 import koicare.koiCareProject.service.MemberService;
 import koicare.koiCareProject.service.PondService;
 import org.modelmapper.ModelMapper;
@@ -32,16 +29,12 @@ public class MemberController {
     @Autowired
     ModelMapper modelMapper;
 
-    @GetMapping("ponds/{memberID}")
-    public ResponseEntity viewPonds(@PathVariable("memberID") long memberID) {
-        List<Pond> ponds = memberService.getPondsByMemberId(memberID);
+    @PutMapping("update")
+    public ResponseEntity updateMember(@RequestBody MemberCreationRequest request){
+        Member member = memberService.updateMember(request);
 
-        List<PondResponse> pondResponses = new ArrayList<>();
-        ponds.forEach(p -> pondResponses.add(modelMapper.map(p, PondResponse.class)));
-
-        return ResponseEntity.ok(pondResponses);
+        return ResponseEntity.ok("Update successfully");
     }
-
 
 
 
