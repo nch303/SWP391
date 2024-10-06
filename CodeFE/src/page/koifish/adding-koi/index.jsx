@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Select, Upload, Image } from "antd";
+import "./index.scss";
+import { Form, Input, Button, Select, Upload, Image, Radio } from "antd";
 import { useNavigate } from "react-router-dom";
 import api from "../../../config/axios";
 import { Option } from "antd/es/mentions";
 import { PlusOutlined } from "@ant-design/icons";
 import uploadFile from "../../../assets/hook/useUpload";
+
+
 function AddKoi() {
   const [koiName, setKoiName] = useState("");
   const [birthday, setBirthday] = useState(new Date().toISOString());
@@ -99,8 +102,9 @@ function AddKoi() {
   };
 
   return (
-    <div>
-      <h1>Add Koi</h1>
+    <div className="addKoi">
+      <div className="addKoi-form-container">
+      <h1 className="addKoi-title">Add Koi</h1>
       <Form layout="vertical" onFinish={handleSubmit}>
         <Form.Item label="Name" name="koiName">
           <Input value={koiName} onChange={(e) => setKoiName(e.target.value)} />
@@ -113,7 +117,10 @@ function AddKoi() {
           />
         </Form.Item>
         <Form.Item label="Sex" name="koiSex">
-          <Input value={koiSex} onChange={(e) => setKoiSex(e.target.value)} />
+          <Radio.Group value={koiSex} onChange={(e) => setKoiSex(e.target.value)}>
+            <Radio value="Male">Male</Radio>
+            <Radio value="Female">Female</Radio>
+          </Radio.Group>
         </Form.Item>
         <Form.Item label="Image" name="image">
           <Upload
@@ -157,6 +164,7 @@ function AddKoi() {
           src={previewImage}
         />
       )}
+      </div>
     </div>
   );
 }
