@@ -3,8 +3,10 @@ package koicare.koiCareProject.APIcontroller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import koicare.koiCareProject.dto.request.ForgotPasswordRequest;
 import koicare.koiCareProject.dto.request.LoginRequest;
 import koicare.koiCareProject.dto.request.RegisterRequest;
+import koicare.koiCareProject.dto.request.ResetPasswordRequest;
 import koicare.koiCareProject.dto.response.AccountResponse;
 import koicare.koiCareProject.entity.Account;
 import koicare.koiCareProject.repository.MemberRepository;
@@ -72,6 +74,19 @@ public class AuthenticationAPI {
     public ResponseEntity register(@Valid @RequestBody LoginRequest loginRequest){
         AccountResponse newAccount =  authenticationService.login(loginRequest);
         return ResponseEntity.ok(newAccount);
+    }
+
+    @PostMapping("forgot-password")
+    public ResponseEntity forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+        authenticationService.forgotPassword(request);
+        return ResponseEntity.ok("Forgot Password successfully.");
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity resetPassword(@RequestBody ResetPasswordRequest request) {
+
+        authenticationService.resetPassword(request);
+        return ResponseEntity.ok("Reset Password successfully.");
     }
 
 }

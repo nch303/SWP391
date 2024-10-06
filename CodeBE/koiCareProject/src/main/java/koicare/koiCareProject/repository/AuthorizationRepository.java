@@ -9,4 +9,6 @@ public interface AuthorizationRepository extends JpaRepository<Account, Long> {
     Account findByUsername(String username);
 
     Account findAccountByAccountID(long accountID);
+
+
 }

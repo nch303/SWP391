@@ -149,5 +149,27 @@ public class AuthenticationService implements UserDetailsService {
 
         return accountRepository.save(account);
     }
+
+    public void forgotPassword(ForgotPasswordRequest request){
+        Account account = accountRepository.findAccountByEmail(request.getEmail());
+
+        if(account == null){
+            throw new AppException(ErrorCode.ACCOUNT_IS_NOT_EXISTED);
+        }
+        else {
+            EmailDetail emailDetail = new EmailDetail();
+            emailDetail.setAccount(account);
+            emailDetail.setSubject("Reset Password");
+            emailDetail.setLink("https://koisale.com/?token=" + tokenService.generateToken(account));
+
+            emailService.sendEmail(emailDetail);
+        }
+    }
+
+    public void resetPassword(ResetPasswordRequest request){
+        Account account = getCurrentAccount();
+        account.setPassword(passwordEncoder.encode(request.getPassword()));
+        accountRepository.save(account);
+    }
 }
 
