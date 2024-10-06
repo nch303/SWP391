@@ -131,6 +131,7 @@ public class AuthenticationService implements UserDetailsService {
     //gọi ra account đang thao tác với API
     public Account getCurrentAccount() {
         Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        account.setMember(memberRepository.getMemberByAccount(account));
         return authorizationRepository.findAccountByAccountID(account.getAccountID());
     }
 

@@ -63,6 +63,8 @@ public class AuthenticationAPI {
         } else if (account.getRole().toString().contains("MEMBER")) {
             accountResponse.setName(memberRepository.getMemberByAccount(account).getName());
             accountResponse.setPhone(memberRepository.getMemberByAccount(account).getPhone());
+            accountResponse.setPremiumStatus(memberRepository.getMemberByAccount(account).getPremiumStatus());
+            accountResponse.setExpiredDate(memberRepository.getMemberByAccount(account).getExpiredDate());
         }
 
 

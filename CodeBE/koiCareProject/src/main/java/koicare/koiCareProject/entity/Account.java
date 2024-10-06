@@ -3,6 +3,7 @@ package koicare.koiCareProject.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +32,7 @@ public class Account implements UserDetails{
     private String password;
 
 
+    @NotBlank(message = "Email can not be blank!")
     @Email(message = "Invalid email!")
     private String email;
 
