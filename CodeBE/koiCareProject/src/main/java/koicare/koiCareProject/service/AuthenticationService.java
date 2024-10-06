@@ -134,6 +134,42 @@ public class AuthenticationService implements UserDetailsService {
         return authorizationRepository.findAccountByAccountID(account.getAccountID());
     }
 
+    //xóa account bằng cách setStatus bằng 0
+    public Account deleteAccount(long accountID){
+        Account account = accountRepository.findAccountByAccountID(accountID);
+        account.setStatus(false);
 
+        return accountRepository.save(account);
+    }
+
+    //khôi phục account bị xóa
+    public Account restoreAccount(long accountID){
+        Account account = accountRepository.findAccountByAccountID(accountID);
+        account.setStatus(true);
+
+        return accountRepository.save(account);
+    }
+
+    public void forgotPassword(ForgotPasswordRequest request){
+        Account account = accountRepository.findAccountByEmail(request.getEmail());
+
+        if(account == null){
+            throw new AppException(ErrorCode.ACCOUNT_IS_NOT_EXISTED);
+        }
+        else {
+            EmailDetail emailDetail = new EmailDetail();
+            emailDetail.setAccount(account);
+            emailDetail.setSubject("Reset Password");
+            emailDetail.setLink("https://koisale.com/?token=" + tokenService.generateToken(account));
+
+            emailService.sendEmail(emailDetail);
+        }
+    }
+
+    public void resetPassword(ResetPasswordRequest request){
+        Account account = getCurrentAccount();
+        account.setPassword(passwordEncoder.encode(request.getPassword()));
+        accountRepository.save(account);
+    }
 }
 

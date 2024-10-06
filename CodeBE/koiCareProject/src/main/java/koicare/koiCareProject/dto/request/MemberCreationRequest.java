@@ -1,10 +1,10 @@
 package koicare.koiCareProject.dto.request;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class MemberCreationRequest {
 
     private String memberName;

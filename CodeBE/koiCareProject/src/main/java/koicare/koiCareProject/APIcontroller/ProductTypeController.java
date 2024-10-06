@@ -9,6 +9,7 @@ import koicare.koiCareProject.entity.PostPrice;
 import koicare.koiCareProject.entity.ProductType;
 import koicare.koiCareProject.service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class ProductTypeController {
     ProductTypeService productTypeService;
 
     @PostMapping("productType/create")
-    public APIResponse<ProductTypeResponse> createProductType(@RequestBody ProductTypeRequest request){
+    public ResponseEntity createProductType(@RequestBody ProductTypeRequest request){
         APIResponse<ProductTypeResponse> response = new APIResponse<>();
 
         ProductType productType = productTypeService.createProductType(request);
@@ -31,12 +32,12 @@ public class ProductTypeController {
         productTypeResponse.setProductTypeName(productType.getProductTypeName());
 
         response.setResult(productTypeResponse);
-        return response;
+        return ResponseEntity.ok(response);
 
     }
 
     @GetMapping("productType/view")
-    public List<ProductTypeResponse> getAllProductType(){
+    public ResponseEntity getAllProductType(){
         List<ProductType> productTypes = productTypeService.getAllProductTypes();
         List<ProductTypeResponse> productTypeResponses = new ArrayList<>();
         for (ProductType productType : productTypes) {
@@ -46,27 +47,27 @@ public class ProductTypeController {
 
             productTypeResponses.add(productTypeResponse);
         }
-        return productTypeResponses;
+        return ResponseEntity.ok(productTypeResponses);
     }
 
     @PutMapping("productType/update/{productTypeID}")
-    public APIResponse<ProductTypeResponse> updateProductType(@RequestBody ProductTypeRequest request, @PathVariable long productTypeID){
+    public ResponseEntity updateProductType(@RequestBody ProductTypeRequest request, @PathVariable long productTypeID){
         APIResponse<ProductTypeResponse> response = new APIResponse<>();
         ProductType productType = productTypeService.updateProductType(request, productTypeID);
         ProductTypeResponse productTypeResponse = new ProductTypeResponse();
         productTypeResponse.setProductTypeID(productType.getProductTypeID());
         productTypeResponse.setProductTypeName(productType.getProductTypeName());
         response.setResult(productTypeResponse);
-        return response;
+        return ResponseEntity.ok(response);
 
     }
 
     @DeleteMapping("productType/delete/{productTypeID}")
-    public APIResponse deleteProductType(@PathVariable long productTypeID){
+    public ResponseEntity deleteProductType(@PathVariable long productTypeID){
         APIResponse response = new APIResponse();
         productTypeService.deleteProductType(productTypeID);
 
         response.setResult("DELETED SUCCESSFULLY");
-        return response;
+        return ResponseEntity.ok(response);
     }
 }

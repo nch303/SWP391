@@ -8,6 +8,7 @@ import koicare.koiCareProject.entity.WaterReport;
 import koicare.koiCareProject.service.WaterReportService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class WaterReportController {
     ModelMapper modelMapper;
 
     @PostMapping("/create")
-    public APIResponse<WaterReportResponse> createWaterReport(@RequestBody WaterReportRequest request) {
+    public ResponseEntity createWaterReport(@RequestBody WaterReportRequest request) {
 
         APIResponse<WaterReportResponse> response = new APIResponse<>();
 
@@ -33,34 +34,34 @@ public class WaterReportController {
         waterReportResponse.setPondID(request.getPondID());
 
         response.setResult(waterReportResponse);
-        return response;
+        return ResponseEntity.ok(response);
 
     }
 
     @GetMapping("/{waterReportID}")
-    public APIResponse<WaterReportResponse> getWaterReportById(@PathVariable("waterReportID") long waterReportID) {
+    public ResponseEntity getWaterReportById(@PathVariable("waterReportID") long waterReportID) {
         APIResponse<WaterReportResponse> response = new APIResponse<>();
 
         WaterReportResponse waterReportResponse = modelMapper.map(waterReportService.getWaterReportByID(waterReportID), WaterReportResponse.class);
         response.setResult(waterReportResponse);
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/delete/{waterReportID}")
-    public APIResponse deleteWaterReport(@PathVariable("waterReportID") long waterReportID) {
+    public ResponseEntity deleteWaterReport(@PathVariable("waterReportID") long waterReportID) {
         APIResponse response = new APIResponse();
         waterReportService.deleteWaterReport(waterReportID);
         response.setResult("DELETED SUCCESSFULLY");
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/view/{pondID}")
-    public List<WaterReportResponse> getWaterReportByPondID(@PathVariable("pondID") long pondID) {
+    public ResponseEntity getWaterReportByPondID(@PathVariable("pondID") long pondID) {
         List<WaterReport> waterReports = waterReportService.getAllWaterReportsByPondID(pondID);
 
         List<WaterReportResponse> responses = new ArrayList<>();
         waterReports.forEach(r -> responses.add(modelMapper.map(r, WaterReportResponse.class)));
-        return responses;
+        return ResponseEntity.ok(responses);
 
 
     }

@@ -55,31 +55,31 @@ public class PondController {
 
 
     @GetMapping("{pondID}")
-    public APIResponse<PondResponse> getPondById(@PathVariable("pondID") long pondID) {
+    public ResponseEntity getPondById(@PathVariable("pondID") long pondID) {
         APIResponse<PondResponse> response = new APIResponse<>();
 
         PondResponse pondResponse = modelMapper.map(pondService.getPondById(pondID), PondResponse.class);
         response.setResult(pondResponse);
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("{pondID}")
-    public APIResponse<PondResponse> updatePond(@PathVariable("pondID") long pondID, @RequestBody PondCreationRequest request) {
+    public ResponseEntity updatePond(@PathVariable("pondID") long pondID, @RequestBody PondCreationRequest request) {
         APIResponse<PondResponse> response = new APIResponse<>();
 
         PondResponse pondResponse = modelMapper.map(pondService.updatePond(pondID, request), PondResponse.class);
 
         response.setResult(pondResponse);
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("{pondID}")
-    public APIResponse deletePond(@PathVariable("pondID") long pondID) {
+    public ResponseEntity deletePond(@PathVariable("pondID") long pondID) {
         APIResponse response = new APIResponse();
 
         pondService.deletePond(pondID);
         response.setResult("Deleted successfully");
-        return response;
+        return ResponseEntity.ok(response);
     }
 
 

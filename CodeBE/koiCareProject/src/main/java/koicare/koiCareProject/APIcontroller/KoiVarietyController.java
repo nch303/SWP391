@@ -10,6 +10,7 @@ import koicare.koiCareProject.repository.KoiVarietyRepository;
 import koicare.koiCareProject.service.KoiVarietyService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class KoiVarietyController {
 
 
     @PostMapping("create")
-    APIResponse<KoiVarietyResponse> createKoiVariety(@RequestBody KoiVarietyRequest request) {
+    public ResponseEntity createKoiVariety(@RequestBody KoiVarietyRequest request) {
         APIResponse<KoiVarietyResponse> apiResponse = new APIResponse<>();
 
         KoiVariety koiVariety = koiVarietyService.createKoiVariety(request);
@@ -37,22 +38,22 @@ public class KoiVarietyController {
 
         apiResponse.setResult(koiVarietyResponse);
 
-        return apiResponse;
+        return ResponseEntity.ok(apiResponse);
     }
 
     @GetMapping("")
-    public List<KoiVarietyResponse> getKoiVarieties() {
+    public ResponseEntity getKoiVarieties() {
         List<KoiVariety> koiVarieties = koiVarietyService.getKoiVarieties();
         List<KoiVarietyResponse> koiVarietyResponses = koiVarieties.stream()
                 .map(koiVariety -> modelMapper.map(koiVariety, KoiVarietyResponse.class))
                 .collect(Collectors.toList());
-        return koiVarietyResponses;
+        return ResponseEntity.ok(koiVarietyResponses);
     }
 
     @GetMapping("{koiVarietyID}")
-    public KoiVarietyResponse getKoiVariety(@PathVariable("koiVarietyID") Long koiVarietyID) {
+    public ResponseEntity getKoiVariety(@PathVariable("koiVarietyID") Long koiVarietyID) {
         KoiVarietyResponse koiVarietyResponse = modelMapper.map(koiVarietyService.getKoiVariety(koiVarietyID), KoiVarietyResponse.class);
-        return koiVarietyResponse;
+        return ResponseEntity.ok(koiVarietyResponse);
     }
 
 

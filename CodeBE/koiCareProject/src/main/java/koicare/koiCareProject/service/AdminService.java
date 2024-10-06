@@ -2,6 +2,7 @@ package koicare.koiCareProject.service;
 
 import koicare.koiCareProject.dto.request.PondStandardRequest;
 import koicare.koiCareProject.dto.request.WaterStandardRequest;
+import koicare.koiCareProject.dto.response.PostDetailResponse;
 import koicare.koiCareProject.entity.PondStandard;
 import koicare.koiCareProject.entity.PostDetail;
 import koicare.koiCareProject.entity.ProductType;
@@ -25,10 +26,12 @@ public class AdminService {
     private ProductTypeRepository productTypeRepository;
 
     public List<PostDetail> getAllPendingPostDetails(){
+
         return postDetailRepository.findByPostStatus(false);
     }
 
     public List<PostDetail> getAllApprovedPostDetails(){
+
         return postDetailRepository.findByPostStatus(true);
     }
 

@@ -1,5 +1,6 @@
 package koicare.koiCareProject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,10 +18,14 @@ public class Shop {
     private String email;
     private String phone;
 
+
+
+
     @OneToOne
     @JoinColumn(name = "accountid")
     private Account account;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostDetail> postDetails;
 
