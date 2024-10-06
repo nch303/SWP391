@@ -1,13 +1,43 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQuery, useQueryClient } from "react-query";
-import api from "../../../config/axios";
+import { useQueryClient } from "react-query";
+import "./index.scss"
+import api from "../../../config/axios"; // Commenting out real API calls
 
 function PondInfo() {
   const { id } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
+/*  // Simulated data for pond and water report
+  const simulatedPond = {
+    pondName: "Lotus Pond",
+    area: 500,
+    depth: 2.5,
+    volume: 1250,
+    drainCount: 3,
+    skimmerCount: 2,
+    amountFish: 40,
+    pumpingCapacity: 15,
+  };
+
+  const simulatedWaterReport = {
+    waterReportId: 101,
+    waterReportUpdatedDate: "2024-10-05",
+    waterReportTemperature: 26,
+    waterReportOxygen: 8.5,
+    waterReport_pH: 7.2,
+    waterReportHardness: 10,
+    waterReportAmmonia: 0.01,
+    waterReportNitrite: 0.05,
+    waterReportNitrate: 10,
+    waterReportCarbonate: 100,
+    waterReportSalt: 0.25,
+    waterReportCarbonDioxide: 1.2,
+    pondID: id,
+  };*/
+
+  // Simulating API response (commented real API call)
   const {
     data: pond,
     error: pondError,
@@ -23,56 +53,55 @@ function PondInfo() {
     isLoading: waterReportIsLoading,
   } = useQuery(
     ["waterReport", id],
-    "  () => api.get(`waterReport?id=${id}`)",
+    () => api.get(`waterReport?id=${id}`),
     {
       enabled: !!id,
       staleTime: Infinity,
-    }
-  );
+     }
+   );
 
-  if (pondError) return <div>Error: {pondError.message}</div>;
-  if (waterReportError) return <div>Error: {waterReportError.message}</div>;
-  if (pondIsLoading || waterReportIsLoading) return <div>Loading...</div>;
+//  const pond = simulatedPond; // Use simulated data
+//  const waterReport = simulatedWaterReport; // Use simulated data
 
   const handleDelete = async () => {
-    await api.delete(`pond/${id}`);
+     await api.delete(`pond/${id}`); // Commented real API call
     queryClient.invalidateQueries("ponds");
     navigate("/managerPond");
   };
 
   return (
-    <div>
-      <h1>PondInfo: {pond.pondName}</h1>
-      <div>
+    <div className="pond-water-container">
+      <h1 className="pond-title">{pond.pondName}</h1>
+      <div className="pond-info">
+        <h2>Pond Info</h2>
         <p>Name: {pond.pondName}</p>
-        <p>Area: {pond.area} m2</p>
+        <p>Area: {pond.area} m²</p>
         <p>Depth: {pond.depth} m</p>
-        <p>Volume: {pond.volume} m3</p>
+        <p>Volume: {pond.volume} m³</p>
         <p>Drain Count: {pond.drainCount}</p>
         <p>Skimmer Count: {pond.skimmerCount}</p>
-        <p>Amount Fish: {pond.amountFish}</p>
-        <p>Pumping Capacity: {pond.pumpingCapacity} m3/h</p>
+        <p>Amount of Fish: {pond.amountFish}</p>
+        <p>Pumping Capacity: {pond.pumpingCapacity} m³/h</p>
       </div>
-      <div>
-        <p>Water Report:</p>
+      <div className="water-report">
+        <h2>Water Report</h2>
         <p>Water Report ID: {waterReport.waterReportId}</p>
-        <p>Water Report Updated Date: {waterReport.waterReportUpdatedDate}</p>
-        <p>Water Report Temperature: {waterReport.waterReportTemperature} C</p>
-        <p>Water Report Oxygen: {waterReport.waterReportOxygen} ppm</p>
-        <p>Water Report PH: {waterReport.waterReport_pH}</p>
-        <p>Water Report Hardness: {waterReport.waterReportHardness} dGH</p>
-        <p>Water Report Ammonia: {waterReport.waterReportAmmonia} ppm</p>
-        <p>Water Report Nitrite: {waterReport.waterReportNitrite} ppm</p>
-        <p>Water Report Nitrate: {waterReport.waterReportNitrate} ppm</p>
-        <p>Water Report Carbonate: {waterReport.waterReportCarbonate} ppm</p>
-        <p>Water Report Salt: {waterReport.waterReportSalt} ppm</p>
-        <p>
-          Water Report Carbon Dioxide: {waterReport.waterReportCarbonDioxide}{" "}
-          ppm
-        </p>
+        <p>Updated: {waterReport.waterReportUpdatedDate}</p>
+        <p>Temperature: {waterReport.waterReportTemperature} °C</p>
+        <p>Oxygen: {waterReport.waterReportOxygen} ppm</p>
+        <p>pH: {waterReport.waterReport_pH}</p>
+        <p>Hardness: {waterReport.waterReportHardness} dGH</p>
+        <p>Ammonia: {waterReport.waterReportAmmonia} ppm</p>
+        <p>Nitrite: {waterReport.waterReportNitrite} ppm</p>
+        <p>Nitrate: {waterReport.waterReportNitrate} ppm</p>
+        <p>Carbonate: {waterReport.waterReportCarbonate} ppm</p>
+        <p>Salt: {waterReport.waterReportSalt} ppm</p>
+        <p>Carbon Dioxide: {waterReport.waterReportCarbonDioxide} ppm</p>
         <p>Pond ID: {waterReport.pondID}</p>
       </div>
-      <button onClick={handleDelete}>Delete</button>
+      <button className="delete-button" onClick={handleDelete}>
+        Delete
+      </button>
     </div>
   );
 }
