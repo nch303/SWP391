@@ -3,6 +3,7 @@ package koicare.koiCareProject.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
@@ -19,11 +20,9 @@ public class KoiReport {
     private Date updateDate;
 
     @NotBlank(message = "Length can not be blank!")
-    @Positive(message = "Length must be more than 0 cm!")
     private double length;
 
     @NotBlank(message = "Weight can not be blank!")
-    @Positive(message = "Weight must be more than 0 cm!")
     private double weight;
 
     @ManyToOne

@@ -1,13 +1,11 @@
 package koicare.koiCareProject.service;
 
 import koicare.koiCareProject.dto.request.KoiFishRequest;
+import koicare.koiCareProject.dto.response.PondResponse;
 import koicare.koiCareProject.entity.*;
 import koicare.koiCareProject.exception.AppException;
 import koicare.koiCareProject.exception.ErrorCode;
-import koicare.koiCareProject.repository.KoiFishRepository;
-import koicare.koiCareProject.repository.KoiVarietyRepository;
-import koicare.koiCareProject.repository.MemberRepository;
-import koicare.koiCareProject.repository.PondRepository;
+import koicare.koiCareProject.repository.*;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -37,30 +35,47 @@ public class KoiFishService {
     @Autowired
     MemberRepository memberRepository;
 
+    @Autowired
+    KoiReportRepository koiReportRepository;
+
+    @Autowired
+    PondService pondService;
+
     //tạo cá koi
     public KoiFish createKoiFish(KoiFishRequest request) {
 
         KoiFish newKoiFish = new KoiFish();
 
         Pond pond = pondRepository.getPondByPondID(request.getPondID());
+        PondResponse pondResponse = modelMapper.map(pondService.getPondById(request.getPondID()), PondResponse.class);
 
-        if (pond != null) {
+        if (pondResponse != null) {
             newKoiFish.setKoiSex(request.getKoiSex());
             newKoiFish.setKoiName(request.getKoiName());
             newKoiFish.setImage(request.getImage());
             newKoiFish.setBirthday(request.getBirthday());
             newKoiFish.setKoiVariety(koiVarietyRepository.getKoiVarietyByKoiVarietyID(request.getKoiVarietyID()));
-            newKoiFish.setPond(pondRepository.getPondByPondID(request.getPondID()));
+            newKoiFish.setPond(modelMapper.map(pondResponse, Pond.class));
 
             Account account = authenticationService.getCurrentAccount();
             Member member = memberRepository.getMemberByAccount(account);
             newKoiFish.setMember(member);
 
+
             //sau khi tạo cá sẽ tăng số lượng cá trong hồ lên 1
             //Pond pond = pondRepository.getPondByPondID(request.getPondID());
             pond.setAmountFish(pond.getAmountFish() + 1);
             pondRepository.save(pond);
-            return koiFishRepository.save(newKoiFish);
+
+            newKoiFish = koiFishRepository.save(newKoiFish);
+
+            KoiReport koiReport = new KoiReport();
+            koiReport.setLength(0);
+            koiReport.setWeight(0);
+            koiReport.setKoiFish(koiFishRepository.getKoiFishByKoiFishID(newKoiFish.getKoiFishID()));
+            koiReportRepository.save(koiReport);
+
+            return newKoiFish;
         }
         else{
             throw new AppException(ErrorCode.POND_NOT_EXISTED);

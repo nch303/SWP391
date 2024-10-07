@@ -48,9 +48,10 @@ public class KoiReportService {
         koiReport.setWeight(request.getWeight());
         koiReport.setKoiFish(koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()));
 
+
         long koiStatusID = createKoiStatus(request);
         koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(koiStatusID));
-        //System.out.println(koiStatusID);
+
         System.out.println(koiReport.getKoiStatus().getKoiStatusID());
 
         return koiReportRepository.save(koiReport);
