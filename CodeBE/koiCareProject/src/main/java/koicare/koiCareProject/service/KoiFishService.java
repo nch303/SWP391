@@ -41,41 +41,45 @@ public class KoiFishService {
     @Autowired
     PondService pondService;
 
+    @Autowired
+    KoiStatusRepository koiStatusRepository;
+
     //tạo cá koi
     public KoiFish createKoiFish(KoiFishRequest request) {
 
-        KoiFish newKoiFish = new KoiFish();
+        KoiFish koiFish = new KoiFish();
 
         Pond pond = pondRepository.getPondByPondID(request.getPondID());
         PondResponse pondResponse = modelMapper.map(pondService.getPondById(request.getPondID()), PondResponse.class);
 
         if (pondResponse != null) {
-            newKoiFish.setKoiSex(request.getKoiSex());
-            newKoiFish.setKoiName(request.getKoiName());
-            newKoiFish.setImage(request.getImage());
-            newKoiFish.setBirthday(request.getBirthday());
-            newKoiFish.setKoiVariety(koiVarietyRepository.getKoiVarietyByKoiVarietyID(request.getKoiVarietyID()));
-            newKoiFish.setPond(modelMapper.map(pondResponse, Pond.class));
+            koiFish.setKoiSex(request.getKoiSex());
+            koiFish.setKoiName(request.getKoiName());
+            koiFish.setImage(request.getImage());
+            koiFish.setBirthday(request.getBirthday());
+            koiFish.setKoiVariety(koiVarietyRepository.getKoiVarietyByKoiVarietyID(request.getKoiVarietyID()));
+            koiFish.setPond(modelMapper.map(pondResponse, Pond.class));
 
             Account account = authenticationService.getCurrentAccount();
             Member member = memberRepository.getMemberByAccount(account);
-            newKoiFish.setMember(member);
-
+            koiFish.setMember(member);
 
             //sau khi tạo cá sẽ tăng số lượng cá trong hồ lên 1
             //Pond pond = pondRepository.getPondByPondID(request.getPondID());
             pond.setAmountFish(pond.getAmountFish() + 1);
             pondRepository.save(pond);
 
-            newKoiFish = koiFishRepository.save(newKoiFish);
+            koiFishRepository.save(koiFish);
 
-            KoiReport koiReport = new KoiReport();
-            koiReport.setLength(0);
-            koiReport.setWeight(0);
-            koiReport.setKoiFish(koiFishRepository.getKoiFishByKoiFishID(newKoiFish.getKoiFishID()));
-            koiReportRepository.save(koiReport);
+//            KoiReport koiReport =  new KoiReport();
+//            koiReport.setWeight(1);
+//            koiReport.setLength(1);
+//            koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(1));
+//            koiReport.setKoiFish(koiFish);
+//            koiReportRepository.save(koiReport);
 
-            return newKoiFish;
+
+            return koiFish;
         }
         else{
             throw new AppException(ErrorCode.POND_NOT_EXISTED);

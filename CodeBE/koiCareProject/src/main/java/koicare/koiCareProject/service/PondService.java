@@ -49,7 +49,7 @@ public class PondService {
         Member member = memberRepository.getMemberByAccount(account);
 
         pond.setMember(member);
-        pond =pondRepository.save(pond);
+        pond =  pondRepository.save(pond);
 
         //tạo 1 waterReport tương ứng với hồ, nhưng giá trị bằng 0
         WaterReport waterReport = new WaterReport();
