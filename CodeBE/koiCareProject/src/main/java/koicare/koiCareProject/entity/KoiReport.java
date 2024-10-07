@@ -19,10 +19,8 @@ public class KoiReport {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
 
-    @NotBlank(message = "Length can not be blank!")
     private double length;
 
-    @NotBlank(message = "Weight can not be blank!")
     private double weight;
 
     @ManyToOne

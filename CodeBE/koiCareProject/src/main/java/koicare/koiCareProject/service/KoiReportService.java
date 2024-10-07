@@ -52,7 +52,6 @@ public class KoiReportService {
         long koiStatusID = createKoiStatus(request);
         koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(koiStatusID));
 
-        System.out.println(koiReport.getKoiStatus().getKoiStatusID());
 
         return koiReportRepository.save(koiReport);
     }
