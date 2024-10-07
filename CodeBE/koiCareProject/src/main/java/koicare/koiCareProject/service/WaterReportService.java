@@ -33,7 +33,7 @@ public class WaterReportService {
 
         Pond pond = pondRepository.getPondByPondID(waterReportRequest.getPondID());
         if (pond != null){
-            waterReport.setWaterReportUpdatedDate(new Date());
+            waterReport.setWaterReportUpdatedDate(waterReportRequest.getWaterReportUpdatedDate());
             waterReport.setWaterReportTemperature(waterReportRequest.getWaterReportTemperature());
             waterReport.setWaterReportSalt(waterReportRequest.getWaterReportSalt());
             waterReport.setWaterReportOxygen(waterReportRequest.getWaterReportOxygen());
@@ -90,5 +90,32 @@ public class WaterReportService {
             throw new AppException(ErrorCode.LIST_NOT_EXISTED);
         }
         else return filteredWaterReports;
+    }
+
+
+    public WaterReport updaWaterReport(WaterReportRequest waterReportRequest, Long waterReportID) {
+        WaterReport waterReport = waterReportRepository.getWaterReportByWaterReportId(waterReportID);
+
+        if (waterReport == null) {
+            throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
+        }
+        else{
+            waterReport.setWaterReportUpdatedDate(waterReportRequest.getWaterReportUpdatedDate());
+            waterReport.setWaterReportTemperature(waterReportRequest.getWaterReportTemperature());
+            waterReport.setWaterReportSalt(waterReportRequest.getWaterReportSalt());
+            waterReport.setWaterReportOxygen(waterReportRequest.getWaterReportOxygen());
+            waterReport.setWaterReportNitrite(waterReportRequest.getWaterReportNitrite());
+            waterReport.setWaterReportNitrate(waterReportRequest.getWaterReportNitrate());
+            waterReport.setWaterReportHardness(waterReportRequest.getWaterReportHardness());
+            waterReport.setWaterReportCarbonDioxide(waterReportRequest.getWaterReportCarbonDioxide());
+            waterReport.setWaterReportCarbonate(waterReportRequest.getWaterReportCarbonate());
+            waterReport.setWaterReportAmmonia(waterReportRequest.getWaterReportAmmonia());
+            waterReport.setWaterReport_pH(waterReportRequest.getWaterReport_pH());
+
+             return waterReportRepository.save(waterReport);
+
+        }
+
+
     }
 }
