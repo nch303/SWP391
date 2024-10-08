@@ -1,6 +1,7 @@
 package koicare.koiCareProject.APIcontroller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import koicare.koiCareProject.dto.request.UpdateWaterReportRequest;
 import koicare.koiCareProject.dto.request.WaterReportRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.dto.response.WaterReportResponse;
@@ -72,5 +73,17 @@ public class WaterReportController {
 
         response.setResult(waterReportResponse);
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/update/latestreport/{pondID}")
+    public ResponseEntity updateLatestWaterReport(@PathVariable("pondID") long pondID, @RequestBody UpdateWaterReportRequest request) {
+        APIResponse<WaterReportResponse> response = new APIResponse<>();
+        WaterReportResponse waterReportResponse =
+                modelMapper.map(waterReportService.updateLatestWaterReport(pondID, request), WaterReportResponse.class);
+        waterReportResponse.setPondID(pondID);
+
+        response.setResult(waterReportResponse);
+        return ResponseEntity.ok(response);
+
     }
 }
