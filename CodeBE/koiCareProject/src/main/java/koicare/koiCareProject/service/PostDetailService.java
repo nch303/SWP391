@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -44,7 +45,8 @@ public class PostDetailService {
 
         postDetail.setProductName(postDetailRequest.getProductName());
         postDetail.setDescription(postDetailRequest.getDescription());
-        postDetail.setPostDate(postDetailRequest.getPostDate());
+        Date date = new Date();
+        postDetail.setPostDate(date);
         postDetail.setPostStatus(false);
         postDetail.setImage(postDetailRequest.getImage());
         postDetail.setLink(postDetailRequest.getLink());
