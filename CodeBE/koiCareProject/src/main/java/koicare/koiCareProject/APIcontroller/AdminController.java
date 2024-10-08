@@ -39,6 +39,8 @@ public class AdminController {
 
     @Autowired
     private PaymentService paymentService;
+
+
     //POST DETAIL CONTROLLER
     @GetMapping("post/view/pending")
     public ResponseEntity getPendingPosts() {
@@ -293,7 +295,17 @@ public class AdminController {
 
     @GetMapping("/payment/viewall")
     public ResponseEntity getAllPayments() {
-        return ResponseEntity.ok(paymentService.getAllPayment());
+        APIResponse<PaymentResponse> response = new APIResponse<>();
+        List<Payment> payments = paymentService.getAllPayment();
+        List<PaymentResponse> paymentResponseList = new ArrayList<>();
+        for (Payment payment : payments) {
+            PaymentResponse paymentResponse = new PaymentResponse();
+            paymentResponse.setPaymentID(payment.getPaymentID());
+            paymentResponse.setPaymentType(payment.getPaymentType());
+            paymentResponseList.add(paymentResponse);
+        }
+       return ResponseEntity.ok(paymentResponseList);
+
     }
 
 }
