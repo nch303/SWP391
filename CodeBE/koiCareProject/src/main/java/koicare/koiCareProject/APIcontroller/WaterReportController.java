@@ -68,7 +68,7 @@ public class WaterReportController {
     public ResponseEntity updateWaterReport(@PathVariable("waterReportID") long waterReportID, @RequestBody WaterReportRequest request) {
         APIResponse<WaterReportResponse> response = new APIResponse<>();
         WaterReportResponse waterReportResponse =
-                modelMapper.map(waterReportService.updaWaterReport(request, waterReportID), WaterReportResponse.class);
+                modelMapper.map(waterReportService.updaWaterReport(waterReportID, request), WaterReportResponse.class);
 
         response.setResult(waterReportResponse);
         return ResponseEntity.ok(response);
