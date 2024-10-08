@@ -9,11 +9,8 @@ import koicare.koiCareProject.dto.request.WaterStandardRequest;
 import koicare.koiCareProject.dto.response.*;
 
 import koicare.koiCareProject.entity.*;
-import koicare.koiCareProject.service.AdminService;
+import koicare.koiCareProject.service.*;
 
-import koicare.koiCareProject.service.AuthenticationService;
-import koicare.koiCareProject.service.MemberPackageService;
-import koicare.koiCareProject.service.PostPriceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +37,8 @@ public class AdminController {
     @Autowired
     private AuthenticationService authenticationService;
 
+    @Autowired
+    private PaymentService paymentService;
     //POST DETAIL CONTROLLER
     @GetMapping("post/view/pending")
     public ResponseEntity getPendingPosts() {
@@ -287,6 +286,14 @@ public class AdminController {
     public ResponseEntity unbanAccount(@PathVariable("accountID") long accountID){
         Account account = authenticationService.restoreAccount(accountID);
         return ResponseEntity.ok("Restore account id: " + accountID + " successfully");
+    }
+
+
+    //Payment Controller
+
+    @GetMapping("/payment/viewall")
+    public ResponseEntity getAllPayments() {
+        return ResponseEntity.ok(paymentService.getAllPayment());
     }
 
 }
