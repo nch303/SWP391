@@ -7,7 +7,7 @@ spring:
     url: "jdbc:mysql://103.90.227.68/koisystem"
 #    url: "jdbc:mysql://localhost:3306/koisystem"
     username: root
-    password: 123456
+    password: swp@123
 #    password: root
 
   jpa:
