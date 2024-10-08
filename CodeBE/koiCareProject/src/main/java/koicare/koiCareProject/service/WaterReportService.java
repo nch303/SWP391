@@ -93,7 +93,7 @@ public class WaterReportService {
     }
 
 
-    public WaterReport updaWaterReport(WaterReportRequest waterReportRequest, Long waterReportID) {
+    public WaterReport updaWaterReport(long waterReportID, WaterReportRequest waterReportRequest) {
         WaterReport waterReport = waterReportRepository.getWaterReportByWaterReportId(waterReportID);
 
         if (waterReport == null) {
