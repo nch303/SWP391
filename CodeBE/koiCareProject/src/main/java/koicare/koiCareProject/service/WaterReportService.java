@@ -2,6 +2,8 @@ package koicare.koiCareProject.service;
 
 import koicare.koiCareProject.dto.request.UpdateWaterReportRequest;
 import koicare.koiCareProject.dto.request.WaterReportRequest;
+import koicare.koiCareProject.entity.KoiFish;
+import koicare.koiCareProject.entity.KoiReport;
 import koicare.koiCareProject.entity.Pond;
 import koicare.koiCareProject.entity.WaterReport;
 import koicare.koiCareProject.exception.AppException;
@@ -139,6 +141,16 @@ public class WaterReportService {
             waterReport.setWaterReportAmmonia(request.getWaterReportAmmonia());
             waterReport.setWaterReport_pH(request.getWaterReport_pH());
             return waterReportRepository.save(waterReport);
+        }
+    }
+
+    public WaterReport getLatestWaterReport(long pondID){
+        Pond pond = pondRepository.getPondByPondID(pondID);
+        List<WaterReport> waterReports = waterReportRepository.getWaterReportByPond(pond);
+        if(waterReports.size() == 0){
+            throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
+        }else{
+            return waterReports.get(waterReports.size()-1);
         }
     }
 }
