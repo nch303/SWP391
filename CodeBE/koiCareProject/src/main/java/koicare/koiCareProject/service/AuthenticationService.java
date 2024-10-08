@@ -115,9 +115,12 @@ public class AuthenticationService implements UserDetailsService {
                     loginRequest.getPassword()
             ));
             Account account = (Account) authentication.getPrincipal();
-            AccountResponse accountResponse = modelMapper.map(account, AccountResponse.class);
-            accountResponse.setToken(tokenService.generateToken(account));
-            return accountResponse;
+            //kiểm tra tài khoản có bị banned không
+            if (account.isStatus()) {
+                AccountResponse accountResponse = modelMapper.map(account, AccountResponse.class);
+                accountResponse.setToken(tokenService.generateToken(account));
+                return accountResponse;
+            } else throw new AppException(ErrorCode.USER_NOT_EXISTED);
         } catch (Exception e) {
             throw new AppException(ErrorCode.LOGIN_FAIL);
         }
@@ -136,7 +139,7 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     //xóa account bằng cách setStatus bằng 0
-    public Account deleteAccount(long accountID){
+    public Account deleteAccount(long accountID) {
         Account account = accountRepository.findAccountByAccountID(accountID);
         account.setStatus(false);
 
@@ -144,20 +147,19 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     //khôi phục account bị xóa
-    public Account restoreAccount(long accountID){
+    public Account restoreAccount(long accountID) {
         Account account = accountRepository.findAccountByAccountID(accountID);
         account.setStatus(true);
 
         return accountRepository.save(account);
     }
 
-    public void forgotPassword(ForgotPasswordRequest request){
+    public void forgotPassword(ForgotPasswordRequest request) {
         Account account = accountRepository.findAccountByEmail(request.getEmail());
 
-        if(account == null){
+        if (account == null) {
             throw new AppException(ErrorCode.ACCOUNT_IS_NOT_EXISTED);
-        }
-        else {
+        } else {
             EmailDetail emailDetail = new EmailDetail();
             emailDetail.setAccount(account);
             emailDetail.setSubject("Reset Password");
@@ -167,7 +169,7 @@ public class AuthenticationService implements UserDetailsService {
         }
     }
 
-    public void resetPassword(ResetPasswordRequest request){
+    public void resetPassword(ResetPasswordRequest request) {
         Account account = getCurrentAccount();
         account.setPassword(passwordEncoder.encode(request.getPassword()));
         accountRepository.save(account);
