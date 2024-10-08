@@ -10,6 +10,7 @@ import org.modelmapper.internal.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -84,5 +85,20 @@ public class PostDetailService {
 
     public List<PostDetail> getAllPostDetails() {
         return postDetailRepository.findAll();
+    }
+
+    public List<PostDetail> getAllPostByShopID(long shopID){
+        List<PostDetail> postDetails = postDetailRepository.findAll();
+        List<PostDetail> postDetailList = new ArrayList<>();
+        for (PostDetail postDetail : postDetails) {
+            if (postDetail.getShop().getShopID() == shopID && postDetail.isPostStatus()) {
+                postDetailList.add(postDetail);
+            }
+        }
+        if (postDetailList.size() == 0) {
+            throw new AppException(ErrorCode.POST_DOES_NOT_EXIST);
+        } else{
+            return postDetailList;
+        }
     }
 }
