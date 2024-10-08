@@ -66,7 +66,7 @@ public class AdminController {
         return ResponseEntity.ok(postDetailResponses);
     }
 
-    @PutMapping("post/view/{postID}")
+    @PutMapping("post/approve/{postID}")
     public ResponseEntity approvePost(@PathVariable long postID) {
         APIResponse response = new APIResponse();
 
