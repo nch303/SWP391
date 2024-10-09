@@ -12,7 +12,7 @@ public class KoiFishResponse {
     private Date birthday;
     private String koiSex;
     private String image;
-    private long pondID;
-    private long koiVarietyID;
+    private String pondName;
+    private String koiVariety;
 
 }

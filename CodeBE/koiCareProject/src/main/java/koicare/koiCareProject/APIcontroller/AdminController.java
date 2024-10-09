@@ -77,6 +77,16 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping("post/reject/{postID}")
+    public ResponseEntity rejectPost(@PathVariable long postID) {
+        APIResponse response = new APIResponse();
+
+        adminService.rejectedPostDetail(postID);
+
+        response.setResult("POST HAS BEEN REJECTED");
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("post/view/approved")
     public ResponseEntity getApprovedPosts() {
         List<PostDetail> postDetails = adminService.getAllApprovedPostDetails();
@@ -218,6 +228,7 @@ public class AdminController {
         return ResponseEntity.ok(postPriceResponse);
     }
 
+
     @DeleteMapping("postprice/delete/{priceID}")
     public ResponseEntity deletePostPrice(@PathVariable("priceID") long priceID) {
         APIResponse apiResponse = new APIResponse();
@@ -292,7 +303,6 @@ public class AdminController {
 
 
     //Payment Controller
-
     @GetMapping("/payment/viewall")
     public ResponseEntity getAllPayments() {
         APIResponse<PaymentResponse> response = new APIResponse<>();

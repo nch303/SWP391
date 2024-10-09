@@ -2,39 +2,29 @@ package koicare.koiCareProject.APIcontroller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import koicare.koiCareProject.dto.request.MemberCreationRequest;
-import koicare.koiCareProject.dto.response.MemberResponse;
 import koicare.koiCareProject.entity.Member;
-import koicare.koiCareProject.service.MemberService;
-import koicare.koiCareProject.service.PondService;
-import org.modelmapper.ModelMapper;
+import koicare.koiCareProject.entity.Shop;
+import koicare.koiCareProject.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/member")
+@RequestMapping("api/shop")
 //dán qua các controller thì mới xài được token
 @SecurityRequirement(name = "api")
-public class MemberController {
-    @Autowired
-    private MemberService memberService;
-
+public class ShopController {
 
     @Autowired
-    ModelMapper modelMapper;
+    ShopService shopService;
 
     @PutMapping("update")
     public ResponseEntity updateMember(@RequestBody MemberCreationRequest request){
-        Member member = memberService.updateMember(request);
+        Shop shop   = shopService.updateShop(request);
 
         return ResponseEntity.ok("Update successfully");
     }
-
-
-
-
 }

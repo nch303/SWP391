@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class UpdateWaterReportRequest {
 
-    private Date waterReportUpdatedDate;
+//    private Date waterReportUpdatedDate;
     private double waterReportTemperature;
     private double waterReportOxygen;
     private double waterReport_pH;

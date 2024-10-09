@@ -77,20 +77,24 @@ public class AuthenticationService implements UserDetailsService {
                     Member member = modelMapper.map(registerRequest, Member.class);
                     member.setAccount(newAccount);
                     memberRepository.save(member);
+
+                    EmailDetail emailDetail = new EmailDetail();
+                    emailDetail.setAccount(newAccount);
+                    emailDetail.setSubject("Welcome to Sun Side Koi Care!");
+                    emailDetail.setLink("http://103.90.227.68/");
+                    emailService.sendEmail(emailDetail);
                 } else {
                     Shop shop = modelMapper.map(registerRequest, Shop.class);
                     shop.setAccount(newAccount);
                     shopRepository.save(shop);
+
+                    EmailDetail emailDetail = new EmailDetail();
+                    emailDetail.setAccount(newAccount);
+                    emailDetail.setSubject("Welcome to Sun Side Koi Care Shop!");
+                    emailDetail.setLink("http://103.90.227.68/shop");
+                    emailService.sendEmailShop(emailDetail);
                 }
-
-
-                EmailDetail emailDetail = new EmailDetail();
-                emailDetail.setAccount(newAccount);
-                emailDetail.setSubject("Welcome to Sun Side Koi Care!");
-                emailDetail.setLink("https://koisale.com/");
-
-                emailService.sendEmail(emailDetail);
-
+                
                 return modelMapper.map(account, AccountResponse.class);
             } catch (Exception e) {
                 e.printStackTrace(); // In chi tiết lỗi ra console
@@ -143,6 +147,13 @@ public class AuthenticationService implements UserDetailsService {
         Account account = accountRepository.findAccountByAccountID(accountID);
         account.setStatus(false);
 
+        EmailDetail emailDetail = new EmailDetail();
+        emailDetail.setAccount(account);
+        emailDetail.setSubject("Your account have been banned!");
+        emailDetail.setLink("http://103.90.227.68/shop");
+
+        emailService.sendEmailBannedAccount(emailDetail);
+
         return accountRepository.save(account);
     }
 
@@ -150,6 +161,13 @@ public class AuthenticationService implements UserDetailsService {
     public Account restoreAccount(long accountID) {
         Account account = accountRepository.findAccountByAccountID(accountID);
         account.setStatus(true);
+
+        EmailDetail emailDetail = new EmailDetail();
+        emailDetail.setAccount(account);
+        emailDetail.setSubject("Your account have been restore!");
+        emailDetail.setLink("http://103.90.227.68/");
+
+        emailService.sendEmailRestoreAccount(emailDetail);
 
         return accountRepository.save(account);
     }
