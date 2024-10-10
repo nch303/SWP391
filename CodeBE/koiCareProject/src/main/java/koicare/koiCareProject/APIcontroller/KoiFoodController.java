@@ -21,8 +21,10 @@ public class KoiFoodController {
     public ResponseEntity calculateFood(@RequestBody KoiFoodRequest request){
         APIResponse<Double> response = new APIResponse<>();
 
-        response.setResult(koiFoodService.calculateFoodInPond(request.getPondID(),request.getTemperature()));
+        response.setResult(koiFoodService.calculateFoodInPond(request.getPondID(),request.getTemperature(), request.getLevel()));
 
         return ResponseEntity.ok(response);
     }
+
+    //viết 1 danh sách các con cá trong hồ với lượng thức ăn cho từng con cá
 }

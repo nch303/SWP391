@@ -6,5 +6,6 @@ import lombok.Data;
 public class KoiFoodRequest {
 
     int temperature;
+    String level;
     long pondID;
 }
