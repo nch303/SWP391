@@ -80,8 +80,7 @@ public class KoiFishService {
 
 
             return koiFish;
-        }
-        else{
+        } else {
             throw new AppException(ErrorCode.POND_NOT_EXISTED);
         }
 
@@ -110,7 +109,7 @@ public class KoiFishService {
     public KoiFish updateKoiFish(long koiFishID, KoiFishRequest request) {
         KoiFish koiFish = koiFishRepository.getKoiFishByKoiFishID(koiFishID);
         if (koiFish != null) {
-            koiFish =  modelMapper.map(request, KoiFish.class);
+            koiFish = modelMapper.map(request, KoiFish.class);
             koiFish.setKoiFishID(koiFishID);
 
             Account account = authenticationService.getCurrentAccount();
@@ -123,14 +122,21 @@ public class KoiFishService {
     }
 
     //xóa cá khỏi danh sách
-    public void deleteKoiFish(long koiFishID){
+    public void deleteKoiFish(long koiFishID) {
         KoiFish koiFish = koiFishRepository.getKoiFishByKoiFishID(koiFishID);
 
+
         if (koiFish != null) {
+            List<KoiReport> koiReports = koiReportRepository.getKoiReportsByKoiFish(koiFish);
+            if (koiReports != null) {
+                for (KoiReport koiReport : koiReports) {
+                    koiReportRepository.delete(koiReport);
+                }
+            }
             Pond pond = pondRepository.getPondByPondID(koiFish.getPond().getPondID());
             pond.setAmountFish(pond.getAmountFish() - 1);
             koiFishRepository.deleteById(koiFishID);
-        }else
+        } else
             throw new AppException(ErrorCode.KOIFISH_NOT_EXISTED);
     }
 }
