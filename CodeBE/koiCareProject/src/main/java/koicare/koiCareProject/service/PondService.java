@@ -113,15 +113,21 @@ public class PondService {
     //delete Pond
     public void deletePond(long pondID) {
         Pond pond = pondRepository.getPondByPondID(pondID);
+        List<WaterReport> waterReports = waterReportRepository.getWaterReportByPond(pond);
 
         if (pond == null) {
             throw new AppException(ErrorCode.POND_NOT_EXISTED);
         }
+
         long amountFish = pond.getAmountFish();
         if (amountFish > 0){
             throw new AppException(ErrorCode.FISH_IS_EXISTED_IN_POND);
         }
         else {
+
+            for (WaterReport waterReport : waterReports) {
+                waterReportRepository.delete(waterReport);
+            }
             pondRepository.deleteById(pondID);
         }
     }
