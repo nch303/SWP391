@@ -2,14 +2,10 @@ package koicare.koiCareProject.service;
 
 import koicare.koiCareProject.dto.request.KoiFishRequest;
 import koicare.koiCareProject.dto.request.PondCreationRequest;
-import koicare.koiCareProject.entity.Account;
-import koicare.koiCareProject.entity.KoiFish;
-import koicare.koiCareProject.entity.Member;
-import koicare.koiCareProject.entity.Pond;
+import koicare.koiCareProject.entity.*;
 import koicare.koiCareProject.exception.AppException;
 import koicare.koiCareProject.exception.ErrorCode;
-import koicare.koiCareProject.repository.MemberRepository;
-import koicare.koiCareProject.repository.PondRepository;
+import koicare.koiCareProject.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +27,9 @@ public class PondService {
     @Autowired
     AuthenticationService authenticationService;
 
+    @Autowired
+    WaterReportRepository waterReportRepository;
+
     //tạo Pond
     public Pond createPond(PondCreationRequest request) {
 
@@ -45,12 +44,29 @@ public class PondService {
         pond.setSkimmerCount(request.getSkimmerCount());
         pond.setDrainCount(request.getDrainCount());
 
+
         Account account = authenticationService.getCurrentAccount();
         Member member = memberRepository.getMemberByAccount(account);
 
         pond.setMember(member);
+        pond =  pondRepository.save(pond);
 
-        return pondRepository.save(pond);
+        //tạo 1 waterReport tương ứng với hồ, nhưng giá trị bằng 0
+        WaterReport waterReport = new WaterReport();
+        waterReport.setWaterReportAmmonia(0);
+        waterReport.setWaterReportCarbonDioxide(0);
+        waterReport.setWaterReportCarbonate(0);
+        waterReport.setWaterReportHardness(0);
+        waterReport.setWaterReportNitrate(0);
+        waterReport.setWaterReportNitrite(0);
+        waterReport.setWaterReportOxygen(0);
+        waterReport.setWaterReportSalt(0);
+        waterReport.setWaterReportTemperature(0);
+        waterReport.setWaterReport_pH(0);
+        waterReport.setPond(pondRepository.getPondByPondID(pond.getPondID()));
+        waterReportRepository.save(waterReport);
+
+        return pond;
     }
 
     //Lấy danh sách Pond theo Member
@@ -97,15 +113,21 @@ public class PondService {
     //delete Pond
     public void deletePond(long pondID) {
         Pond pond = pondRepository.getPondByPondID(pondID);
+        List<WaterReport> waterReports = waterReportRepository.getWaterReportByPond(pond);
 
         if (pond == null) {
             throw new AppException(ErrorCode.POND_NOT_EXISTED);
         }
+
         long amountFish = pond.getAmountFish();
         if (amountFish > 0){
             throw new AppException(ErrorCode.FISH_IS_EXISTED_IN_POND);
         }
         else {
+
+            for (WaterReport waterReport : waterReports) {
+                waterReportRepository.delete(waterReport);
+            }
             pondRepository.deleteById(pondID);
         }
     }

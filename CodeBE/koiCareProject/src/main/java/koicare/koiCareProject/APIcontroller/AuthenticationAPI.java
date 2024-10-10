@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api")
@@ -49,20 +50,39 @@ public class AuthenticationAPI {
     @GetMapping("account")
     public ResponseEntity getAllAccount() {
         List<Account> accounts = authenticationService.getAllAccount();
-        return ResponseEntity.ok(accounts);
+        List<AccountResponse> accountResponses = accounts.stream()
+                .map(account -> {
+                    AccountResponse accountResponse = modelMapper.map(account, AccountResponse.class);
+
+                    if (account.getRole().toString().contains("SHOP")) {
+                        accountResponse.setName(shopRepository.getShopByAccount(account).getName());
+                        accountResponse.setPhone(shopRepository.getShopByAccount(account).getPhone());
+                    } else if (account.getRole().toString().contains("MEMBER")) {
+                        accountResponse.setName(memberRepository.getMemberByAccount(account).getName());
+                        accountResponse.setPhone(memberRepository.getMemberByAccount(account).getPhone());
+                        accountResponse.setPremiumStatus(memberRepository.getMemberByAccount(account).getPremiumStatus());
+                        accountResponse.setExpiredDate(memberRepository.getMemberByAccount(account).getExpiredDate());
+                    }
+
+                    return accountResponse;
+                })
+                .toList();
+        return ResponseEntity.ok(accountResponses);
     }
 
     //API lấy thông tin của account hiện tại
     @GetMapping("currentAccount")
-    public ResponseEntity getCurrentAccount(){
+    public ResponseEntity getCurrentAccount() {
         Account account = authenticationService.getCurrentAccount();
         AccountResponse accountResponse = modelMapper.map(account, AccountResponse.class);
-        if(account.getRole().toString().contains("SHOP")){
-           accountResponse.setName(shopRepository.getShopByAccount(account).getName());
-           accountResponse.setPhone(shopRepository.getShopByAccount(account).getPhone());
+        if (account.getRole().toString().contains("SHOP")) {
+            accountResponse.setName(shopRepository.getShopByAccount(account).getName());
+            accountResponse.setPhone(shopRepository.getShopByAccount(account).getPhone());
         } else if (account.getRole().toString().contains("MEMBER")) {
             accountResponse.setName(memberRepository.getMemberByAccount(account).getName());
             accountResponse.setPhone(memberRepository.getMemberByAccount(account).getPhone());
+            accountResponse.setPremiumStatus(memberRepository.getMemberByAccount(account).getPremiumStatus());
+            accountResponse.setExpiredDate(memberRepository.getMemberByAccount(account).getExpiredDate());
         }
 
 
@@ -71,8 +91,8 @@ public class AuthenticationAPI {
 
 
     @PostMapping("login")
-    public ResponseEntity register(@Valid @RequestBody LoginRequest loginRequest){
-        AccountResponse newAccount =  authenticationService.login(loginRequest);
+    public ResponseEntity register(@Valid @RequestBody LoginRequest loginRequest) {
+        AccountResponse newAccount = authenticationService.login(loginRequest);
         return ResponseEntity.ok(newAccount);
     }
 

@@ -9,11 +9,8 @@ import koicare.koiCareProject.dto.request.WaterStandardRequest;
 import koicare.koiCareProject.dto.response.*;
 
 import koicare.koiCareProject.entity.*;
-import koicare.koiCareProject.service.AdminService;
+import koicare.koiCareProject.service.*;
 
-import koicare.koiCareProject.service.AuthenticationService;
-import koicare.koiCareProject.service.MemberPackageService;
-import koicare.koiCareProject.service.PostPriceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +36,10 @@ public class AdminController {
 
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private PaymentService paymentService;
+
 
     //POST DETAIL CONTROLLER
     @GetMapping("post/view/pending")
@@ -66,13 +67,23 @@ public class AdminController {
         return ResponseEntity.ok(postDetailResponses);
     }
 
-    @PutMapping("post/view/{postID}")
+    @PutMapping("post/approve/{postID}")
     public ResponseEntity approvePost(@PathVariable long postID) {
         APIResponse response = new APIResponse();
 
         adminService.approvedPostDetail(postID);
 
         response.setResult("POST HAS BEEN APPROVED");
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("post/reject/{postID}")
+    public ResponseEntity rejectPost(@PathVariable long postID) {
+        APIResponse response = new APIResponse();
+
+        adminService.rejectedPostDetail(postID);
+
+        response.setResult("POST HAS BEEN REJECTED");
         return ResponseEntity.ok(response);
     }
 
@@ -217,6 +228,7 @@ public class AdminController {
         return ResponseEntity.ok(postPriceResponse);
     }
 
+
     @DeleteMapping("postprice/delete/{priceID}")
     public ResponseEntity deletePostPrice(@PathVariable("priceID") long priceID) {
         APIResponse apiResponse = new APIResponse();
@@ -287,6 +299,23 @@ public class AdminController {
     public ResponseEntity unbanAccount(@PathVariable("accountID") long accountID){
         Account account = authenticationService.restoreAccount(accountID);
         return ResponseEntity.ok("Restore account id: " + accountID + " successfully");
+    }
+
+
+    //Payment Controller
+    @GetMapping("/payment/viewall")
+    public ResponseEntity getAllPayments() {
+        APIResponse<PaymentResponse> response = new APIResponse<>();
+        List<Payment> payments = paymentService.getAllPayment();
+        List<PaymentResponse> paymentResponseList = new ArrayList<>();
+        for (Payment payment : payments) {
+            PaymentResponse paymentResponse = new PaymentResponse();
+            paymentResponse.setPaymentID(payment.getPaymentID());
+            paymentResponse.setPaymentType(payment.getPaymentType());
+            paymentResponseList.add(paymentResponse);
+        }
+       return ResponseEntity.ok(paymentResponseList);
+
     }
 
 }

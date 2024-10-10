@@ -48,10 +48,10 @@ public class KoiReportService {
         koiReport.setWeight(request.getWeight());
         koiReport.setKoiFish(koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()));
 
+
         long koiStatusID = createKoiStatus(request);
         koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(koiStatusID));
-        //System.out.println(koiStatusID);
-        System.out.println(koiReport.getKoiStatus().getKoiStatusID());
+
 
         return koiReportRepository.save(koiReport);
     }
@@ -63,14 +63,42 @@ public class KoiReportService {
     }
 
     //lấy KoiReport mới nhất của 1 koiFishID
-    public KoiReport getLatestKoiReport(long koiFishID){
+    public KoiReport getLatestKoiReport(long koiFishID) {
         KoiFish koiFish = koiFishRepository.getKoiFishByKoiFishID(koiFishID);
         List<KoiReport> koiReports = koiReportRepository.getKoiReportsByKoiFish(koiFish);
-        if(koiReports.size() == 0){
+
+        long period = 0;
+        long leastDate = Long.MAX_VALUE;
+
+        if (koiReports.size() == 0) {
             throw new AppException(ErrorCode.KOIREPORT_NOT_EXISTED);
-        }else{
-            return koiReports.get(koiReports.size()-1);
+        } else {
+            KoiReport koiReportFinal = new KoiReport();
+            for (KoiReport koiReport : koiReports) {
+                period = dateBetween(koiReport.getUpdateDate());
+                if (period < leastDate){
+                    koiReportFinal = koiReport;
+                    leastDate = period;
+                }
+            }
+            return koiReportFinal;
         }
+    }
+
+    public long dateBetween(Date date) {
+        // Chuyển đổi từ Date sang LocalDate
+        LocalDate dateFrom = date.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+
+        Date currentDate = new Date();
+        LocalDate dateTo = currentDate.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+
+        // Tính số ngày giữa hai ngày
+        long daysBetween = ChronoUnit.DAYS.between(dateFrom, dateTo);
+        return daysBetween;
     }
 
 
@@ -135,7 +163,6 @@ public class KoiReportService {
         System.out.println(koiBirthday);
         System.out.println(updateDateDate);
         System.out.println("period: " + period);
-
 
 
         long koiStatus = 1;

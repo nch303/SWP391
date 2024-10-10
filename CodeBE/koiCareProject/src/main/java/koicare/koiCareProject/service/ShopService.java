@@ -2,26 +2,19 @@ package koicare.koiCareProject.service;
 
 import koicare.koiCareProject.dto.request.EmailDetail;
 import koicare.koiCareProject.dto.request.MemberCreationRequest;
-import koicare.koiCareProject.dto.response.MemberResponse;
 import koicare.koiCareProject.entity.Account;
 import koicare.koiCareProject.entity.Member;
-import koicare.koiCareProject.entity.Pond;
-import koicare.koiCareProject.exception.AppException;
-import koicare.koiCareProject.exception.ErrorCode;
+import koicare.koiCareProject.entity.Shop;
 import koicare.koiCareProject.repository.AccountRepository;
-import koicare.koiCareProject.repository.MemberRepository;
-import koicare.koiCareProject.repository.PondRepository;
-import org.modelmapper.ModelMapper;
+import koicare.koiCareProject.repository.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
-public class MemberService {
+public class ShopService {
+
     @Autowired
-    private MemberRepository memberRepository;
+    ShopRepository shopRepository;
 
     @Autowired
     AuthenticationService authenticationService;
@@ -32,24 +25,23 @@ public class MemberService {
     @Autowired
     EmailService emailService;
 
-    public Member updateMember(MemberCreationRequest request){
+    public Shop updateShop(MemberCreationRequest request){
 
         Account account = authenticationService.getCurrentAccount();
-        Member member = memberRepository.getMemberByAccount(account);
-        member.setName(request.getMemberName());
-        member.setPhone(request.getMemberPhone());
-        member.setEmail(request.getMemberEmail());
+        Shop shop = shopRepository.getShopByAccount(account);
+        shop.setName(request.getMemberName());
+        shop.setPhone(request.getMemberPhone());
+        shop.setEmail(request.getMemberEmail());
         account.setEmail(request.getMemberEmail());
 
         EmailDetail emailDetail = new EmailDetail();
         emailDetail.setAccount(account);
         emailDetail.setSubject("You have changed your email!");
-        emailDetail.setLink("http://103.90.227.68/");
+        emailDetail.setLink("http://103.90.227.68/shop");
 
-        emailService.sendEmailUpdateMember(emailDetail);
+        emailService.sendEmailUpdateShop(emailDetail);
 
         accountRepository.save(account);
-        return memberRepository.save(member);
+        return shopRepository.save(shop);
     }
-
 }

@@ -1,12 +1,10 @@
 package koicare.koiCareProject.service;
 
+import koicare.koiCareProject.dto.request.EmailDetail;
 import koicare.koiCareProject.dto.request.PondStandardRequest;
 import koicare.koiCareProject.dto.request.WaterStandardRequest;
 import koicare.koiCareProject.dto.response.PostDetailResponse;
-import koicare.koiCareProject.entity.PondStandard;
-import koicare.koiCareProject.entity.PostDetail;
-import koicare.koiCareProject.entity.ProductType;
-import koicare.koiCareProject.entity.WaterStandard;
+import koicare.koiCareProject.entity.*;
 import koicare.koiCareProject.exception.AppException;
 import koicare.koiCareProject.exception.ErrorCode;
 import koicare.koiCareProject.repository.*;
@@ -24,6 +22,12 @@ public class AdminService {
 
     @Autowired
     private ProductTypeRepository productTypeRepository;
+
+    @Autowired
+    AccountRepository accountRepository;
+
+    @Autowired
+    EmailService emailService;
 
     public List<PostDetail> getAllPendingPostDetails(){
 
@@ -45,8 +49,26 @@ public class AdminService {
             postDetail.setPostStatus(true);
             return postDetailRepository.save(postDetail);
         }
+    }
 
+    //rejected postdetail
+    public void rejectedPostDetail(Long postID){
+        PostDetail postDetail = postDetailRepository.findByPostID(postID);
 
+        if (postDetail == null) {
+            throw new AppException(ErrorCode.POST_DOES_NOT_EXIST);
+        }
+        else{
+            long shopID = postDetail.getShop().getShopID();
+            Account account = accountRepository.findAccountByAccountID(postDetail.getShop().getAccount().getAccountID());
+            EmailDetail emailDetail = new EmailDetail();
+            emailDetail.setAccount(account);
+            emailDetail.setSubject("Your post is rejected!");
+            emailDetail.setLink("http://103.90.227.68/shop/postManager");
+
+            emailService.sendEmailRejectPost(emailDetail);
+            postDetailRepository.delete(postDetail);
+        }
     }
 
     @Autowired

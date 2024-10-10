@@ -6,8 +6,10 @@ import jakarta.validation.Valid;
 import koicare.koiCareProject.dto.request.KoiFishRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.dto.response.KoiFishResponse;
+import koicare.koiCareProject.dto.response.KoiReportResponse;
 import koicare.koiCareProject.dto.response.KoiVarietyResponse;
 import koicare.koiCareProject.entity.KoiFish;
+import koicare.koiCareProject.repository.KoiVarietyRepository;
 import koicare.koiCareProject.repository.PondRepository;
 import koicare.koiCareProject.service.KoiFishService;
 import org.modelmapper.ModelMapper;
@@ -33,6 +35,9 @@ public class KoiFishController {
     PondRepository pondRepository;
 
     @Autowired
+    KoiVarietyRepository koiVarietyRepository;
+
+    @Autowired
     ModelMapper modelMapper;
 
     //tạo cá koi
@@ -41,8 +46,8 @@ public class KoiFishController {
         APIResponse<KoiFishResponse> apiResponse = new APIResponse<>();
 
         KoiFishResponse koiFishResponse = modelMapper.map(koiFishService.createKoiFish(request), KoiFishResponse.class);
-        koiFishResponse.setPondID(request.getPondID());
-        koiFishResponse.setKoiVarietyID(request.getKoiVarietyID());
+        koiFishResponse.setPondName(pondRepository.getPondByPondID(request.getPondID()).getPondName() );
+        koiFishResponse.setKoiVariety(koiVarietyRepository.getKoiVarietyByKoiVarietyID(request.getKoiVarietyID()).getVarietyName() );
 
         apiResponse.setResult(koiFishResponse);
 
@@ -54,8 +59,15 @@ public class KoiFishController {
     public ResponseEntity getKoiFishes(){
         List<KoiFish> koiFishes = koiFishService.getKoiFishes();
         List<KoiFishResponse> koiFishResponses = koiFishes.stream()
-                .map(koiFish -> modelMapper.map(koiFish, KoiFishResponse.class))
+                .map(koiFish -> {
+                    KoiFishResponse koiFishResponse = modelMapper.map(koiFish, KoiFishResponse.class);
+
+                    koiFishResponse.setPondName(pondRepository.getPondByPondID(koiFish.getPond().getPondID()).getPondName());
+                    koiFishResponse.setKoiVariety(koiVarietyRepository.getKoiVarietyByKoiVarietyID(koiFish.getKoiVariety().getKoiVarietyID()).getVarietyName() );
+                    return koiFishResponse;
+                })
                 .collect(Collectors.toList());
+
         return ResponseEntity.ok(koiFishResponses);
     }
 

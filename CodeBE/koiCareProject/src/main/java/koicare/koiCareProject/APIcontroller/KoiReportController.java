@@ -6,6 +6,8 @@ import koicare.koiCareProject.dto.request.KoiReportRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.dto.response.KoiReportResponse;
 import koicare.koiCareProject.entity.KoiReport;
+import koicare.koiCareProject.entity.KoiStatus;
+import koicare.koiCareProject.repository.KoiStatusRepository;
 import koicare.koiCareProject.service.KoiReportService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class KoiReportController {
     @Autowired
     ModelMapper modelMapper;
 
+    @Autowired
+    KoiStatusRepository koiStatusRepository;
+
     //tạo KoiReport
     @PostMapping("create")
     public ResponseEntity createKoiReport(@Valid @RequestBody KoiReportRequest request) {
@@ -46,10 +51,15 @@ public class KoiReportController {
         APIResponse<List<KoiReportResponse>> response = new APIResponse<>();
 
         List<KoiReport> koiReports = koiReportService.getKoiReports(koiFishID);
+
         List<KoiReportResponse> koiReportResponses = koiReports.stream()
                 .map(koiReport -> modelMapper.map(koiReport, KoiReportResponse.class))
                 .collect(Collectors.toList());
 
+        for(KoiReportResponse koiReportResponse:koiReportResponses){
+            koiReportResponse.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(koiReportResponse.getKoiStatusID()).getStatusContent());
+        }
+        
         response.setResult(koiReportResponses);
         return ResponseEntity.ok(response);
     }

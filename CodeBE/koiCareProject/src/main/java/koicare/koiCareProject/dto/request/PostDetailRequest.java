@@ -12,8 +12,8 @@ public class PostDetailRequest {
     private String image;
     private String description;
     private String link;
-    private Date postDate;
-    private boolean postStatus;
+//    private Date postDate;
+//    private boolean postStatus;
     private Long producTypeID;
     private Long priceID;
     private Long paymentID;

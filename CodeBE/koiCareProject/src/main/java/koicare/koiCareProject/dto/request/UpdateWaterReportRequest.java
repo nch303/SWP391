@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class WaterReportRequest {
+public class UpdateWaterReportRequest {
 
 //    private Date waterReportUpdatedDate;
     private double waterReportTemperature;
@@ -18,5 +18,4 @@ public class WaterReportRequest {
     private double waterReportCarbonate;
     private double waterReportSalt;
     private double waterReportCarbonDioxide;
-    private long pondID;
 }

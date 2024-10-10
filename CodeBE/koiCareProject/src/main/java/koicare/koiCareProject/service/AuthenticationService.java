@@ -77,20 +77,24 @@ public class AuthenticationService implements UserDetailsService {
                     Member member = modelMapper.map(registerRequest, Member.class);
                     member.setAccount(newAccount);
                     memberRepository.save(member);
+
+                    EmailDetail emailDetail = new EmailDetail();
+                    emailDetail.setAccount(newAccount);
+                    emailDetail.setSubject("Welcome to Sun Side Koi Care!");
+                    emailDetail.setLink("http://103.90.227.68/");
+                    emailService.sendEmail(emailDetail);
                 } else {
                     Shop shop = modelMapper.map(registerRequest, Shop.class);
                     shop.setAccount(newAccount);
                     shopRepository.save(shop);
+
+                    EmailDetail emailDetail = new EmailDetail();
+                    emailDetail.setAccount(newAccount);
+                    emailDetail.setSubject("Welcome to Sun Side Koi Care Shop!");
+                    emailDetail.setLink("http://103.90.227.68/shop");
+                    emailService.sendEmailShop(emailDetail);
                 }
-
-
-                EmailDetail emailDetail = new EmailDetail();
-                emailDetail.setAccount(newAccount);
-                emailDetail.setSubject("Welcome to Sun Side Koi Care!");
-                emailDetail.setLink("https://koisale.com/");
-
-                emailService.sendEmail(emailDetail);
-
+                
                 return modelMapper.map(account, AccountResponse.class);
             } catch (Exception e) {
                 e.printStackTrace(); // In chi tiết lỗi ra console
@@ -115,9 +119,12 @@ public class AuthenticationService implements UserDetailsService {
                     loginRequest.getPassword()
             ));
             Account account = (Account) authentication.getPrincipal();
-            AccountResponse accountResponse = modelMapper.map(account, AccountResponse.class);
-            accountResponse.setToken(tokenService.generateToken(account));
-            return accountResponse;
+            //kiểm tra tài khoản có bị banned không
+            if (account.isStatus()) {
+                AccountResponse accountResponse = modelMapper.map(account, AccountResponse.class);
+                accountResponse.setToken(tokenService.generateToken(account));
+                return accountResponse;
+            } else throw new AppException(ErrorCode.USER_NOT_EXISTED);
         } catch (Exception e) {
             throw new AppException(ErrorCode.LOGIN_FAIL);
         }
@@ -131,32 +138,46 @@ public class AuthenticationService implements UserDetailsService {
     //gọi ra account đang thao tác với API
     public Account getCurrentAccount() {
         Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        account.setMember(memberRepository.getMemberByAccount(account));
         return authorizationRepository.findAccountByAccountID(account.getAccountID());
     }
 
     //xóa account bằng cách setStatus bằng 0
-    public Account deleteAccount(long accountID){
+    public Account deleteAccount(long accountID) {
         Account account = accountRepository.findAccountByAccountID(accountID);
         account.setStatus(false);
+
+        EmailDetail emailDetail = new EmailDetail();
+        emailDetail.setAccount(account);
+        emailDetail.setSubject("Your account have been banned!");
+        emailDetail.setLink("http://103.90.227.68/shop");
+
+        emailService.sendEmailBannedAccount(emailDetail);
 
         return accountRepository.save(account);
     }
 
     //khôi phục account bị xóa
-    public Account restoreAccount(long accountID){
+    public Account restoreAccount(long accountID) {
         Account account = accountRepository.findAccountByAccountID(accountID);
         account.setStatus(true);
+
+        EmailDetail emailDetail = new EmailDetail();
+        emailDetail.setAccount(account);
+        emailDetail.setSubject("Your account have been restore!");
+        emailDetail.setLink("http://103.90.227.68/");
+
+        emailService.sendEmailRestoreAccount(emailDetail);
 
         return accountRepository.save(account);
     }
 
-    public void forgotPassword(ForgotPasswordRequest request){
+    public void forgotPassword(ForgotPasswordRequest request) {
         Account account = accountRepository.findAccountByEmail(request.getEmail());
 
-        if(account == null){
+        if (account == null) {
             throw new AppException(ErrorCode.ACCOUNT_IS_NOT_EXISTED);
-        }
-        else {
+        } else {
             EmailDetail emailDetail = new EmailDetail();
             emailDetail.setAccount(account);
             emailDetail.setSubject("Reset Password");
@@ -166,7 +187,7 @@ public class AuthenticationService implements UserDetailsService {
         }
     }
 
-    public void resetPassword(ResetPasswordRequest request){
+    public void resetPassword(ResetPasswordRequest request) {
         Account account = getCurrentAccount();
         account.setPassword(passwordEncoder.encode(request.getPassword()));
         accountRepository.save(account);
