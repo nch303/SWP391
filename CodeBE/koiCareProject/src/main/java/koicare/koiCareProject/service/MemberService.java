@@ -51,5 +51,6 @@ public class MemberService {
         accountRepository.save(account);
         return memberRepository.save(member);
     }
+    //
 
 }
