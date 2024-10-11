@@ -1,5 +1,6 @@
 package koicare.koiCareProject.service;
 
+import koicare.koiCareProject.dto.response.KoiFoodListResponse;
 import koicare.koiCareProject.entity.FeedCoef;
 import koicare.koiCareProject.entity.KoiFish;
 import koicare.koiCareProject.entity.KoiReport;
@@ -99,7 +100,41 @@ public class KoiFoodService {
                 }
             }
         }
-        double roundedFood = Math.round(food * 10.0) / 10.0;
+        double roundedFood = Math.round(food * 100.0) / 100.0;
         return roundedFood;
+    }
+
+    public List<KoiFoodListResponse> calculateFoodForKoiList(long pondID, int temperature, String level){
+        List<KoiFish> koiFishes = koiFishRepository.getAllByPond(pondRepository.getPondByPondID(pondID));
+        List<KoiFoodListResponse> koiFoodListResponses = new ArrayList<>();
+
+        for(KoiFish koiFish: koiFishes){
+            KoiFoodListResponse koiFoodListResponse = new KoiFoodListResponse();
+            koiFoodListResponse.setKoiFishID(koiFish.getKoiFishID());
+            koiFoodListResponse.setKoiName(koiFish.getKoiName());
+            koiFoodListResponse.setKoiVariety(koiFish.getKoiVariety().getVarietyName());
+            koiFoodListResponse.setBirthday(koiFish.getBirthday());
+
+            KoiReport koiReport = koiReportService.getLatestKoiReport(koiFish.getKoiFishID());
+            koiFoodListResponse.setLength(koiReport.getLength());
+            koiFoodListResponse.setWeight(koiReport.getWeight());
+
+            // Chuyển đổi từ Date sang LocalDate
+            LocalDate koiBirthday = koiFoodListResponse.getBirthday().toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+
+            LocalDate currentDate = LocalDate.now(); // Lấy ngày hiện tại
+
+            // Tính số ngày giữa hai ngày
+            long daysBetween = ChronoUnit.DAYS.between(koiBirthday, currentDate);
+            long period = daysBetween;
+
+            double roundedFood = Math.round(calculateFoodforOneFish(koiReport.getWeight(),temperature, period,level) * 100.0) / 100.0;
+            koiFoodListResponse.setFood(roundedFood);
+
+            koiFoodListResponses.add(koiFoodListResponse);
+        }
+        return koiFoodListResponses;
     }
 }
