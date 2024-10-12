@@ -30,6 +30,12 @@ public class PondService {
     @Autowired
     WaterReportRepository waterReportRepository;
 
+    @Autowired
+    KoiFishRepository koiFishRepository;
+
+    @Autowired
+    KoiReportService koiReportService;
+
     //tạo Pond
     public Pond createPond(PondCreationRequest request) {
 
@@ -49,7 +55,7 @@ public class PondService {
         Member member = memberRepository.getMemberByAccount(account);
 
         pond.setMember(member);
-        pond =  pondRepository.save(pond);
+        pond = pondRepository.save(pond);
 
         //tạo 1 waterReport tương ứng với hồ, nhưng giá trị bằng 0
         WaterReport waterReport = new WaterReport();
@@ -120,10 +126,9 @@ public class PondService {
         }
 
         long amountFish = pond.getAmountFish();
-        if (amountFish > 0){
+        if (amountFish > 0) {
             throw new AppException(ErrorCode.FISH_IS_EXISTED_IN_POND);
-        }
-        else {
+        } else {
 
             for (WaterReport waterReport : waterReports) {
                 waterReportRepository.delete(waterReport);
@@ -132,4 +137,16 @@ public class PondService {
         }
     }
 
+
+    //tính tổng khối lượng cá trong 1 hồ
+    public double calculateTotalWeight(long pondID) {
+        Pond pond = pondRepository.getPondByPondID(pondID);
+        List<KoiFish> koiFishes = koiFishRepository.getAllByPond(pond);
+        double totalWeight = 0;
+        for (KoiFish koiFish : koiFishes) {
+            KoiReport koiReport = koiReportService.getLatestKoiReport(koiFish.getKoiFishID());
+            totalWeight += koiReport.getWeight();
+        }
+        return totalWeight;
+    }
 }

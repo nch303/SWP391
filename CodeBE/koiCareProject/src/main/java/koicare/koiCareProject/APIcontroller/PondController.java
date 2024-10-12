@@ -59,6 +59,7 @@ public class PondController {
         APIResponse<PondResponse> response = new APIResponse<>();
 
         PondResponse pondResponse = modelMapper.map(pondService.getPondById(pondID), PondResponse.class);
+        pondResponse.setTotalWeight(pondService.calculateTotalWeight(pondID));
         response.setResult(pondResponse);
         return ResponseEntity.ok(response);
     }

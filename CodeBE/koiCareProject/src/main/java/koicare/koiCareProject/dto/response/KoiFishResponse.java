@@ -14,5 +14,7 @@ public class KoiFishResponse {
     private String image;
     private String pondName;
     private String koiVariety;
+    private long pondID;
+    private long koiVarietyID;
 
 }

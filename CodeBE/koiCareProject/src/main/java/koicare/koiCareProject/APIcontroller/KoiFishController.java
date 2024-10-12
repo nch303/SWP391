@@ -76,7 +76,11 @@ public class KoiFishController {
     public ResponseEntity getKoiFish(@PathVariable("koiFishID") long koiFishID){
         APIResponse<KoiFishResponse> response = new APIResponse<>();
 
-        KoiFishResponse koiFishResponse = modelMapper.map(koiFishService.getKoiFish(koiFishID), KoiFishResponse.class);
+        KoiFish koiFish = koiFishService.getKoiFish(koiFishID);
+        KoiFishResponse koiFishResponse = modelMapper.map(koiFish, KoiFishResponse.class);
+        koiFishResponse.setKoiVarietyID(koiFish.getKoiVariety().getKoiVarietyID());
+        koiFishResponse.setPondID(koiFish.getPond().getPondID());
+
         response.setResult(koiFishResponse);
         return ResponseEntity.ok(response);
     }

@@ -64,6 +64,7 @@ public class AuthenticationService implements UserDetailsService {
         account.setRole(registerRequest.getRole());
         account.setEmail(registerRequest.getEmail());
         account.setStatus(true);
+        account.setBalance(0);
         Account existedAccount = accountRepository.findAccountByUsername(registerRequest.getUsername());
         if (existedAccount == null) {
             try {

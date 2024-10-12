@@ -109,12 +109,22 @@ public class KoiFishService {
     public KoiFish updateKoiFish(long koiFishID, KoiFishRequest request) {
         KoiFish koiFish = koiFishRepository.getKoiFishByKoiFishID(koiFishID);
         if (koiFish != null) {
+            Pond oldPond = pondRepository.getPondByPondID(koiFish.getPond().getPondID());
+            oldPond.setAmountFish(oldPond.getAmountFish() - 1);
+            pondRepository.save(oldPond);
+
             koiFish = modelMapper.map(request, KoiFish.class);
             koiFish.setKoiFishID(koiFishID);
+
+            Pond newPond = pondRepository.getPondByPondID(koiFish.getPond().getPondID());
+            newPond.setAmountFish(newPond.getAmountFish() + 1);
+            pondRepository.save(newPond);
 
             Account account = authenticationService.getCurrentAccount();
             Member member = memberRepository.getMemberByAccount(account);
             koiFish.setMember(member);
+
+
 
             return koiFishRepository.save(koiFish);
         } else
