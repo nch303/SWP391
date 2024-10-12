@@ -17,6 +17,5 @@ public class PostDetailResponse {
     private boolean postStatus;
     private Long shopID;
     private Long producTypeID;
-    private Long priceID;
-    private Long paymentID;
+
 }

@@ -15,7 +15,6 @@ public class PostDetailRequest {
 //    private Date postDate;
 //    private boolean postStatus;
     private Long producTypeID;
-    private Long priceID;
-    private Long paymentID;
+
 
 }
