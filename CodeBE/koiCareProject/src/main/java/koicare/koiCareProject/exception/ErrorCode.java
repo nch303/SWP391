@@ -36,7 +36,10 @@ public enum ErrorCode {
     MEMBER_PACKAGE_IS_NOT_EXISTED(1026, "Member package is not existed"),
     ACCOUNT_IS_NOT_EXISTED(1026, "Account is not existed"),
     TEMPCOEF_IS_NOT_EXISTED(1027, "TempCoef is not existed"),
-    FEEDCOEF_IS_NOT_EXISTED(1028, "FeedCoef is not existed")
+    FEEDCOEF_IS_NOT_EXISTED(1028, "FeedCoef is not existed"),
+    PACKAGE_IS_NOT_EXISTED(1029, "Package is not existed"),
+    ORDER_IS_NOT_EXISTED(1030, "Order is not existed"),
+    RUN_OUT_POST(1031, "You have run out of posts to submit or duration have been validated.")
     ;
 
 

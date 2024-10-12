@@ -21,7 +21,7 @@ public class PostDetail {
     private String link;
     private Date postDate;
     private boolean postStatus;
-
+    private Date expiredDate;
     
     @ManyToOne
     @JoinColumn(name = "shopid")
@@ -31,11 +31,7 @@ public class PostDetail {
     @JoinColumn(name = "product_type_id")
     private ProductType productType;
 
-    @ManyToOne
-    @JoinColumn(name = "priceid")
-    private PostPrice postPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "paymentid")
-    private Payment payment;
+
+
 }

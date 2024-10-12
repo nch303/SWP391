@@ -24,12 +24,6 @@ public class PostDetailService {
     private ModelMapper modelMapper;
 
     @Autowired
-    private PostPriceRepository postPriceRepository;
-
-    @Autowired
-    private PaymentRepository paymentRepository;
-
-    @Autowired
     private ProductTypeRepository productTypeRepository;
 
     @Autowired
@@ -40,48 +34,42 @@ public class PostDetailService {
     //
 
     public PostDetail createPostDetail(PostDetailRequest postDetailRequest) {
-
-        PostDetail postDetail = new PostDetail();
-
-        postDetail.setProductName(postDetailRequest.getProductName());
-        postDetail.setDescription(postDetailRequest.getDescription());
-        Date date = new Date();
-        postDetail.setPostDate(date);
-        postDetail.setPostStatus(false);
-        postDetail.setImage(postDetailRequest.getImage());
-        postDetail.setLink(postDetailRequest.getLink());
-        postDetail.setProductPrice(postDetailRequest.getProductPrice());
-
-
-        PostPrice postPrice = postPriceRepository.findByPriceID(postDetailRequest.getPriceID());
-        if (postPrice == null) {
-            throw new AppException(ErrorCode.POST_PRICE_NOT_EXISTED);
-        } else{
-            postDetail.setPostPrice(postPrice);
-        }
-
-        ProductType productType = productTypeRepository.findByProductTypeID(postDetailRequest.getProducTypeID());
-        if (productType == null) {
-            throw new AppException(ErrorCode.PRODUCT_TYPE_IS_NOT_EXISTED);
-        }
-        else{
-            postDetail.setProductType(productType);
-        }
-        Payment payment = paymentRepository.findByPaymentID(postDetailRequest.getPaymentID());
-        if (payment == null) {
-            throw new AppException(ErrorCode.PAYMENT_METHOD_NOT_FOUND);
-        }
-        else{
-            postDetail.setPayment(payment);
-        }
-
-
-        //postDetail.setShop(shopRepository.findByShopID(postDetailRequest.getShopID()));
         Account account = authenticationService.getCurrentAccount();
         Shop shop = shopRepository.getShopByAccount(account);
-        postDetail.setShop(shop);
+        Date date = new Date();
 
-        return postDetailRepository.save(postDetail);
+        if (shop.getNumberOfPosts() > 0 && shop.getExpiredDate().after(date)) {
+            PostDetail postDetail = new PostDetail();
+
+            postDetail.setProductName(postDetailRequest.getProductName());
+            postDetail.setDescription(postDetailRequest.getDescription());
+
+            postDetail.setPostDate(date);
+            postDetail.setPostStatus(false);
+            postDetail.setImage(postDetailRequest.getImage());
+            postDetail.setLink(postDetailRequest.getLink());
+            postDetail.setProductPrice(postDetailRequest.getProductPrice());
+
+
+            ProductType productType = productTypeRepository.findByProductTypeID(postDetailRequest.getProducTypeID());
+            if (productType == null) {
+                throw new AppException(ErrorCode.PRODUCT_TYPE_IS_NOT_EXISTED);
+            } else {
+                postDetail.setProductType(productType);
+            }
+
+            //postDetail.setShop(shopRepository.findByShopID(postDetailRequest.getShopID()));
+            postDetail.setShop(shop);
+            shop.setNumberOfPosts(shop.getNumberOfPosts() - 1);
+            shop.setShopID(shop.getShopID());
+
+            shopRepository.save(shop);
+
+            return postDetailRepository.save(postDetail);
+        } throw new AppException(ErrorCode.RUN_OUT_POST);
+
+
+
 
     }
 
@@ -89,7 +77,7 @@ public class PostDetailService {
         return postDetailRepository.findAll();
     }
 
-    public List<PostDetail> getAllPostByShopID(long shopID){
+    public List<PostDetail> getAllPostByShopID(long shopID) {
         List<PostDetail> postDetails = postDetailRepository.findAll();
         List<PostDetail> postDetailList = new ArrayList<>();
         for (PostDetail postDetail : postDetails) {
@@ -99,7 +87,7 @@ public class PostDetailService {
         }
         if (postDetailList.size() == 0) {
             throw new AppException(ErrorCode.POST_DOES_NOT_EXIST);
-        } else{
+        } else {
             return postDetailList;
         }
     }
