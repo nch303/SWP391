@@ -41,7 +41,7 @@ public class PostDetailController {
     }
 
     @GetMapping("view")
-    public  ResponseEntity getAllPosts() {
+    public ResponseEntity getAllPosts() {
         List<PostDetail> postDetails = postDetailService.getAllPostDetails();
         List<PostDetailResponse> postDetailResponses = postDetails.stream()
                 .map(postDetail -> modelMapper.map(postDetail, PostDetailResponse.class)).collect(Collectors.toList());
@@ -49,7 +49,7 @@ public class PostDetailController {
     }
 
     @GetMapping("view/approved/{shopID}")
-    public  ResponseEntity getApprovedPosts(@PathVariable long shopID) {
+    public ResponseEntity getApprovedPosts(@PathVariable long shopID) {
         List<PostDetail> postDetails = postDetailService.getAllPostByShopID(shopID);
         List<PostDetailResponse> postDetailResponses = postDetails.stream()
                 .map(postDetail -> modelMapper.map(postDetail, PostDetailResponse.class)).collect(Collectors.toList());

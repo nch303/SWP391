@@ -29,6 +29,9 @@ public class AdminService {
     @Autowired
     EmailService emailService;
 
+    @Autowired
+    private ShopRepository shopRepository;
+
     public List<PostDetail> getAllPendingPostDetails(){
 
         return postDetailRepository.findByPostStatus(false);
@@ -68,6 +71,12 @@ public class AdminService {
 
             emailService.sendEmailRejectPost(emailDetail);
             postDetailRepository.delete(postDetail);
+
+            Shop shop = shopRepository.getShopByAccount(account);
+            shop.setNumberOfPosts(shop.getNumberOfPosts() + 1);
+            shop.setShopID(shop.getShopID());
+
+            shopRepository.save(shop);
         }
     }
 

@@ -119,7 +119,7 @@ public class ApackageController {
         response.setResult(apackageResponses);
         return ResponseEntity.ok(response);
     }
-    
+
 
     @PutMapping("update/{packageID}")
     public ResponseEntity updateApackage(@PathVariable UUID packageID, @RequestBody ApackageRequest request) {
