@@ -14,20 +14,20 @@ public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    UUID id;
+    private UUID id;
 
-    Date date;
+    private Date date;
 
-    float total;
+    private float total;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @JsonIgnore
-    Account customer;
+    private Account customer;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    List<OrderDetail> orderDetails;
+    private List<OrderDetail> orderDetails;
 
     @OneToOne(mappedBy = "orders")
-    Payment payment;
+    private Payment payment;
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class KoiFoodRequest {
 
-    int temperature;
-    String level;
-    long pondID;
+    private int temperature;
+    private String level;
+    private long pondID;
 }

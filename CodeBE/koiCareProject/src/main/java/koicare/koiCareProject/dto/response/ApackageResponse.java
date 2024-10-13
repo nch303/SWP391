@@ -8,12 +8,12 @@ import java.util.UUID;
 @Data
 public class ApackageResponse {
 
-    UUID id;
-    String name;
-    Role role;
-    int duration;
-    float price;
-    String description;
-    int numberOfPosts;
-    long accountID;
+    private UUID id;
+    private String name;
+    private Role role;
+    private int duration;
+    private float price;
+    private String description;
+    private int numberOfPosts;
+    private long accountID;
 }

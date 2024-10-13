@@ -6,6 +6,6 @@ import java.util.UUID;
 
 @Data
 public class OrderDetailRequest {
-    UUID packageID;
+    private UUID packageID;
 
 }

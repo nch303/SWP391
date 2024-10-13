@@ -13,22 +13,22 @@ public class Apackage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    UUID id;
+    private UUID id;
 
-    String name;
-    Role role;
-    int duration;
-    float price;
-    String description;
-    int numberOfPosts;
+    private String name;
+    private Role role;
+    private int duration;
+    private float price;
+    private String description;
+    private int numberOfPosts;
 
     @OneToMany(mappedBy = "apackage")
     @JsonIgnore
-    List<OrderDetail> orderDetails;
+    private List<OrderDetail> orderDetails;
 
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "account_id")
-    Account account;
+    private Account account;
 
 }

@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class OrderRequest {
-    List<OrderDetailRequest> detail;
+    private List<OrderDetailRequest> detail;
 }

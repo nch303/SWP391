@@ -3,11 +3,11 @@ import lombok.Data;
 import java.util.Date;
 @Data
 public class KoiFoodListResponse {
-    long koiFishID;
-    String koiName;
-    String koiVariety;
-    Date birthday;
-    double length;
-    double weight;
-    double food;
+    private long koiFishID;
+    private String koiName;
+    private String koiVariety;
+    private Date birthday;
+    private double length;
+    private double weight;
+    private double food;
 }

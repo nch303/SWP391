@@ -12,21 +12,21 @@ import lombok.Setter;
 public class Transactions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "from_id")
-    Account from;
+    private Account from;
 
     @ManyToOne
     @JoinColumn(name = "to_id")
-    Account to;
+    private Account to;
 
     @ManyToOne
     @JoinColumn(name = "payment_id")
-    Payment payment;
+    private Payment payment;
 
-    TransactionsEnum status;
+    private TransactionsEnum status;
 
-    String description;
+    private String description;
 }

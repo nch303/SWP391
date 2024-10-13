@@ -16,17 +16,17 @@ import java.util.Set;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
-    Date createAt;
+    private Date createAt;
 
     @Enumerated(EnumType.STRING)
-    PaymentEnums payment_method;
+    private PaymentEnums payment_method;
 
     @OneToOne
     @JoinColumn(name = "order_id")
-    Orders orders;
+    private Orders orders;
 
     @OneToMany(mappedBy = "payment", cascade = CascadeType.ALL)
-    Set<Transactions> transactions;
+    private Set<Transactions> transactions;
 }

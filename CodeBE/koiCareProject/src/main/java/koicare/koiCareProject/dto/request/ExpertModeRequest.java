@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ExpertModeRequest {
-    int pondID;
-    double percent;
+    private int pondID;
+    private double percent;
 }
