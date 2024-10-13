@@ -23,10 +23,10 @@ import java.util.stream.Collectors;
 public class KoiVarietyController {
 
     @Autowired
-    KoiVarietyService koiVarietyService;
+    private KoiVarietyService koiVarietyService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
 
     @PostMapping("create")

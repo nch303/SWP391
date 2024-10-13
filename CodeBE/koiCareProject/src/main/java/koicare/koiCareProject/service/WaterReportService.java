@@ -27,8 +27,7 @@ public class WaterReportService {
     @Autowired
     private PondRepository pondRepository;
 
-    @Autowired
-    ModelMapper modelMapper;
+
 
     public WaterReport createWaterReport(WaterReportRequest waterReportRequest) {
 

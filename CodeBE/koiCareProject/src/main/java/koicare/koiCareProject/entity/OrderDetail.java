@@ -13,10 +13,10 @@ public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    UUID id;
+    private UUID id;
 
 //    int quantity;
-    float price;
+    private float price;
 
     @ManyToOne
     @JoinColumn(name = "order_id")

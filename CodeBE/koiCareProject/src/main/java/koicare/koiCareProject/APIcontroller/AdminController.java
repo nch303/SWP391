@@ -37,6 +37,7 @@ public class AdminController {
     //POST DETAIL CONTROLLER
     @GetMapping("post/view/pending")
     public ResponseEntity getPendingPosts() {
+        APIResponse<List<PostDetailResponse>> response = new APIResponse<>();
         List<PostDetail> postDetails = adminService.getAllPendingPostDetails();
         List<PostDetailResponse> postDetailResponses = new ArrayList<>();
         for (PostDetail postDetail : postDetails) {
@@ -55,7 +56,8 @@ public class AdminController {
 
             postDetailResponses.add(postDetailResponse);
         }
-        return ResponseEntity.ok(postDetailResponses);
+        response.setResult(postDetailResponses);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("post/approve/{postID}")
@@ -80,6 +82,7 @@ public class AdminController {
 
     @GetMapping("post/view/approved")
     public ResponseEntity getApprovedPosts() {
+        APIResponse<List<PostDetailResponse>> response = new APIResponse<>();
         List<PostDetail> postDetails = adminService.getAllApprovedPostDetails();
         List<PostDetailResponse> postDetailResponses = new ArrayList<>();
         for (PostDetail postDetail : postDetails) {
@@ -98,7 +101,8 @@ public class AdminController {
 
             postDetailResponses.add(postDetailResponse);
         }
-        return ResponseEntity.ok(postDetailResponses);
+        response.setResult(postDetailResponses);
+        return ResponseEntity.ok(response);
     }
 
 

@@ -25,10 +25,10 @@ import java.util.stream.Collectors;
 public class KoiStandardController {
 
     @Autowired
-    KoiStandardService koiStandardService;
+    private KoiStandardService koiStandardService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
 
     // Lấy KoiStandard theo KoiVarietyID va Period

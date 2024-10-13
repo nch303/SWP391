@@ -24,22 +24,22 @@ public class KoiFoodService {
 
 
     @Autowired
-    KoiFishRepository koiFishRepository;
+    private KoiFishRepository koiFishRepository;
 
     @Autowired
-    PondRepository pondRepository;
+    private PondRepository pondRepository;
 
     @Autowired
-    KoiReportService koiReportService;
+    private KoiReportService koiReportService;
 
     @Autowired
-    FeedCoefRepository feedCoefRepository;
+    private FeedCoefRepository feedCoefRepository;
 
     @Autowired
-    TempCoefRepository tempCoefRepository;
+    private TempCoefRepository tempCoefRepository;
 
     @Autowired
-    PondService pondService;
+    private PondService pondService;
 
     //hàm tính lượng thức ăn cho 1 hồ cá
     public double calculateFoodInPond(long pondID, int temperature, String level) {

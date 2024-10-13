@@ -19,13 +19,13 @@ import java.util.UUID;
 @SecurityRequirement(name = "api")
 public class OrderController {
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @PostMapping
     public ResponseEntity create(@RequestBody OrderRequest orderRequest) throws Exception {

@@ -29,16 +29,16 @@ import java.util.stream.Collectors;
 public class KoiFishController {
 
     @Autowired
-    KoiFishService koiFishService;
+    private KoiFishService koiFishService;
 
     @Autowired
-    PondRepository pondRepository;
+    private PondRepository pondRepository;
 
     @Autowired
-    KoiVarietyRepository koiVarietyRepository;
+    private KoiVarietyRepository koiVarietyRepository;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     //tạo cá koi
     @PostMapping("create")

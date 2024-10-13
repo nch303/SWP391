@@ -27,16 +27,16 @@ import java.util.stream.Collectors;
 public class AuthenticationAPI {
 
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
-    ShopRepository shopRepository;
+    private ShopRepository shopRepository;
 
     @Autowired
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     //API register
     @PostMapping("register")

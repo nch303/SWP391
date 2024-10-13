@@ -24,13 +24,13 @@ import java.util.stream.Collectors;
 public class KoiReportController {
 
     @Autowired
-    KoiReportService koiReportService;
+    private KoiReportService koiReportService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
-    KoiStatusRepository koiStatusRepository;
+    private KoiStatusRepository koiStatusRepository;
 
     //tạo KoiReport
     @PostMapping("create")

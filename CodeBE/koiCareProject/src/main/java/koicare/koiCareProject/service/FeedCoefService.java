@@ -16,10 +16,10 @@ import java.util.List;
 public class FeedCoefService {
 
     @Autowired
-    FeedCoefRepository feedCoefRepository;
+    private FeedCoefRepository feedCoefRepository;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     public FeedCoef createFeedCoef(FeedCoefRequest request) {
         FeedCoef feedCoef = modelMapper.map(request, FeedCoef.class);

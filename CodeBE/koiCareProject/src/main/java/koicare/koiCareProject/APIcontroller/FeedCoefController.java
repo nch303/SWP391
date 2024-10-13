@@ -20,10 +20,10 @@ import java.util.List;
 public class FeedCoefController {
 
     @Autowired
-    FeedCoefService feedCoefService;
+    private FeedCoefService feedCoefService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @PostMapping("create")
     public ResponseEntity createFeedCoef(@RequestBody FeedCoefRequest request){

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SaltController {
 
     @Autowired
-    SaltService saltService;
+    private SaltService saltService;
 
     @PostMapping("calculateSalt-per-water-change")
     public ResponseEntity calculateSaltPerWaterChange(@RequestBody SaltRequest request){

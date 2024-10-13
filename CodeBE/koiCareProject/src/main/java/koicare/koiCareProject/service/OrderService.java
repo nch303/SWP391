@@ -27,28 +27,28 @@ import java.util.*;
 public class OrderService {
 
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @Autowired
-    ApackageRepository apackageRepository;
+    private ApackageRepository apackageRepository;
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    PaymentRepository paymentRepository;
+    private PaymentRepository paymentRepository;
 
     @Autowired
-    ShopRepository shopRepository;
+    private ShopRepository shopRepository;
 
     @Autowired
-    OrderDetailRepository orderDetailRepository;
+    private OrderDetailRepository orderDetailRepository;
 
     @Autowired
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
 
     public Orders create(OrderRequest orderRequest){

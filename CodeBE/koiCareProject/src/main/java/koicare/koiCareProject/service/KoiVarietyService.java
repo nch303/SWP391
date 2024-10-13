@@ -16,10 +16,10 @@ import java.util.List;
 public class KoiVarietyService {
 
     @Autowired
-    KoiVarietyRepository koiVarietyRepository;
+    private KoiVarietyRepository koiVarietyRepository;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     //tạo 1 Variety mới
     public KoiVariety createKoiVariety(KoiVarietyRequest request) {

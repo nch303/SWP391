@@ -41,29 +41,34 @@ public class PostDetailController {
 
     @GetMapping("view")
     public ResponseEntity getAllPosts() {
+        APIResponse<List<PostDetailResponse>> response = new APIResponse<>();
         List<PostDetail> postDetails = postDetailService.getAllPostDetails();
         List<PostDetailResponse> postDetailResponses = postDetails.stream()
                 .map(postDetail -> modelMapper.map(postDetail, PostDetailResponse.class)).collect(Collectors.toList());
-        return ResponseEntity.ok(postDetailResponses);
+        response.setResult(postDetailResponses);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("view/approved/{shopID}")
     public ResponseEntity getApprovedPosts(@PathVariable long shopID) {
+        APIResponse<List<PostDetailResponse>> response = new APIResponse<>();
         List<PostDetail> postDetails = postDetailService.getAllPostByShopID(shopID);
         List<PostDetailResponse> postDetailResponses = postDetails.stream()
                 .map(postDetail -> modelMapper.map(postDetail, PostDetailResponse.class)).collect(Collectors.toList());
 
-        return ResponseEntity.ok(postDetailResponses);
+        response.setResult(postDetailResponses);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("view/pending/{shopID}")
     public ResponseEntity getPendingPosts(@PathVariable long shopID) {
+        APIResponse<List<PostDetailResponse>> response = new APIResponse<>();
         List<PostDetail> postDetails = postDetailService.getAllPendingPostByShopID(shopID);
         List<PostDetailResponse> postDetailResponses = postDetails.stream()
                 .map(postDetail -> modelMapper.map(postDetail, PostDetailResponse.class)).collect(Collectors.toList());
-
-        return ResponseEntity.ok(postDetailResponses);
+        response.setResult(postDetailResponses);
+        return ResponseEntity.ok(response);
     }
-    
+
 
 }

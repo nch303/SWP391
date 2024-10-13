@@ -19,13 +19,13 @@ import java.util.UUID;
 public class ApackageService {
 
     @Autowired
-    ApackageRepository apackageRepository;
+    private ApackageRepository apackageRepository;
 
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     public Apackage createApackage(ApackageRequest request) {
         Account account = authenticationService.getCurrentAccount();

@@ -18,31 +18,29 @@ import java.util.List;
 public class KoiFishService {
 
     @Autowired
-    KoiFishRepository koiFishRepository;
+    private KoiFishRepository koiFishRepository;
 
     @Autowired
-    PondRepository pondRepository;
+    private PondRepository pondRepository;
 
     @Autowired
-    KoiVarietyRepository koiVarietyRepository;
+    private KoiVarietyRepository koiVarietyRepository;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @Autowired
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     @Autowired
-    KoiReportRepository koiReportRepository;
+    private KoiReportRepository koiReportRepository;
 
     @Autowired
-    PondService pondService;
+    private PondService pondService;
 
-    @Autowired
-    KoiStatusRepository koiStatusRepository;
 
     //tạo cá koi
     public KoiFish createKoiFish(KoiFishRequest request) {

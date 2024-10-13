@@ -19,7 +19,7 @@ import java.util.List;
 public class ProductTypeController {
 
     @Autowired
-    ProductTypeService productTypeService;
+    private ProductTypeService productTypeService;
 
     @PostMapping("productType/create")
     public ResponseEntity createProductType(@RequestBody ProductTypeRequest request){

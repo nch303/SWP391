@@ -15,10 +15,10 @@ import java.util.List;
 public class TempCoefService {
 
     @Autowired
-    TempCoefRepository tempCoefRepository;
+    private TempCoefRepository tempCoefRepository;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     public TempCoef createTempCoef(TempCoefRequest request) {
         TempCoef tempCoef = modelMapper.map(request, TempCoef.class);

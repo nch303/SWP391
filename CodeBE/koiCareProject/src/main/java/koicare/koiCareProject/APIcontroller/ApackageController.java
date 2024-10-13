@@ -22,13 +22,13 @@ import java.util.UUID;
 public class ApackageController {
 
     @Autowired
-    ApackageService apackageService;
+    private ApackageService apackageService;
 
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @PostMapping("create")
     public ResponseEntity creat(@RequestBody ApackageRequest request) {

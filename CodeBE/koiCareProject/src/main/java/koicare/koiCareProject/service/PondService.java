@@ -21,20 +21,19 @@ public class PondService {
     @Autowired
     private MemberRepository memberRepository;
 
-    @Autowired
-    ModelMapper modelMapper;
+
 
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @Autowired
-    WaterReportRepository waterReportRepository;
+    private WaterReportRepository waterReportRepository;
 
     @Autowired
-    KoiFishRepository koiFishRepository;
+    private KoiFishRepository koiFishRepository;
 
     @Autowired
-    KoiReportService koiReportService;
+    private KoiReportService koiReportService;
 
     //tạo Pond
     public Pond createPond(PondCreationRequest request) {

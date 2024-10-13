@@ -21,9 +21,6 @@ public class PostDetailService {
     private PostDetailRepository postDetailRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private ProductTypeRepository productTypeRepository;
 
     @Autowired

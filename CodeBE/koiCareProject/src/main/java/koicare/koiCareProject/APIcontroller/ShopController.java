@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShopController {
 
     @Autowired
-    ShopService shopService;
+    private ShopService shopService;
 
     @PutMapping("update")
     public ResponseEntity updateMember(@RequestBody MemberCreationRequest request){

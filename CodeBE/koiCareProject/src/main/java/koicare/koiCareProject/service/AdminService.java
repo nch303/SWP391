@@ -24,10 +24,10 @@ public class AdminService {
     private ProductTypeRepository productTypeRepository;
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    EmailService emailService;
+    private EmailService emailService;
 
     @Autowired
     private ShopRepository shopRepository;

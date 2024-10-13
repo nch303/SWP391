@@ -15,11 +15,11 @@ import java.util.List;
 public class ProductTypeService {
 
     @Autowired
-    ProductTypeRepository productTypeRepository;
+    private ProductTypeRepository productTypeRepository;
 
 
     @Autowired
-    PostDetailRepository postDetailRepository;
+    private PostDetailRepository postDetailRepository;
 
     public ProductType createProductType(ProductTypeRequest request) {
         ProductType productType = new ProductType();

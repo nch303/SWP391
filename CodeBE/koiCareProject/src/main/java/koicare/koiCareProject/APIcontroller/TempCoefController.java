@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 public class TempCoefController {
 
     @Autowired
-    TempCoefService tempCoefService;
+    private TempCoefService tempCoefService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @PostMapping("create")
     public ResponseEntity createTempCoef(@RequestBody TempCoefRequest request) {

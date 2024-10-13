@@ -23,20 +23,19 @@ import java.util.List;
 public class KoiReportService {
 
     @Autowired
-    KoiReportRepository koiReportRepository;
+    private KoiReportRepository koiReportRepository;
 
     @Autowired
-    KoiStatusRepository koiStatusRepository;
+    private KoiStatusRepository koiStatusRepository;
 
     @Autowired
-    KoiFishRepository koiFishRepository;
+    private KoiFishRepository koiFishRepository;
 
     @Autowired
-    KoiStandardRepository koiStandardRepository;
+    private KoiStandardRepository koiStandardRepository;
 
 
-    @Autowired
-    ModelMapper modelMapper;
+
 
     //tạo KoiReport
     public KoiReport createKoiReport(KoiReportRequest request) {

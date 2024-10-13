@@ -19,7 +19,7 @@ import java.util.List;
 public class KoiFoodController {
 
     @Autowired
-    KoiFoodService koiFoodService;
+    private KoiFoodService koiFoodService;
 
     @PostMapping("")
     public ResponseEntity calculateFood(@RequestBody KoiFoodRequest request){

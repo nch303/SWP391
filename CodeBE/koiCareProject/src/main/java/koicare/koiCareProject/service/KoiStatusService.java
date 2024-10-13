@@ -17,10 +17,7 @@ import java.util.List;
 public class KoiStatusService {
 
     @Autowired
-    KoiStatusRepository koiStatusRepository;
-
-    @Autowired
-    ModelMapper modelMapper;
+    private KoiStatusRepository koiStatusRepository;
 
     //lấy tất cả các koiStatus
     public List<KoiStatus> getKoiStatuses() {

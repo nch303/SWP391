@@ -27,14 +27,9 @@ public class PondController {
     @Autowired
     private PondService pondService;
 
-    @Autowired
-    private PondRepository pondRepository;
 
     @Autowired
-    private MemberRepository memberRepository;
-
-    @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @PostMapping("create")
     public APIResponse<PondResponse> createPond(@RequestBody PondCreationRequest pondCreationRequest) {
