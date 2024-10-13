@@ -55,4 +55,15 @@ public class PostDetailController {
 
         return ResponseEntity.ok(postDetailResponses);
     }
+
+    @GetMapping("view/pending/{shopID}")
+    public ResponseEntity getPendingPosts(@PathVariable long shopID) {
+        List<PostDetail> postDetails = postDetailService.getAllPendingPostByShopID(shopID);
+        List<PostDetailResponse> postDetailResponses = postDetails.stream()
+                .map(postDetail -> modelMapper.map(postDetail, PostDetailResponse.class)).collect(Collectors.toList());
+
+        return ResponseEntity.ok(postDetailResponses);
+    }
+    
+
 }

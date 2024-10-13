@@ -91,4 +91,19 @@ public class PostDetailService {
             return postDetailList;
         }
     }
+
+    public List<PostDetail> getAllPendingPostByShopID(long shopID) {
+        List<PostDetail> postDetails = postDetailRepository.findAll();
+        List<PostDetail> postDetailList = new ArrayList<>();
+        for (PostDetail postDetail : postDetails) {
+            if (postDetail.getShop().getShopID() == shopID && !postDetail.isPostStatus()) {
+                postDetailList.add(postDetail);
+            }
+        }
+        if (postDetailList.size() == 0) {
+            throw new AppException(ErrorCode.POST_DOES_NOT_EXIST);
+        } else {
+            return postDetailList;
+        }
+    }
 }

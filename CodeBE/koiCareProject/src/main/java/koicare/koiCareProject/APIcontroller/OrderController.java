@@ -41,7 +41,7 @@ public class OrderController {
         return ResponseEntity.ok(orders);
     }
 
-    @PostMapping("transctions")
+    @PostMapping("transactions")
     public ResponseEntity create (@RequestParam UUID orderID){
         orderService.createTransactions(orderID);
         return ResponseEntity.ok("Success");
