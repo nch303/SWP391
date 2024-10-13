@@ -71,14 +71,6 @@ public class KoiFishService {
 
             koiFishRepository.save(koiFish);
 
-//            KoiReport koiReport =  new KoiReport();
-//            koiReport.setWeight(1);
-//            koiReport.setLength(1);
-//            koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(1));
-//            koiReport.setKoiFish(koiFish);
-//            koiReportRepository.save(koiReport);
-
-
             return koiFish;
         } else {
             throw new AppException(ErrorCode.POND_NOT_EXISTED);
@@ -105,6 +97,17 @@ public class KoiFishService {
             throw new AppException(ErrorCode.KOIFISH_NOT_EXISTED);
     }
 
+    //lấy cá koi theo pondID
+    public List<KoiFish> getKoiFishWithPondID(long pondID) {
+        Pond pond = pondRepository.getPondByPondID(pondID);
+        if (pond != null) {
+            List<KoiFish> koiFishes = koiFishRepository.getAllByPond(pond);
+            if (!koiFishes.isEmpty()) {
+                return koiFishes;
+            } else throw new AppException(ErrorCode.FISH_IS_NOT_EXISTED_IN_POND);
+        } else throw new AppException(ErrorCode.POND_NOT_EXISTED);
+    }
+
     //update cá koi
     public KoiFish updateKoiFish(long koiFishID, KoiFishRequest request) {
         KoiFish koiFish = koiFishRepository.getKoiFishByKoiFishID(koiFishID);
@@ -123,7 +126,6 @@ public class KoiFishService {
             Account account = authenticationService.getCurrentAccount();
             Member member = memberRepository.getMemberByAccount(account);
             koiFish.setMember(member);
-
 
 
             return koiFishRepository.save(koiFish);

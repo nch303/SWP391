@@ -13,6 +13,7 @@ import koicare.koiCareProject.repository.MemberRepository;
 import koicare.koiCareProject.repository.PondRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,6 +33,9 @@ public class MemberService {
     @Autowired
     EmailService emailService;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     public Member updateMember(MemberCreationRequest request){
 
         Account account = authenticationService.getCurrentAccount();
@@ -40,7 +44,11 @@ public class MemberService {
         member.setPhone(request.getMemberPhone());
         member.setEmail(request.getMemberEmail());
         account.setEmail(request.getMemberEmail());
-
+        if(passwordEncoder.matches(request.getOldPassword(), account.getPassword())) {
+            account.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        } else {
+            throw new AppException(ErrorCode.WRONG_PASSWORD);
+        }
         EmailDetail emailDetail = new EmailDetail();
         emailDetail.setAccount(account);
         emailDetail.setSubject("You have changed your email!");

@@ -85,6 +85,24 @@ public class KoiFishController {
         return ResponseEntity.ok(response);
     }
 
+    //lấy lên cá koi theo pondID
+    @GetMapping("pond/{pondID}")
+    public ResponseEntity getKoiFishByPondID(@PathVariable long pondID){
+        APIResponse<List<KoiFishResponse>> response = new APIResponse<>();
+        List<KoiFish> koiFishes = koiFishService.getKoiFishWithPondID(pondID);
+        List<KoiFishResponse> koiFishResponses = koiFishes.stream()
+                .map(koiFish -> {
+                    KoiFishResponse koiFishResponse = modelMapper.map(koiFish, KoiFishResponse.class);
+                    koiFishResponse.setPondName(pondRepository.getPondByPondID(koiFish.getPond().getPondID()).getPondName());
+                    koiFishResponse.setKoiVariety(koiVarietyRepository.getKoiVarietyByKoiVarietyID(koiFish.getKoiVariety().getKoiVarietyID()).getVarietyName() );
+                    return koiFishResponse;
+                })
+                .collect(Collectors.toList());
+        response.setResult(koiFishResponses);
+        return ResponseEntity.ok(response);
+
+    }
+
     //update cá koi
     @PutMapping("{koiFishID}")
     public ResponseEntity updateKoiFish(@Valid @PathVariable("koiFishID") long koiFishID, @RequestBody KoiFishRequest request){
