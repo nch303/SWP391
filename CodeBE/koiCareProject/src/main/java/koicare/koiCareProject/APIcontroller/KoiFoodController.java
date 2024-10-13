@@ -1,6 +1,7 @@
 package koicare.koiCareProject.APIcontroller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import koicare.koiCareProject.dto.request.ExpertModeRequest;
 import koicare.koiCareProject.dto.request.KoiFoodRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.dto.response.KoiFoodListResponse;
@@ -37,5 +38,11 @@ public class KoiFoodController {
         return ResponseEntity.ok(response);
     }
 
-
+    //ExpertMode
+    @PostMapping("expertmode")
+    public ResponseEntity expertMode(@RequestBody ExpertModeRequest request){
+        APIResponse<Double> response =  new APIResponse<>();
+        response.setResult(koiFoodService.expertMode(request));
+        return ResponseEntity.ok(response);
+    }
 }

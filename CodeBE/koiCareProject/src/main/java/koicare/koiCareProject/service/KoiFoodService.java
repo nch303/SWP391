@@ -1,5 +1,6 @@
 package koicare.koiCareProject.service;
 
+import koicare.koiCareProject.dto.request.ExpertModeRequest;
 import koicare.koiCareProject.dto.response.KoiFoodListResponse;
 import koicare.koiCareProject.entity.FeedCoef;
 import koicare.koiCareProject.entity.KoiFish;
@@ -36,6 +37,9 @@ public class KoiFoodService {
 
     @Autowired
     TempCoefRepository tempCoefRepository;
+
+    @Autowired
+    PondService pondService;
 
     //hàm tính lượng thức ăn cho 1 hồ cá
     public double calculateFoodInPond(long pondID, int temperature, String level) {
@@ -104,6 +108,7 @@ public class KoiFoodService {
         return roundedFood;
     }
 
+    //tính lượng thức ăn cho từng con cá và trả về danh sách
     public List<KoiFoodListResponse> calculateFoodForKoiList(long pondID, int temperature, String level){
         List<KoiFish> koiFishes = koiFishRepository.getAllByPond(pondRepository.getPondByPondID(pondID));
         List<KoiFoodListResponse> koiFoodListResponses = new ArrayList<>();
@@ -129,5 +134,13 @@ public class KoiFoodService {
             koiFoodListResponses.add(koiFoodListResponse);
         }
         return koiFoodListResponses;
+    }
+
+    //tính khối lượng thức ăn cho cá theo expert mode
+    public double expertMode(ExpertModeRequest request){
+        double totalWeight = pondService.calculateTotalWeight(request.getPondID());
+        double food = totalWeight * request.getPercent() / 100;
+        double roundedFood = Math.round(food * 100.0) / 100.0;
+        return roundedFood;
     }
 }
