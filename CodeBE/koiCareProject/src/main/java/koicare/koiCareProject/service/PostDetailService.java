@@ -103,4 +103,8 @@ public class PostDetailService {
             return postDetailList;
         }
     }
+
+    public PostDetail getPostDetailById(long postID){
+        return postDetailRepository.findByPostID(postID);
+    }
 }

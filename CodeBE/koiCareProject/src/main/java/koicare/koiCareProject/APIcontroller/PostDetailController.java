@@ -70,5 +70,14 @@ public class PostDetailController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("view/postdetail/{postID}")
+    public ResponseEntity getPostDetail(@PathVariable long postID) {
+        APIResponse<PostDetailResponse> response = new APIResponse<>();
+        PostDetailResponse postDetailResponse = modelMapper.map
+                (postDetailService.getPostDetailById(postID), PostDetailResponse.class);
+        response.setResult(postDetailResponse);
+        return ResponseEntity.ok(response);
+    }
+
 
 }
