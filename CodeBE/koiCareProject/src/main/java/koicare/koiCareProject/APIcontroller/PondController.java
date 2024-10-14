@@ -44,7 +44,12 @@ public class PondController {
     public ResponseEntity getAllPonds() {
         List<Pond> ponds = pondService.getAllPonds();
         List<PondResponse> pondResponses = ponds.stream()
-                .map(Pond -> modelMapper.map(Pond, PondResponse.class)).collect(Collectors.toList());
+                .map(pond -> {
+                    PondResponse pondResponse = modelMapper.map(pond, PondResponse.class);
+                    pondResponse.setTotalWeight(pondService.calculateTotalWeight(pond.getPondID()));
+                    return pondResponse;
+                })
+                .collect(Collectors.toList());
         return ResponseEntity.ok(pondResponses);
     }
 
