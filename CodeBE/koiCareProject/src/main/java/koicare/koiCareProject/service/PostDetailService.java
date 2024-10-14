@@ -10,6 +10,8 @@ import org.modelmapper.internal.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +48,12 @@ public class PostDetailService {
             postDetail.setImage(postDetailRequest.getImage());
             postDetail.setLink(postDetailRequest.getLink());
             postDetail.setProductPrice(postDetailRequest.getProductPrice());
+
+            //set expiredDate
+            LocalDate currentDate = LocalDate.now();
+            LocalDate expiredDate = currentDate.plusMonths(3);
+            Date expiredDateAsDate = Date.from(expiredDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            postDetail.setExpiredDate(expiredDateAsDate);
 
 
             ProductType productType = productTypeRepository.findByProductTypeID(postDetailRequest.getProducTypeID());
