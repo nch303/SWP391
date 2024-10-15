@@ -77,7 +77,7 @@ public class KoiFishService {
 
 
             koiFishRepository.save(koiFish);
-            
+
             //tao koiReport
             KoiReport koiReport = new KoiReport();
             koiReport.setLength(0);

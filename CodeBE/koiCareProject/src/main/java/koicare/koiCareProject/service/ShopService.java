@@ -31,7 +31,7 @@ public class ShopService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Shop updateShop(MemberCreationRequest request){
+    public Shop updateShop(MemberCreationRequest request) {
 
         Account account = authenticationService.getCurrentAccount();
         Shop shop = shopRepository.getShopByAccount(account);
@@ -39,11 +39,7 @@ public class ShopService {
         shop.setPhone(request.getMemberPhone());
         shop.setEmail(request.getMemberEmail());
         account.setEmail(request.getMemberEmail());
-        if(passwordEncoder.matches(request.getOldPassword(), account.getPassword())) {
-            account.setPassword(passwordEncoder.encode(request.getNewPassword()));
-        } else {
-            throw new AppException(ErrorCode.WRONG_PASSWORD);
-        }
+
         EmailDetail emailDetail = new EmailDetail();
         emailDetail.setAccount(account);
         emailDetail.setSubject("You have changed your email!");
