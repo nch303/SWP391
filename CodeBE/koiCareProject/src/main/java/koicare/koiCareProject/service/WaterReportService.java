@@ -74,8 +74,26 @@ public class WaterReportService {
     }
 
     public void deleteWaterReport(Long waterReportId) {
+
+
         WaterReport waterReport = waterReportRepository.getWaterReportByWaterReportId(waterReportId);
-        if (waterReport == null) {
+        List<WaterReport> waterReports = waterReportRepository.getWaterReportByPond(waterReport.getPond());
+        if(waterReports.size() == 1){
+            waterReport.setWaterReportUpdatedDate(new Date());
+            waterReport.setWaterReportTemperature(0);
+            waterReport.setWaterReportSalt(0);
+            waterReport.setWaterReportOxygen(0);
+            waterReport.setWaterReportNitrite(0);
+            waterReport.setWaterReportNitrate(0);
+            waterReport.setWaterReportHardness(0);
+            waterReport.setWaterReportCarbonDioxide(0);
+            waterReport.setWaterReportCarbonate(0);
+            waterReport.setWaterReportAmmonia(0);
+            waterReport.setWaterReport_pH(0);
+            waterReport.setPond(waterReport.getPond());
+            waterReportRepository.save(waterReport);
+        }
+        else if (waterReport == null) {
             throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
         } else {
             waterReportRepository.deleteById(waterReportId);
