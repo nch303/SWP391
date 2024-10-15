@@ -46,6 +46,9 @@ public class KoiFishService {
     @Autowired
     private KoiReportService koiReportService;
 
+    @Autowired
+    private  KoiStatusRepository koiStatusRepository;
+
 
     //tạo cá koi
     public KoiFish createKoiFish(KoiFishRequest request) {
@@ -72,17 +75,20 @@ public class KoiFishService {
             pond.setAmountFish(pond.getAmountFish() + 1);
             pondRepository.save(pond);
 
+
+            koiFishRepository.save(koiFish);
+            
             //tao koiReport
             KoiReport koiReport = new KoiReport();
             koiReport.setLength(0);
             koiReport.setWeight(0);
-            koiReport.setKoiStatus(new KoiStatus());
+            koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(11));
             koiReport.setKoiFish(koiFish);
             koiReport.setUpdateDate(new Date());
             koiReportRepository.save(koiReport);
 
 
-            koiFishRepository.save(koiFish);
+
 
             return koiFish;
         } else {
