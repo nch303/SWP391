@@ -1,6 +1,7 @@
 package koicare.koiCareProject.service;
 
 import koicare.koiCareProject.dto.request.KoiFishRequest;
+import koicare.koiCareProject.dto.response.KoiReportResponse;
 import koicare.koiCareProject.dto.response.PondResponse;
 import koicare.koiCareProject.entity.*;
 import koicare.koiCareProject.exception.AppException;
@@ -12,6 +13,7 @@ import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -41,6 +43,9 @@ public class KoiFishService {
     @Autowired
     private PondService pondService;
 
+    @Autowired
+    private KoiReportService koiReportService;
+
 
     //tạo cá koi
     public KoiFish createKoiFish(KoiFishRequest request) {
@@ -66,6 +71,16 @@ public class KoiFishService {
             //Pond pond = pondRepository.getPondByPondID(request.getPondID());
             pond.setAmountFish(pond.getAmountFish() + 1);
             pondRepository.save(pond);
+
+            //tao koiReport
+            KoiReport koiReport = new KoiReport();
+            koiReport.setLength(0);
+            koiReport.setWeight(0);
+            koiReport.setKoiStatus(new KoiStatus());
+            koiReport.setKoiFish(koiFish);
+            koiReport.setUpdateDate(new Date());
+            koiReportRepository.save(koiReport);
+
 
             koiFishRepository.save(koiFish);
 

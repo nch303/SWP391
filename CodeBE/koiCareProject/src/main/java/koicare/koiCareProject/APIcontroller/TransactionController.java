@@ -25,7 +25,7 @@ public class TransactionController {
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("view/currentAccount)")
+    @GetMapping("view/currentAccount")
     public ResponseEntity viewTransactionsByAccount(){
         List<TransactionResponse> responses = transactionService.viewTransactionsByAccount();
         return ResponseEntity.ok(responses);

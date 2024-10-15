@@ -14,7 +14,7 @@ public class SaltService {
 
     public double calculatorSaltPerWaterChange(SaltRequest request) {
         long volume = pondRepository.getPondByPondID(request.getPondID()).getVolume();
-        double salt = volume * (request.getExpectSalt() - request.getCurrentSalt()) / 100 * ((double) request.getWaterchangePer() / volume);
+        double salt = volume * (request.getExpectSalt() / 100) * (request.getWaterchangePer() / 100) ;
 
         return Math.round(salt * 100.0) / 100.0;
 
