@@ -27,16 +27,16 @@ import java.util.stream.Collectors;
 public class AuthenticationAPI {
 
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
-    ShopRepository shopRepository;
+    private ShopRepository shopRepository;
 
     @Autowired
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     //API register
     @PostMapping("register")
@@ -57,6 +57,7 @@ public class AuthenticationAPI {
                     if (account.getRole().toString().contains("SHOP")) {
                         accountResponse.setName(shopRepository.getShopByAccount(account).getName());
                         accountResponse.setPhone(shopRepository.getShopByAccount(account).getPhone());
+                        accountResponse.setNumberOfPosts(shopRepository.getShopByAccount(account).getNumberOfPosts());
                     } else if (account.getRole().toString().contains("MEMBER")) {
                         accountResponse.setName(memberRepository.getMemberByAccount(account).getName());
                         accountResponse.setPhone(memberRepository.getMemberByAccount(account).getPhone());
@@ -78,6 +79,7 @@ public class AuthenticationAPI {
         if (account.getRole().toString().contains("SHOP")) {
             accountResponse.setName(shopRepository.getShopByAccount(account).getName());
             accountResponse.setPhone(shopRepository.getShopByAccount(account).getPhone());
+            accountResponse.setNumberOfPosts(shopRepository.getShopByAccount(account).getNumberOfPosts());
         } else if (account.getRole().toString().contains("MEMBER")) {
             accountResponse.setName(memberRepository.getMemberByAccount(account).getName());
             accountResponse.setPhone(memberRepository.getMemberByAccount(account).getPhone());

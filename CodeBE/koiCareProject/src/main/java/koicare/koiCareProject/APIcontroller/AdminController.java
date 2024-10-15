@@ -28,22 +28,16 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @Autowired
-    private PostPriceService postPriceService;
-
-    @Autowired
-    private MemberPackageService memberPackageService;
 
     @Autowired
     private AuthenticationService authenticationService;
 
-    @Autowired
-    private PaymentService paymentService;
 
 
     //POST DETAIL CONTROLLER
     @GetMapping("post/view/pending")
     public ResponseEntity getPendingPosts() {
+        APIResponse<List<PostDetailResponse>> response = new APIResponse<>();
         List<PostDetail> postDetails = adminService.getAllPendingPostDetails();
         List<PostDetailResponse> postDetailResponses = new ArrayList<>();
         for (PostDetail postDetail : postDetails) {
@@ -59,12 +53,11 @@ public class AdminController {
             postDetailResponse.setPostStatus(postDetail.isPostStatus());
             postDetailResponse.setShopID(postDetail.getShop().getShopID());
             postDetailResponse.setProducTypeID(postDetail.getProductType().getProductTypeID());
-            postDetailResponse.setPaymentID(postDetail.getPayment().getPaymentID());
-            postDetailResponse.setPriceID(postDetail.getPostPrice().getPriceID());
 
             postDetailResponses.add(postDetailResponse);
         }
-        return ResponseEntity.ok(postDetailResponses);
+        response.setResult(postDetailResponses);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("post/approve/{postID}")
@@ -89,6 +82,7 @@ public class AdminController {
 
     @GetMapping("post/view/approved")
     public ResponseEntity getApprovedPosts() {
+        APIResponse<List<PostDetailResponse>> response = new APIResponse<>();
         List<PostDetail> postDetails = adminService.getAllApprovedPostDetails();
         List<PostDetailResponse> postDetailResponses = new ArrayList<>();
         for (PostDetail postDetail : postDetails) {
@@ -104,12 +98,11 @@ public class AdminController {
             postDetailResponse.setPostStatus(postDetail.isPostStatus());
             postDetailResponse.setShopID(postDetail.getShop().getShopID());
             postDetailResponse.setProducTypeID(postDetail.getProductType().getProductTypeID());
-            postDetailResponse.setPaymentID(postDetail.getPayment().getPaymentID());
-            postDetailResponse.setPriceID(postDetail.getPostPrice().getPriceID());
 
             postDetailResponses.add(postDetailResponse);
         }
-        return ResponseEntity.ok(postDetailResponses);
+        response.setResult(postDetailResponses);
+        return ResponseEntity.ok(response);
     }
 
 
@@ -190,104 +183,6 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
-    //POST PRICE CONTROLLER
-    @PostMapping("postprice/create")
-    public ResponseEntity createPostPrice(@RequestBody PostPriceRequest request) {
-        APIResponse<PostPriceResponse> response = new APIResponse<>();
-        PostPrice postPrice = postPriceService.createPostPrice(request);
-        PostPriceResponse postPriceResponse = new PostPriceResponse();
-        postPriceResponse.setPrice(postPrice.getPrice());
-        postPriceResponse.setDuration(postPrice.getDuration());
-        postPriceResponse.setPriceID(postPrice.getPriceID());
-        response.setResult(postPriceResponse);
-        return ResponseEntity.ok(response);
-
-    }
-
-    @GetMapping("postprice/view")
-    public ResponseEntity getPostPriceViews() {
-        List<PostPrice> postPriceList = postPriceService.getAllPostPrice();
-        List<PostPriceResponse> postPriceResponseList = new ArrayList<>();
-        for (PostPrice postPrice : postPriceList) {
-            PostPriceResponse postPriceResponse1 = new PostPriceResponse();
-            postPriceResponse1.setPrice(postPrice.getPrice());
-            postPriceResponse1.setDuration(postPrice.getDuration());
-            postPriceResponse1.setPriceID(postPrice.getPriceID());
-            postPriceResponseList.add(postPriceResponse1);
-        }
-        return ResponseEntity.ok(postPriceList);
-    }
-
-    @PutMapping("postprice/update/{priceID}")
-    public ResponseEntity updatePostPrice(@PathVariable("priceID") long priceID, @RequestBody PostPriceRequest request) {
-        PostPriceResponse postPriceResponse = new PostPriceResponse();
-        postPriceService.updatePostPrice(priceID, request);
-        postPriceResponse.setPriceID(priceID);
-        postPriceResponse.setPrice(request.getPrice());
-        postPriceResponse.setDuration(request.getDuration());
-        return ResponseEntity.ok(postPriceResponse);
-    }
-
-
-    @DeleteMapping("postprice/delete/{priceID}")
-    public ResponseEntity deletePostPrice(@PathVariable("priceID") long priceID) {
-        APIResponse apiResponse = new APIResponse();
-        postPriceService.deletePostPrice(priceID);
-        apiResponse.setResult("DELETED SUCCESSFULLY");
-        return ResponseEntity.ok(apiResponse);
-
-    }
-
-    //MEMBER PACKAGE CONTROLLER
-
-    @PostMapping("memberpackage/create")
-    public ResponseEntity createMemberPackage(@RequestBody MemberPackageRequest request) {
-        APIResponse<MemberPackageResponse> response = new APIResponse<>();
-
-        MemberPackageResponse memberPackageResponse = new MemberPackageResponse();
-        MemberPackage memberPackage = memberPackageService.createMemberPackage(request);
-        memberPackageResponse.setPackageID(memberPackage.getPackageID());
-        memberPackageResponse.setDuration(memberPackage.getDuration());
-        memberPackageResponse.setPrice(memberPackage.getPrice());
-        response.setResult(memberPackageResponse);
-        return ResponseEntity.ok(response);
-
-    }
-
-    @GetMapping("memberpackage/view")
-    public ResponseEntity getMemberPackageViews() {
-        List<MemberPackage> memberPackageList = memberPackageService.getAllMemberPackages();
-        List<MemberPackageResponse> memberPackageResponseList = new ArrayList<>();
-        for (MemberPackage memberPackage : memberPackageList) {
-            MemberPackageResponse memberPackageResponse1 = new MemberPackageResponse();
-            memberPackageResponse1.setPackageID(memberPackage.getPackageID());
-            memberPackageResponse1.setDuration(memberPackage.getDuration());
-            memberPackageResponse1.setPrice(memberPackage.getPrice());
-            memberPackageResponseList.add(memberPackageResponse1);
-
-        }
-        return ResponseEntity.ok(memberPackageResponseList);
-    }
-
-    @PutMapping("memberpackage/update/{packageID}")
-    public ResponseEntity updateMemberPackage(@PathVariable("packageID") long packageID, @RequestBody MemberPackageRequest request) {
-        APIResponse<MemberPackageResponse> response = new APIResponse<>();
-        MemberPackage memberPackage = memberPackageService.updateMemberPackage(packageID, request);
-        MemberPackageResponse memberPackageResponse = new MemberPackageResponse();
-        memberPackageResponse.setPackageID(memberPackage.getPackageID());
-        memberPackageResponse.setDuration(memberPackage.getDuration());
-        memberPackageResponse.setPrice(memberPackage.getPrice());
-        response.setResult(memberPackageResponse);
-        return ResponseEntity.ok(response);
-    }
-
-    @DeleteMapping("memberpackage/delete/{packageID}")
-    public ResponseEntity deleteMemberPackage(@PathVariable("packageID") long packageID) {
-        APIResponse apiResponse = new APIResponse();
-        memberPackageService.deleteMemberPackage(packageID);
-        apiResponse.setResult("DELETED SUCCESSFULLY");
-        return ResponseEntity.ok(apiResponse);
-    }
 
     @DeleteMapping("deleteAccount/{accountID}")
     public ResponseEntity deleteAccount(@PathVariable("accountID") long accountID){
@@ -302,20 +197,5 @@ public class AdminController {
     }
 
 
-    //Payment Controller
-    @GetMapping("/payment/viewall")
-    public ResponseEntity getAllPayments() {
-        APIResponse<PaymentResponse> response = new APIResponse<>();
-        List<Payment> payments = paymentService.getAllPayment();
-        List<PaymentResponse> paymentResponseList = new ArrayList<>();
-        for (Payment payment : payments) {
-            PaymentResponse paymentResponse = new PaymentResponse();
-            paymentResponse.setPaymentID(payment.getPaymentID());
-            paymentResponse.setPaymentType(payment.getPaymentType());
-            paymentResponseList.add(paymentResponse);
-        }
-       return ResponseEntity.ok(paymentResponseList);
-
-    }
 
 }

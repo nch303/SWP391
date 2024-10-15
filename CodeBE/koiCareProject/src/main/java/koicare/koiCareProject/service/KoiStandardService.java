@@ -18,13 +18,11 @@ import java.util.List;
 public class KoiStandardService {
 
     @Autowired
-    KoiStandardRepository koiStandardRepository;
+    private KoiStandardRepository koiStandardRepository;
 
     @Autowired
-    KoiVarietyRepository koiVarietyRepository;
+    private KoiVarietyRepository koiVarietyRepository;
 
-    @Autowired
-    ModelMapper modelMapper;
 
 
     // Lấy KoiStandard theo ID

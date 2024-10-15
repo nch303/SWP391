@@ -23,10 +23,10 @@ import java.util.stream.Collectors;
 public class KoiStatusController {
 
     @Autowired
-    KoiStatusService koiStatusService;
+    private KoiStatusService koiStatusService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     //lấy tất cả các koiStatus trong danh sách
     @GetMapping("")

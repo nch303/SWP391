@@ -23,37 +23,40 @@ import java.util.List;
 public class KoiReportService {
 
     @Autowired
-    KoiReportRepository koiReportRepository;
+    private KoiReportRepository koiReportRepository;
 
     @Autowired
-    KoiStatusRepository koiStatusRepository;
+    private KoiStatusRepository koiStatusRepository;
 
     @Autowired
-    KoiFishRepository koiFishRepository;
+    private KoiFishRepository koiFishRepository;
 
     @Autowired
-    KoiStandardRepository koiStandardRepository;
+    private KoiStandardRepository koiStandardRepository;
 
-
-    @Autowired
-    ModelMapper modelMapper;
 
     //tạo KoiReport
     public KoiReport createKoiReport(KoiReportRequest request) {
 
-        KoiReport koiReport = new KoiReport();
+        KoiReport newKoiReport = new KoiReport();
 
-        koiReport.setUpdateDate(request.getUpdateDate());
-        koiReport.setLength(request.getLength());
-        koiReport.setWeight(request.getWeight());
-        koiReport.setKoiFish(koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()));
+        //nếu trùng report sẽ báo lỗi
+        Date date = request.getUpdateDate();
+        KoiReport koiReport = koiReportRepository.getKoiReportsByUpdateDate(date);
+        if(koiReport != null){
+            throw new AppException(ErrorCode.KOIREPORT_EXISTED);
+        }
 
+        newKoiReport.setUpdateDate(request.getUpdateDate());
+        newKoiReport.setLength(request.getLength());
+        newKoiReport.setWeight(request.getWeight());
+        newKoiReport.setKoiFish(koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()));
 
         long koiStatusID = createKoiStatus(request);
-        koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(koiStatusID));
+        newKoiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(koiStatusID));
 
 
-        return koiReportRepository.save(koiReport);
+        return koiReportRepository.save(newKoiReport);
     }
 
     //lấy danh sách KoiReport theo koiFishID
@@ -76,7 +79,7 @@ public class KoiReportService {
             KoiReport koiReportFinal = new KoiReport();
             for (KoiReport koiReport : koiReports) {
                 period = dateBetween(koiReport.getUpdateDate());
-                if (period < leastDate){
+                if (period < leastDate) {
                     koiReportFinal = koiReport;
                     leastDate = period;
                 }
@@ -115,6 +118,12 @@ public class KoiReportService {
     public KoiReport updateKoiReport(long koiReportID, KoiReportRequest request) {
         KoiReport koiReport = koiReportRepository.getKoiReportByKoiReportID(koiReportID);
         if (koiReport != null) {
+            //nếu trùng report sẽ báo lỗi
+            Date date = request.getUpdateDate();
+            KoiReport oldKoiReport = koiReportRepository.getKoiReportsByUpdateDate(date);
+            if(oldKoiReport != null){
+                throw new AppException(ErrorCode.KOIREPORT_EXISTED);
+            }
             koiReport.setUpdateDate(request.getUpdateDate());
             koiReport.setWeight(request.getWeight());
             koiReport.setLength(request.getLength());

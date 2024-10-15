@@ -18,6 +18,7 @@ public class AccountResponse {
     private String email;
     private int premiumStatus;
     private Date expiredDate;
+    private int numberOfPosts;
     private String token;
 
 }

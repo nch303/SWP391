@@ -24,10 +24,13 @@ public class AdminService {
     private ProductTypeRepository productTypeRepository;
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    EmailService emailService;
+    private EmailService emailService;
+
+    @Autowired
+    private ShopRepository shopRepository;
 
     public List<PostDetail> getAllPendingPostDetails(){
 
@@ -68,6 +71,12 @@ public class AdminService {
 
             emailService.sendEmailRejectPost(emailDetail);
             postDetailRepository.delete(postDetail);
+
+            Shop shop = shopRepository.getShopByAccount(account);
+            shop.setNumberOfPosts(shop.getNumberOfPosts() + 1);
+            shop.setShopID(shop.getShopID());
+
+            shopRepository.save(shop);
         }
     }
 

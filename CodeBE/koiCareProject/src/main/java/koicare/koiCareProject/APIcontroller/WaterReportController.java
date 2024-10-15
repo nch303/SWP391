@@ -26,7 +26,7 @@ public class WaterReportController {
     private WaterReportService waterReportService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @PostMapping("/create")
     public ResponseEntity createWaterReport(@RequestBody WaterReportRequest request) {

@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class ForgotPasswordRequest {
     @Email(message = "Invalid email")
-    String email;
+    private String email;
 }

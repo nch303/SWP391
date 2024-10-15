@@ -20,20 +20,29 @@ public enum ErrorCode {
     POND_NOT_EXISTED(1012, "POND_NOT_EXISTED"),
     KOISTATUS_NOT_EXISTED(1013,"Koistatus not existed"),
     KOIREPORT_NOT_EXISTED(1014,"Koireport not existed"),
+    KOIREPORT_EXISTED(1014,"Koireport Date existed"),
     KOISTANDARD_NOT_EXISTED(1014,"Koistandard not existed"),
     WATER_REPORT_NOT_EXISTED(1015, "WaterReport not existed"),
+    WATER_REPORT_EXISTED(1015, "WaterReport Date existed"),
     LIST_NOT_EXISTED(1016, "List not existed"),
     EMAIL_EXISTED(1017, "Email is duplicated"),
     EMPTY_TOKEN(1018, "Empty token"),
     FISH_IS_EXISTED_IN_POND(1019, "Cannot be deleted because there are still fish in the pond"),
-    STANDARD_EXISTED(1020, "Standard existed. Please update the existed standard"),
-    TEMP_TOO_HOT(1021, "Temperature is too high, please control lower 30."),
+    FISH_IS_NOT_EXISTED_IN_POND(1020, "Your pond don't have any fishes"),
+    TEMP_TOO_HOT(1021, "Temperature is too high, please control lower 31."),
+    TEMP_TOO_COLD(1021, "Temperature is too low, please control at least 0."),
     POST_DOES_NOT_EXIST(1022, "Post does not exist"),
-    POST_PRICE_NOT_EXISTED(1023, "Post price not existed"),
+    WRONG_PASSWORD(1023, "Your old password is not correct"),
     PRODUCT_TYPE_IS_NOT_EXISTED(1024, "Product type is not existed"),
     PAYMENT_METHOD_NOT_FOUND(1025, "Payment mehtod not found!!"),
     MEMBER_PACKAGE_IS_NOT_EXISTED(1026, "Member package is not existed"),
-    ACCOUNT_IS_NOT_EXISTED(1026, "Account is not existed");
+    ACCOUNT_IS_NOT_EXISTED(1026, "Account is not existed"),
+    TEMPCOEF_IS_NOT_EXISTED(1027, "TempCoef is not existed"),
+    FEEDCOEF_IS_NOT_EXISTED(1028, "FeedCoef is not existed"),
+    PACKAGE_IS_NOT_EXISTED(1029, "Package is not existed"),
+    ORDER_IS_NOT_EXISTED(1030, "Order is not existed"),
+    RUN_OUT_POST(1031, "You have run out of posts to submit or duration have been validated.")
+    ;
 
 
 

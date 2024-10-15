@@ -16,4 +16,5 @@ public class PondResponse {
     private long amountFish;
     private long pumpingCapacity;
     private Long memberID;
+    private double totalWeight;
 }

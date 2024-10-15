@@ -29,31 +29,31 @@ import java.util.List;
 public class AuthenticationService implements UserDetailsService {
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    EmailService emailService;
+    private EmailService emailService;
 
     @Autowired
-    TokenService tokenService;
+    private TokenService tokenService;
 
     @Autowired
-    AuthorizationRepository authorizationRepository;
+    private AuthorizationRepository authorizationRepository;
 
     @Autowired
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     @Autowired
-    ShopRepository shopRepository;
+    private ShopRepository shopRepository;
 
     //Member Register
     public AccountResponse register(RegisterRequest registerRequest) {
@@ -64,6 +64,7 @@ public class AuthenticationService implements UserDetailsService {
         account.setRole(registerRequest.getRole());
         account.setEmail(registerRequest.getEmail());
         account.setStatus(true);
+        account.setBalance(0);
         Account existedAccount = accountRepository.findAccountByUsername(registerRequest.getUsername());
         if (existedAccount == null) {
             try {

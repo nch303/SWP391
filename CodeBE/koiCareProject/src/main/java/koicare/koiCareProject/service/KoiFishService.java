@@ -18,31 +18,29 @@ import java.util.List;
 public class KoiFishService {
 
     @Autowired
-    KoiFishRepository koiFishRepository;
+    private KoiFishRepository koiFishRepository;
 
     @Autowired
-    PondRepository pondRepository;
+    private PondRepository pondRepository;
 
     @Autowired
-    KoiVarietyRepository koiVarietyRepository;
+    private KoiVarietyRepository koiVarietyRepository;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @Autowired
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     @Autowired
-    KoiReportRepository koiReportRepository;
+    private KoiReportRepository koiReportRepository;
 
     @Autowired
-    PondService pondService;
+    private PondService pondService;
 
-    @Autowired
-    KoiStatusRepository koiStatusRepository;
 
     //tạo cá koi
     public KoiFish createKoiFish(KoiFishRequest request) {
@@ -71,14 +69,6 @@ public class KoiFishService {
 
             koiFishRepository.save(koiFish);
 
-//            KoiReport koiReport =  new KoiReport();
-//            koiReport.setWeight(1);
-//            koiReport.setLength(1);
-//            koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(1));
-//            koiReport.setKoiFish(koiFish);
-//            koiReportRepository.save(koiReport);
-
-
             return koiFish;
         } else {
             throw new AppException(ErrorCode.POND_NOT_EXISTED);
@@ -105,16 +95,36 @@ public class KoiFishService {
             throw new AppException(ErrorCode.KOIFISH_NOT_EXISTED);
     }
 
+    //lấy cá koi theo pondID
+    public List<KoiFish> getKoiFishWithPondID(long pondID) {
+        Pond pond = pondRepository.getPondByPondID(pondID);
+        if (pond != null) {
+            List<KoiFish> koiFishes = koiFishRepository.getAllByPond(pond);
+            if (!koiFishes.isEmpty()) {
+                return koiFishes;
+            } else throw new AppException(ErrorCode.FISH_IS_NOT_EXISTED_IN_POND);
+        } else throw new AppException(ErrorCode.POND_NOT_EXISTED);
+    }
+
     //update cá koi
     public KoiFish updateKoiFish(long koiFishID, KoiFishRequest request) {
         KoiFish koiFish = koiFishRepository.getKoiFishByKoiFishID(koiFishID);
         if (koiFish != null) {
+            Pond oldPond = pondRepository.getPondByPondID(koiFish.getPond().getPondID());
+            oldPond.setAmountFish(oldPond.getAmountFish() - 1);
+            pondRepository.save(oldPond);
+
             koiFish = modelMapper.map(request, KoiFish.class);
             koiFish.setKoiFishID(koiFishID);
+
+            Pond newPond = pondRepository.getPondByPondID(koiFish.getPond().getPondID());
+            newPond.setAmountFish(newPond.getAmountFish() + 1);
+            pondRepository.save(newPond);
 
             Account account = authenticationService.getCurrentAccount();
             Member member = memberRepository.getMemberByAccount(account);
             koiFish.setMember(member);
+
 
             return koiFishRepository.save(koiFish);
         } else

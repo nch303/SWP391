@@ -27,14 +27,9 @@ public class PondController {
     @Autowired
     private PondService pondService;
 
-    @Autowired
-    private PondRepository pondRepository;
 
     @Autowired
-    private MemberRepository memberRepository;
-
-    @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @PostMapping("create")
     public APIResponse<PondResponse> createPond(@RequestBody PondCreationRequest pondCreationRequest) {
@@ -49,7 +44,12 @@ public class PondController {
     public ResponseEntity getAllPonds() {
         List<Pond> ponds = pondService.getAllPonds();
         List<PondResponse> pondResponses = ponds.stream()
-                .map(Pond -> modelMapper.map(Pond, PondResponse.class)).collect(Collectors.toList());
+                .map(pond -> {
+                    PondResponse pondResponse = modelMapper.map(pond, PondResponse.class);
+                    pondResponse.setTotalWeight(pondService.calculateTotalWeight(pond.getPondID()));
+                    return pondResponse;
+                })
+                .collect(Collectors.toList());
         return ResponseEntity.ok(pondResponses);
     }
 
@@ -59,6 +59,7 @@ public class PondController {
         APIResponse<PondResponse> response = new APIResponse<>();
 
         PondResponse pondResponse = modelMapper.map(pondService.getPondById(pondID), PondResponse.class);
+        pondResponse.setTotalWeight(pondService.calculateTotalWeight(pondID));
         response.setResult(pondResponse);
         return ResponseEntity.ok(response);
     }

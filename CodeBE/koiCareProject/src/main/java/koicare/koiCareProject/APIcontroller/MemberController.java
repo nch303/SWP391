@@ -24,9 +24,6 @@ public class MemberController {
     private MemberService memberService;
 
 
-    @Autowired
-    ModelMapper modelMapper;
-
     @PutMapping("update")
     public ResponseEntity updateMember(@RequestBody MemberCreationRequest request){
         Member member = memberService.updateMember(request);

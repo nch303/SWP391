@@ -3,9 +3,7 @@ package koicare.koiCareProject.APIcontroller;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import koicare.koiCareProject.dto.request.ProductTypeRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
-import koicare.koiCareProject.dto.response.PostPriceResponse;
 import koicare.koiCareProject.dto.response.ProductTypeResponse;
-import koicare.koiCareProject.entity.PostPrice;
 import koicare.koiCareProject.entity.ProductType;
 import koicare.koiCareProject.service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,7 @@ import java.util.List;
 public class ProductTypeController {
 
     @Autowired
-    ProductTypeService productTypeService;
+    private ProductTypeService productTypeService;
 
     @PostMapping("productType/create")
     public ResponseEntity createProductType(@RequestBody ProductTypeRequest request){

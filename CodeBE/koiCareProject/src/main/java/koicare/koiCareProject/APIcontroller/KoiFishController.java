@@ -29,16 +29,16 @@ import java.util.stream.Collectors;
 public class KoiFishController {
 
     @Autowired
-    KoiFishService koiFishService;
+    private KoiFishService koiFishService;
 
     @Autowired
-    PondRepository pondRepository;
+    private PondRepository pondRepository;
 
     @Autowired
-    KoiVarietyRepository koiVarietyRepository;
+    private KoiVarietyRepository koiVarietyRepository;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     //tạo cá koi
     @PostMapping("create")
@@ -76,9 +76,31 @@ public class KoiFishController {
     public ResponseEntity getKoiFish(@PathVariable("koiFishID") long koiFishID){
         APIResponse<KoiFishResponse> response = new APIResponse<>();
 
-        KoiFishResponse koiFishResponse = modelMapper.map(koiFishService.getKoiFish(koiFishID), KoiFishResponse.class);
+        KoiFish koiFish = koiFishService.getKoiFish(koiFishID);
+        KoiFishResponse koiFishResponse = modelMapper.map(koiFish, KoiFishResponse.class);
+        koiFishResponse.setKoiVarietyID(koiFish.getKoiVariety().getKoiVarietyID());
+        koiFishResponse.setPondID(koiFish.getPond().getPondID());
+
         response.setResult(koiFishResponse);
         return ResponseEntity.ok(response);
+    }
+
+    //lấy lên cá koi theo pondID
+    @GetMapping("pond/{pondID}")
+    public ResponseEntity getKoiFishByPondID(@PathVariable long pondID){
+        APIResponse<List<KoiFishResponse>> response = new APIResponse<>();
+        List<KoiFish> koiFishes = koiFishService.getKoiFishWithPondID(pondID);
+        List<KoiFishResponse> koiFishResponses = koiFishes.stream()
+                .map(koiFish -> {
+                    KoiFishResponse koiFishResponse = modelMapper.map(koiFish, KoiFishResponse.class);
+                    koiFishResponse.setPondName(pondRepository.getPondByPondID(koiFish.getPond().getPondID()).getPondName());
+                    koiFishResponse.setKoiVariety(koiVarietyRepository.getKoiVarietyByKoiVarietyID(koiFish.getKoiVariety().getKoiVarietyID()).getVarietyName() );
+                    return koiFishResponse;
+                })
+                .collect(Collectors.toList());
+        response.setResult(koiFishResponses);
+        return ResponseEntity.ok(response);
+
     }
 
     //update cá koi
