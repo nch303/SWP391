@@ -36,20 +36,42 @@ public class WaterReportService {
         Pond pond = pondRepository.getPondByPondID(waterReportRequest.getPondID());
         if (pond != null){
 //            Date date = new Date();
-            waterReport.setWaterReportUpdatedDate(waterReportRequest.getWaterReportUpdatedDate());
-            waterReport.setWaterReportTemperature(waterReportRequest.getWaterReportTemperature());
-            waterReport.setWaterReportSalt(waterReportRequest.getWaterReportSalt());
-            waterReport.setWaterReportOxygen(waterReportRequest.getWaterReportOxygen());
-            waterReport.setWaterReportNitrite(waterReportRequest.getWaterReportNitrite());
-            waterReport.setWaterReportNitrate(waterReportRequest.getWaterReportNitrate());
-            waterReport.setWaterReportHardness(waterReportRequest.getWaterReportHardness());
-            waterReport.setWaterReportCarbonDioxide(waterReportRequest.getWaterReportCarbonDioxide());
-            waterReport.setWaterReportCarbonate(waterReportRequest.getWaterReportCarbonate());
-            waterReport.setWaterReportAmmonia(waterReportRequest.getWaterReportAmmonia());
-            waterReport.setWaterReport_pH(waterReportRequest.getWaterReport_pH());
+            Date date = waterReportRequest.getWaterReportUpdatedDate();
+            List<WaterReport> waterReports = waterReportRepository.getWaterReportByWaterReportUpdatedDate(date);
+            if (waterReports.size() != 0){
+                for (WaterReport waterReport1 : waterReports) {
+                    waterReportRepository.delete(waterReport1);
+                }
+                waterReport.setWaterReportUpdatedDate(waterReportRequest.getWaterReportUpdatedDate());
+                waterReport.setWaterReportTemperature(waterReportRequest.getWaterReportTemperature());
+                waterReport.setWaterReportSalt(waterReportRequest.getWaterReportSalt());
+                waterReport.setWaterReportOxygen(waterReportRequest.getWaterReportOxygen());
+                waterReport.setWaterReportNitrite(waterReportRequest.getWaterReportNitrite());
+                waterReport.setWaterReportNitrate(waterReportRequest.getWaterReportNitrate());
+                waterReport.setWaterReportHardness(waterReportRequest.getWaterReportHardness());
+                waterReport.setWaterReportCarbonDioxide(waterReportRequest.getWaterReportCarbonDioxide());
+                waterReport.setWaterReportCarbonate(waterReportRequest.getWaterReportCarbonate());
+                waterReport.setWaterReportAmmonia(waterReportRequest.getWaterReportAmmonia());
+                waterReport.setWaterReport_pH(waterReportRequest.getWaterReport_pH());
+                waterReport.setPond(pond);
+                return waterReportRepository.save(waterReport);
+            }
+            else{
+                waterReport.setWaterReportUpdatedDate(waterReportRequest.getWaterReportUpdatedDate());
+                waterReport.setWaterReportTemperature(waterReportRequest.getWaterReportTemperature());
+                waterReport.setWaterReportSalt(waterReportRequest.getWaterReportSalt());
+                waterReport.setWaterReportOxygen(waterReportRequest.getWaterReportOxygen());
+                waterReport.setWaterReportNitrite(waterReportRequest.getWaterReportNitrite());
+                waterReport.setWaterReportNitrate(waterReportRequest.getWaterReportNitrate());
+                waterReport.setWaterReportHardness(waterReportRequest.getWaterReportHardness());
+                waterReport.setWaterReportCarbonDioxide(waterReportRequest.getWaterReportCarbonDioxide());
+                waterReport.setWaterReportCarbonate(waterReportRequest.getWaterReportCarbonate());
+                waterReport.setWaterReportAmmonia(waterReportRequest.getWaterReportAmmonia());
+                waterReport.setWaterReport_pH(waterReportRequest.getWaterReport_pH());
+                waterReport.setPond(pond);
+                return waterReportRepository.save(waterReport);
+            }
 
-            waterReport.setPond(pond);
-            return waterReportRepository.save(waterReport);
         } else{
             throw new AppException(ErrorCode.POND_NOT_EXISTED);
         }
