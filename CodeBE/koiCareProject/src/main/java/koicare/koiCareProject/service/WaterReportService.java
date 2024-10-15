@@ -14,6 +14,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -153,13 +156,41 @@ public class WaterReportService {
         }
     }
 
+    public long dateBetween(Date date) {
+        // Chuyển đổi từ Date sang LocalDate
+        LocalDate dateFrom = date.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+
+        Date currentDate = new Date();
+        LocalDate dateTo = currentDate.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+
+        // Tính số ngày giữa hai ngày
+        long daysBetween = ChronoUnit.DAYS.between(dateFrom, dateTo);
+        return daysBetween;
+    }
+
     public WaterReport getLatestWaterReport(long pondID) {
         Pond pond = pondRepository.getPondByPondID(pondID);
         List<WaterReport> waterReports = waterReportRepository.getWaterReportByPond(pond);
+
+        long period = 0;
+        long leastDate = Long.MAX_VALUE;
+
         if (waterReports.size() == 0) {
             throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
         } else {
-            return waterReports.get(waterReports.size() - 1);
+            WaterReport waterReportFinal = new WaterReport();
+            for(WaterReport waterReport : waterReports){
+                period = dateBetween(waterReport.getWaterReportUpdatedDate());
+                if(period < leastDate){
+                    waterReportFinal = waterReport;
+                    leastDate = period;
+                }
+            }
+            return waterReportFinal;
         }
     }
 }
