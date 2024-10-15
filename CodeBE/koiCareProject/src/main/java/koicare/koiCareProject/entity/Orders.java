@@ -15,9 +15,7 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
     private Date date;
-
     private float total;
 
     @ManyToOne

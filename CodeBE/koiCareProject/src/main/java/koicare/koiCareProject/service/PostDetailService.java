@@ -29,7 +29,7 @@ public class PostDetailService {
     private ShopRepository shopRepository;
 
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
     //
 
     public PostDetail createPostDetail(PostDetailRequest postDetailRequest) {
@@ -82,11 +82,13 @@ public class PostDetailService {
         return postDetailRepository.findAll();
     }
 
-    public List<PostDetail> getAllPostByShopID(long shopID) {
-        List<PostDetail> postDetails = postDetailRepository.findAll();
+    public List<PostDetail> getAllPostByShopID() {
+        Account account = authenticationService.getCurrentAccount();
+        Shop shop = shopRepository.getShopByAccount(account);
+        List<PostDetail> postDetails = postDetailRepository.findByShop(shop);
         List<PostDetail> postDetailList = new ArrayList<>();
         for (PostDetail postDetail : postDetails) {
-            if (postDetail.getShop().getShopID() == shopID && postDetail.isPostStatus()) {
+            if (postDetail.isPostStatus()) {
                 postDetailList.add(postDetail);
             }
         }
@@ -97,11 +99,13 @@ public class PostDetailService {
         }
     }
 
-    public List<PostDetail> getAllPendingPostByShopID(long shopID) {
-        List<PostDetail> postDetails = postDetailRepository.findAll();
+    public List<PostDetail> getAllPendingPostByShopID() {
+        Account account = authenticationService.getCurrentAccount();
+        Shop shop = shopRepository.getShopByAccount(account);
+        List<PostDetail> postDetails = postDetailRepository.findByShop(shop);
         List<PostDetail> postDetailList = new ArrayList<>();
         for (PostDetail postDetail : postDetails) {
-            if (postDetail.getShop().getShopID() == shopID && !postDetail.isPostStatus()) {
+            if ( !postDetail.isPostStatus()) {
                 postDetailList.add(postDetail);
             }
         }
