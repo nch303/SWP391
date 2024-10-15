@@ -124,7 +124,7 @@ public class KoiReportService {
             if(oldKoiReport != null){
                 throw new AppException(ErrorCode.KOIREPORT_EXISTED);
             }
-            koiReport.setUpdateDate(request.getUpdateDate());
+
             koiReport.setWeight(request.getWeight());
             koiReport.setLength(request.getLength());
 

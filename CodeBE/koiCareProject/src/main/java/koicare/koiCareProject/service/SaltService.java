@@ -15,7 +15,8 @@ public class SaltService {
     public double calculatorSaltPerWaterChange(SaltRequest request) {
         long volume = pondRepository.getPondByPondID(request.getPondID()).getVolume();
         double salt = volume * (request.getExpectSalt() - request.getCurrentSalt()) / 100 * ((double) request.getWaterchangePer() / volume);
-        return salt;
+
+        return Math.round(salt * 100.0) / 100.0;
 
     }
 
@@ -23,7 +24,7 @@ public class SaltService {
         long volume = pondRepository.getPondByPondID(request.getPondID()).getVolume();
         if (request.getExpectSalt() > request.getCurrentSalt()) {
             double salt = volume * (request.getExpectSalt() - request.getCurrentSalt()) / 100;
-            return salt;
+            return Math.round(salt * 100.0) / 100.0;
         }else return 0;
     }
 

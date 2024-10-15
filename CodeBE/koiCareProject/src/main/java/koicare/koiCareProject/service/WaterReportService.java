@@ -114,7 +114,7 @@ public class WaterReportService {
                 throw new AppException(ErrorCode.WATER_REPORT_EXISTED);
             }
 
-            waterReport.setWaterReportUpdatedDate(waterReportRequest.getWaterReportUpdatedDate());
+            waterReport.setWaterReportUpdatedDate(waterReport.getWaterReportUpdatedDate());
             waterReport.setWaterReportTemperature(waterReportRequest.getWaterReportTemperature());
             waterReport.setWaterReportSalt(waterReportRequest.getWaterReportSalt());
             waterReport.setWaterReportOxygen(waterReportRequest.getWaterReportOxygen());
@@ -139,9 +139,9 @@ public class WaterReportService {
             throw new AppException(ErrorCode.LIST_NOT_EXISTED);
 
         } else {
-            Date date = new Date();
+
             WaterReport waterReport = waterReports.get(waterReports.size() - 1);
-            waterReport.setWaterReportUpdatedDate(date);
+
             waterReport.setWaterReportTemperature(request.getWaterReportTemperature());
             waterReport.setWaterReportSalt(request.getWaterReportSalt());
             waterReport.setWaterReportOxygen(request.getWaterReportOxygen());
