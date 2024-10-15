@@ -57,6 +57,7 @@ public class AuthenticationAPI {
                     if (account.getRole().toString().contains("SHOP")) {
                         accountResponse.setName(shopRepository.getShopByAccount(account).getName());
                         accountResponse.setPhone(shopRepository.getShopByAccount(account).getPhone());
+                        accountResponse.setNumberOfPosts(shopRepository.getShopByAccount(account).getNumberOfPosts());
                     } else if (account.getRole().toString().contains("MEMBER")) {
                         accountResponse.setName(memberRepository.getMemberByAccount(account).getName());
                         accountResponse.setPhone(memberRepository.getMemberByAccount(account).getPhone());
@@ -78,6 +79,7 @@ public class AuthenticationAPI {
         if (account.getRole().toString().contains("SHOP")) {
             accountResponse.setName(shopRepository.getShopByAccount(account).getName());
             accountResponse.setPhone(shopRepository.getShopByAccount(account).getPhone());
+            accountResponse.setNumberOfPosts(shopRepository.getShopByAccount(account).getNumberOfPosts());
         } else if (account.getRole().toString().contains("MEMBER")) {
             accountResponse.setName(memberRepository.getMemberByAccount(account).getName());
             accountResponse.setPhone(memberRepository.getMemberByAccount(account).getPhone());

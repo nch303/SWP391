@@ -35,8 +35,8 @@ public class WaterReportService {
 
         Pond pond = pondRepository.getPondByPondID(waterReportRequest.getPondID());
         if (pond != null){
-            Date date = new Date();
-            waterReport.setWaterReportUpdatedDate(date);
+//            Date date = new Date();
+            waterReport.setWaterReportUpdatedDate(waterReportRequest.getWaterReportUpdatedDate());
             waterReport.setWaterReportTemperature(waterReportRequest.getWaterReportTemperature());
             waterReport.setWaterReportSalt(waterReportRequest.getWaterReportSalt());
             waterReport.setWaterReportOxygen(waterReportRequest.getWaterReportOxygen());
