@@ -39,12 +39,14 @@ public class KoiReportService {
     public KoiReport createKoiReport(KoiReportRequest request) {
 
         KoiReport newKoiReport = new KoiReport();
+
+        //nếu trùng report sẽ báo lỗi
         Date date = request.getUpdateDate();
-        List<KoiReport> koiReports = koiReportRepository.getKoiReportsByUpdateDate(date);
-        for (KoiReport koiReport : koiReports) {
-            koiReportRepository.delete(koiReport);
+        KoiReport koiReport = koiReportRepository.getKoiReportsByUpdateDate(date);
+        if(koiReport != null){
+            throw new AppException(ErrorCode.KOIREPORT_EXISTED);
         }
-        
+
         newKoiReport.setUpdateDate(request.getUpdateDate());
         newKoiReport.setLength(request.getLength());
         newKoiReport.setWeight(request.getWeight());
@@ -116,6 +118,12 @@ public class KoiReportService {
     public KoiReport updateKoiReport(long koiReportID, KoiReportRequest request) {
         KoiReport koiReport = koiReportRepository.getKoiReportByKoiReportID(koiReportID);
         if (koiReport != null) {
+            //nếu trùng report sẽ báo lỗi
+            Date date = request.getUpdateDate();
+            KoiReport oldKoiReport = koiReportRepository.getKoiReportsByUpdateDate(date);
+            if(oldKoiReport != null){
+                throw new AppException(ErrorCode.KOIREPORT_EXISTED);
+            }
             koiReport.setUpdateDate(request.getUpdateDate());
             koiReport.setWeight(request.getWeight());
             koiReport.setLength(request.getLength());

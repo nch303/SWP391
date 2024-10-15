@@ -28,35 +28,18 @@ public class WaterReportService {
     private PondRepository pondRepository;
 
 
-
     public WaterReport createWaterReport(WaterReportRequest waterReportRequest) {
 
         WaterReport waterReport = new WaterReport();
 
         Pond pond = pondRepository.getPondByPondID(waterReportRequest.getPondID());
-        if (pond != null){
-//            Date date = new Date();
+        if (pond != null) {
+            //nếu trùng report sẽ báo lỗi
             Date date = waterReportRequest.getWaterReportUpdatedDate();
-            List<WaterReport> waterReports = waterReportRepository.getWaterReportByWaterReportUpdatedDate(date);
-            if (waterReports.size() != 0){
-                for (WaterReport waterReport1 : waterReports) {
-                    waterReportRepository.delete(waterReport1);
-                }
-                waterReport.setWaterReportUpdatedDate(waterReportRequest.getWaterReportUpdatedDate());
-                waterReport.setWaterReportTemperature(waterReportRequest.getWaterReportTemperature());
-                waterReport.setWaterReportSalt(waterReportRequest.getWaterReportSalt());
-                waterReport.setWaterReportOxygen(waterReportRequest.getWaterReportOxygen());
-                waterReport.setWaterReportNitrite(waterReportRequest.getWaterReportNitrite());
-                waterReport.setWaterReportNitrate(waterReportRequest.getWaterReportNitrate());
-                waterReport.setWaterReportHardness(waterReportRequest.getWaterReportHardness());
-                waterReport.setWaterReportCarbonDioxide(waterReportRequest.getWaterReportCarbonDioxide());
-                waterReport.setWaterReportCarbonate(waterReportRequest.getWaterReportCarbonate());
-                waterReport.setWaterReportAmmonia(waterReportRequest.getWaterReportAmmonia());
-                waterReport.setWaterReport_pH(waterReportRequest.getWaterReport_pH());
-                waterReport.setPond(pond);
-                return waterReportRepository.save(waterReport);
-            }
-            else{
+            WaterReport oldWaterReport = waterReportRepository.getWaterReportByWaterReportUpdatedDate(date);
+            if (oldWaterReport != null) {
+                throw new AppException(ErrorCode.WATER_REPORT_EXISTED);
+            } else {
                 waterReport.setWaterReportUpdatedDate(waterReportRequest.getWaterReportUpdatedDate());
                 waterReport.setWaterReportTemperature(waterReportRequest.getWaterReportTemperature());
                 waterReport.setWaterReportSalt(waterReportRequest.getWaterReportSalt());
@@ -72,9 +55,8 @@ public class WaterReportService {
                 return waterReportRepository.save(waterReport);
             }
 
-        } else{
-            throw new AppException(ErrorCode.POND_NOT_EXISTED);
-        }
+        } else throw new AppException(ErrorCode.POND_NOT_EXISTED);
+
 
     }
 
@@ -82,18 +64,17 @@ public class WaterReportService {
         WaterReport waterReport = waterReportRepository.getWaterReportByWaterReportId(waterReportID);
         if (waterReport == null) {
             throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
-        }
-        else{
+        } else {
             return waterReport;
         }
 
     }
+
     public void deleteWaterReport(Long waterReportId) {
         WaterReport waterReport = waterReportRepository.getWaterReportByWaterReportId(waterReportId);
         if (waterReport == null) {
             throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
-        }
-        else{
+        } else {
             waterReportRepository.deleteById(waterReportId);
         }
 
@@ -111,10 +92,9 @@ public class WaterReportService {
                 filteredWaterReports.add(waterReport);
             }
         }
-        if (filteredWaterReports.isEmpty()){
+        if (filteredWaterReports.isEmpty()) {
             throw new AppException(ErrorCode.LIST_NOT_EXISTED);
-        }
-        else return filteredWaterReports;
+        } else return filteredWaterReports;
     }
 
 
@@ -123,10 +103,15 @@ public class WaterReportService {
 
         if (waterReport == null) {
             throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
-        }
-        else{
-            Date date = new Date();
-            waterReport.setWaterReportUpdatedDate(date);
+        } else {
+            //nếu trùng report sẽ báo lỗi
+            Date oldDate = waterReportRequest.getWaterReportUpdatedDate();
+            WaterReport oldWaterReport = waterReportRepository.getWaterReportByWaterReportUpdatedDate(oldDate);
+            if (oldWaterReport != null) {
+                throw new AppException(ErrorCode.WATER_REPORT_EXISTED);
+            }
+
+            waterReport.setWaterReportUpdatedDate(waterReportRequest.getWaterReportUpdatedDate());
             waterReport.setWaterReportTemperature(waterReportRequest.getWaterReportTemperature());
             waterReport.setWaterReportSalt(waterReportRequest.getWaterReportSalt());
             waterReport.setWaterReportOxygen(waterReportRequest.getWaterReportOxygen());
@@ -138,21 +123,21 @@ public class WaterReportService {
             waterReport.setWaterReportAmmonia(waterReportRequest.getWaterReportAmmonia());
             waterReport.setWaterReport_pH(waterReportRequest.getWaterReport_pH());
 
-             return waterReportRepository.save(waterReport);
+            return waterReportRepository.save(waterReport);
 
         }
 
     }
 
-    public WaterReport updateLatestWaterReport(long pondID, UpdateWaterReportRequest request){
+    public WaterReport updateLatestWaterReport(long pondID, UpdateWaterReportRequest request) {
         Pond pond = pondRepository.getPondByPondID(pondID);
         List<WaterReport> waterReports = waterReportRepository.getWaterReportByPond(pond);
         if (waterReports.isEmpty()) {
             throw new AppException(ErrorCode.LIST_NOT_EXISTED);
 
-        } else{
+        } else {
             Date date = new Date();
-            WaterReport waterReport = waterReports.get(waterReports.size()-1);
+            WaterReport waterReport = waterReports.get(waterReports.size() - 1);
             waterReport.setWaterReportUpdatedDate(date);
             waterReport.setWaterReportTemperature(request.getWaterReportTemperature());
             waterReport.setWaterReportSalt(request.getWaterReportSalt());
@@ -168,13 +153,13 @@ public class WaterReportService {
         }
     }
 
-    public WaterReport getLatestWaterReport(long pondID){
+    public WaterReport getLatestWaterReport(long pondID) {
         Pond pond = pondRepository.getPondByPondID(pondID);
         List<WaterReport> waterReports = waterReportRepository.getWaterReportByPond(pond);
-        if(waterReports.size() == 0){
+        if (waterReports.size() == 0) {
             throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
-        }else{
-            return waterReports.get(waterReports.size()-1);
+        } else {
+            return waterReports.get(waterReports.size() - 1);
         }
     }
 }

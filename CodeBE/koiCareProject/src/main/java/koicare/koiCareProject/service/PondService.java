@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -57,7 +58,9 @@ public class PondService {
         pond = pondRepository.save(pond);
 
         //tạo 1 waterReport tương ứng với hồ, nhưng giá trị bằng 0
+        Date date = new Date();
         WaterReport waterReport = new WaterReport();
+        waterReport.setWaterReportUpdatedDate(date);
         waterReport.setWaterReportAmmonia(0);
         waterReport.setWaterReportCarbonDioxide(0);
         waterReport.setWaterReportCarbonate(0);
