@@ -18,9 +18,6 @@ public class MemberCreationRequest {
 
     private String memberPhone;
 
-    private String oldPassword;
-
-    private  String newPassword;
 
 
 }

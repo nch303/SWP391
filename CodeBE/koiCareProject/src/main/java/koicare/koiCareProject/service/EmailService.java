@@ -22,7 +22,7 @@ public class EmailService {
         try {
             //context cua thymeleaf
             Context context = new Context();
-            context.setVariable("name", emailDetail.getAccount().getUsername());
+            context.setVariable("name", emailDetail.getAccount().getMember().getName());
             context.setVariable("button", "Go to Sunside Koi Care" );
             context.setVariable("link", emailDetail.getLink());
 
@@ -46,7 +46,7 @@ public class EmailService {
         try {
             //context cua thymeleaf
             Context context = new Context();
-            context.setVariable("name", emailDetail.getAccount().getUsername());
+            context.setVariable("name", emailDetail.getAccount().getShop().getName());
             context.setVariable("button", "Go to your shop page" );
             context.setVariable("link", emailDetail.getLink());
 
@@ -70,7 +70,7 @@ public class EmailService {
         try {
             //context cua thymeleaf
             Context context = new Context();
-            context.setVariable("name", emailDetail.getAccount().getUsername());
+            context.setVariable("name", emailDetail.getAccount().getShop().getName());
             context.setVariable("button", "Go to your shop page" );
             context.setVariable("link", emailDetail.getLink());
 
@@ -94,7 +94,7 @@ public class EmailService {
         try {
             //context cua thymeleaf
             Context context = new Context();
-            context.setVariable("name", emailDetail.getAccount().getUsername());
+            context.setVariable("name", emailDetail.getAccount().getShop().getName());
             context.setVariable("button", "Go to your shop page" );
             context.setVariable("link", emailDetail.getLink());
 
@@ -118,7 +118,7 @@ public class EmailService {
         try {
             //context cua thymeleaf
             Context context = new Context();
-            context.setVariable("name", emailDetail.getAccount().getUsername());
+            context.setVariable("name", emailDetail.getAccount().getMember().getName());
             context.setVariable("button", "Go to Sunside Koi Care" );
             context.setVariable("link", emailDetail.getLink());
 
@@ -142,9 +142,16 @@ public class EmailService {
         try {
             //context cua thymeleaf
             Context context = new Context();
-            context.setVariable("name", emailDetail.getAccount().getUsername());
-            context.setVariable("button", "Go to your shop page" );
-            context.setVariable("link", emailDetail.getLink());
+            if(emailDetail.getAccount().getRole().toString().equals("MEMBER")){
+                context.setVariable("name", emailDetail.getAccount().getMember().getName());
+                context.setVariable("button", "" );
+                context.setVariable("link", emailDetail.getLink());
+            }else{
+                context.setVariable("name", emailDetail.getAccount().getShop().getName());
+                context.setVariable("button", "" );
+                context.setVariable("link", emailDetail.getLink());
+            }
+
 
             String template = templateEngine.process("bannedAccount.html", context);
             // Creating a simple mail message
@@ -166,9 +173,17 @@ public class EmailService {
         try {
             //context cua thymeleaf
             Context context = new Context();
-            context.setVariable("name", emailDetail.getAccount().getUsername());
-            context.setVariable("button", "Go to SUNSIDE KOI CARE " );
-            context.setVariable("link", emailDetail.getLink());
+            if(emailDetail.getAccount().getRole().toString().equals("MEMBER")){
+                context.setVariable("name", emailDetail.getAccount().getMember().getName());
+                context.setVariable("button", "Go to SUNSIDE KOI CARE " );
+                context.setVariable("link", emailDetail.getLink());
+            }else{
+                context.setVariable("name", emailDetail.getAccount().getShop().getName());
+                context.setVariable("button", "Go to your shop page" );
+                context.setVariable("link", emailDetail.getLink());
+            }
+
+
 
             String template = templateEngine.process("restoreAccount.html", context);
             // Creating a simple mail message

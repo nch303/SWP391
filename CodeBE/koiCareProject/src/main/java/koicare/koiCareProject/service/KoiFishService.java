@@ -63,6 +63,7 @@ public class KoiFishService {
             koiFish.setKoiName(request.getKoiName());
             koiFish.setImage(request.getImage());
             koiFish.setBirthday(request.getBirthday());
+            koiFish.setAge(Math.round(koiReportService.dateBetween(request.getBirthday()) / 365.0f));
             koiFish.setKoiVariety(koiVarietyRepository.getKoiVarietyByKoiVarietyID(request.getKoiVarietyID()));
             koiFish.setPond(modelMapper.map(pondResponse, Pond.class));
 
@@ -77,7 +78,7 @@ public class KoiFishService {
 
 
             koiFishRepository.save(koiFish);
-            
+
             //tao koiReport
             KoiReport koiReport = new KoiReport();
             koiReport.setLength(0);
@@ -103,8 +104,13 @@ public class KoiFishService {
 
         Account account = authenticationService.getCurrentAccount();
         Member member = memberRepository.getMemberByAccount(account);
+        List<KoiFish> koiFishList = koiFishRepository.findAllByMember(member);
+        for(KoiFish koiFish:koiFishList){
+            koiFish.setAge(Math.round(koiReportService.dateBetween(koiFish.getBirthday()) / 365.0f));
+            koiFishRepository.save(koiFish);
+        }
 
-        return koiFishRepository.findAllByMember(member);
+        return koiFishList;
     }
 
     //lấy cá koi theo koiFishID
