@@ -42,7 +42,7 @@ public class KoiReportService {
 
         //nếu trùng report sẽ báo lỗi
         Date date = request.getUpdateDate();
-        KoiReport koiReport = koiReportRepository.getKoiReportsByUpdateDate(date);
+        KoiReport koiReport = koiReportRepository.getKoiReportsByUpdateDateAndKoiFish(date,koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()));
         if(koiReport != null){
             throw new AppException(ErrorCode.KOIREPORT_EXISTED);
         }
@@ -120,7 +120,7 @@ public class KoiReportService {
         if (koiReport != null) {
             //nếu trùng report sẽ báo lỗi
             Date date = request.getUpdateDate();
-            KoiReport oldKoiReport = koiReportRepository.getKoiReportsByUpdateDate(date);
+            KoiReport oldKoiReport = koiReportRepository.getKoiReportsByUpdateDateAndKoiFish(date,koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()));
             if(oldKoiReport != null){
                 throw new AppException(ErrorCode.KOIREPORT_EXISTED);
             }
