@@ -3,7 +3,7 @@ package koicare.koiCareProject.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Entity

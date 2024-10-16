@@ -2,7 +2,7 @@ package koicare.koiCareProject.dto.request;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 public class WaterReportRequest {
