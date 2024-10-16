@@ -27,7 +27,6 @@ public class MemberController {
     @PutMapping("update")
     public ResponseEntity updateMember(@RequestBody MemberCreationRequest request){
         Member member = memberService.updateMember(request);
-
         return ResponseEntity.ok("Update successfully");
     }
 

@@ -37,15 +37,19 @@ public class ShopService {
         Shop shop = shopRepository.getShopByAccount(account);
         shop.setName(request.getMemberName());
         shop.setPhone(request.getMemberPhone());
-        shop.setEmail(request.getMemberEmail());
-        account.setEmail(request.getMemberEmail());
 
-        EmailDetail emailDetail = new EmailDetail();
-        emailDetail.setAccount(account);
-        emailDetail.setSubject("You have changed your email!");
-        emailDetail.setLink("http://103.90.227.68/shop");
+        if(!shop.getEmail().equals(request.getMemberEmail())){
+            shop.setEmail(request.getMemberEmail());
+            account.setEmail(request.getMemberEmail());
 
-        emailService.sendEmailUpdateShop(emailDetail);
+            EmailDetail emailDetail = new EmailDetail();
+            emailDetail.setAccount(account);
+            emailDetail.setSubject("You have changed your email!");
+            emailDetail.setLink("http://103.90.227.68/shop");
+
+            emailService.sendEmailUpdateShop(emailDetail);
+        }
+
 
         accountRepository.save(account);
         return shopRepository.save(shop);

@@ -151,7 +151,7 @@ public class AuthenticationService implements UserDetailsService {
         EmailDetail emailDetail = new EmailDetail();
         emailDetail.setAccount(account);
         emailDetail.setSubject("Your account have been banned!");
-        emailDetail.setLink("http://103.90.227.68/shop");
+        emailDetail.setLink("");
 
         emailService.sendEmailBannedAccount(emailDetail);
 
@@ -166,7 +166,11 @@ public class AuthenticationService implements UserDetailsService {
         EmailDetail emailDetail = new EmailDetail();
         emailDetail.setAccount(account);
         emailDetail.setSubject("Your account have been restore!");
-        emailDetail.setLink("http://103.90.227.68/");
+        if(account.getRole().toString().equals("MEMBER")) {
+            emailDetail.setLink("http://103.90.227.68/");
+        }else{
+            emailDetail.setLink("http://103.90.227.68/shop");
+        }
 
         emailService.sendEmailRestoreAccount(emailDetail);
 

@@ -42,15 +42,19 @@ public class MemberService {
         Member member = memberRepository.getMemberByAccount(account);
         member.setName(request.getMemberName());
         member.setPhone(request.getMemberPhone());
-        member.setEmail(request.getMemberEmail());
-        account.setEmail(request.getMemberEmail());
 
-        EmailDetail emailDetail = new EmailDetail();
-        emailDetail.setAccount(account);
-        emailDetail.setSubject("You have changed your email!");
-        emailDetail.setLink("http://103.90.227.68/");
+        if(!member.getEmail().equals(request.getMemberEmail())){
+            member.setEmail(request.getMemberEmail());
+            account.setEmail(request.getMemberEmail());
 
-        emailService.sendEmailUpdateMember(emailDetail);
+            EmailDetail emailDetail = new EmailDetail();
+            emailDetail.setAccount(account);
+            emailDetail.setSubject("You have changed your email!");
+            emailDetail.setLink("http://103.90.227.68/");
+
+            emailService.sendEmailUpdateMember(emailDetail);
+        }
+
 
         accountRepository.save(account);
         return memberRepository.save(member);
