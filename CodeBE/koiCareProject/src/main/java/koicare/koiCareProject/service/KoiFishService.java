@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class KoiFishService {
     private KoiReportService koiReportService;
 
     @Autowired
-    private  KoiStatusRepository koiStatusRepository;
+    private KoiStatusRepository koiStatusRepository;
 
 
     //tạo cá koi
@@ -89,10 +90,18 @@ public class KoiFishService {
             koiReport.setKoiFish(koiFish);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date today = formatter.parse(formatter.format(new Date()));
-            koiReport.setUpdateDate(today);
+
+            // Sử dụng Calendar để thêm giờ vào Date
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(today);
+            cal.set(Calendar.HOUR_OF_DAY, 7);  // Đặt giờ thành 7
+            cal.set(Calendar.MINUTE, 0);       // Đặt phút thành 0
+            cal.set(Calendar.SECOND, 0);       // Đặt giây thành 0
+            cal.set(Calendar.MILLISECOND, 0);  // Đặt milli giây thành 0
+
+            // Đặt lại giá trị ngày đã thêm giờ
+            koiReport.setUpdateDate(cal.getTime());
             koiReportRepository.save(koiReport);
-
-
 
 
             return koiFish;
@@ -109,7 +118,7 @@ public class KoiFishService {
         Account account = authenticationService.getCurrentAccount();
         Member member = memberRepository.getMemberByAccount(account);
         List<KoiFish> koiFishList = koiFishRepository.findAllByMember(member);
-        for(KoiFish koiFish:koiFishList){
+        for (KoiFish koiFish : koiFishList) {
             koiFish.setAge(Math.round(koiReportService.dateBetween(koiFish.getBirthday()) / 365.0f));
             koiFishRepository.save(koiFish);
         }
