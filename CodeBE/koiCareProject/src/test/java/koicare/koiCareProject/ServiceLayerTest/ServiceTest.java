@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -45,7 +46,7 @@ public class ServiceTest {
     }
 
     @Test
-    void testCreatePond() {
+    void testCreatePond() throws ParseException {
         PondCreationRequest request = new PondCreationRequest();
         request.setPondName("Test Pond");
         
@@ -131,7 +132,7 @@ public class ServiceTest {
     }
 
     @Test
-    void testDeleteWaterReport() {
+    void testDeleteWaterReport() throws ParseException {
         Long reportId = 1L;
         WaterReport waterReport = new WaterReport();
         when(waterReportRepository.getWaterReportByWaterReportId(reportId)).thenReturn(waterReport);

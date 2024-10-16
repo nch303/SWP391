@@ -13,9 +13,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -42,8 +45,8 @@ public class KoiReportService {
 
         //nếu trùng report sẽ báo lỗi
         Date date = request.getUpdateDate();
-        KoiReport koiReport = koiReportRepository.getKoiReportsByUpdateDateAndKoiFish(date,koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()));
-        if(koiReport != null){
+        KoiReport koiReport = koiReportRepository.getKoiReportsByUpdateDateAndKoiFish(date, koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()));
+        if (koiReport != null) {
             throw new AppException(ErrorCode.KOIREPORT_EXISTED);
         }
 
@@ -120,8 +123,8 @@ public class KoiReportService {
         if (koiReport != null) {
             //nếu trùng report sẽ báo lỗi
             Date date = request.getUpdateDate();
-            KoiReport oldKoiReport = koiReportRepository.getKoiReportsByUpdateDateAndKoiFish(date,koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()));
-            if(oldKoiReport != null){
+            KoiReport oldKoiReport = koiReportRepository.getKoiReportsByUpdateDateAndKoiFish(date, koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()));
+            if (oldKoiReport != null) {
                 throw new AppException(ErrorCode.KOIREPORT_EXISTED);
             }
 
@@ -137,12 +140,35 @@ public class KoiReportService {
     }
 
     //Xóa KoiReport khỏi danh sách
-    public void deleteKoiReport(long koiReportID) {
+    public void deleteKoiReport(long koiReportID) throws ParseException {
         KoiReport koiReport = koiReportRepository.getKoiReportByKoiReportID(koiReportID);
-        if (koiReport != null)
-            koiReportRepository.deleteById(koiReportID);
-        else
+        if (koiReport != null) {
+            List<KoiReport> koiReports = koiReportRepository.getKoiReportsByKoiFish(koiReport.getKoiFish());
+            if (koiReports.size() == 1) {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date today = formatter.parse(formatter.format(new Date()));
+
+                // Sử dụng Calendar để thêm giờ vào Date
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(today);
+                cal.set(Calendar.HOUR_OF_DAY, 7);  // Đặt giờ thành 7
+                cal.set(Calendar.MINUTE, 0);       // Đặt phút thành 0
+                cal.set(Calendar.SECOND, 0);       // Đặt giây thành 0
+                cal.set(Calendar.MILLISECOND, 0);  // Đặt milli giây thành 0
+
+                // Đặt lại giá trị ngày đã thêm giờ
+                koiReport.setUpdateDate(cal.getTime());
+                koiReport.setLength(0);
+                koiReport.setWeight(0);
+                koiReport.setKoiFish(koiReport.getKoiFish());
+                koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(11));
+                koiReportRepository.save(koiReport);
+            } else {
+                koiReportRepository.deleteById(koiReportID);
+            }
+        } else {
             throw new AppException(ErrorCode.KOIREPORT_NOT_EXISTED);
+        }
     }
 
     //Hàm dùng để tạo koiStatus tự động

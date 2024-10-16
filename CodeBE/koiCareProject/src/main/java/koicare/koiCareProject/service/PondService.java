@@ -26,7 +26,6 @@ public class PondService {
     private MemberRepository memberRepository;
 
 
-
     @Autowired
     private AuthenticationService authenticationService;
 
@@ -64,18 +63,19 @@ public class PondService {
 
         WaterReport waterReport = new WaterReport();
 
-        SimpleDateFormat formatter = new SimpleDateFormat(
-                "dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date today = formatter.parse(formatter.format(new Date()));
 
-        Date date = formatter.parse(formatter.format(new Date()));
+        // Sử dụng Calendar để thêm giờ vào Date
         Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
+        cal.setTime(today);
         cal.set(Calendar.HOUR_OF_DAY, 7);  // Đặt giờ thành 7
         cal.set(Calendar.MINUTE, 0);       // Đặt phút thành 0
         cal.set(Calendar.SECOND, 0);       // Đặt giây thành 0
         cal.set(Calendar.MILLISECOND, 0);  // Đặt milli giây thành 0
+
+        // Đặt lại giá trị ngày đã thêm giờ
         waterReport.setWaterReportUpdatedDate(cal.getTime());
-        waterReport.setWaterReportUpdatedDate(date);
         waterReport.setWaterReportAmmonia(0);
         waterReport.setWaterReportCarbonDioxide(0);
         waterReport.setWaterReportCarbonate(0);

@@ -34,7 +34,7 @@ public class WaterReportService {
     private PondRepository pondRepository;
 
 
-    public WaterReport createWaterReport(WaterReportRequest waterReportRequest)  {
+    public WaterReport createWaterReport(WaterReportRequest waterReportRequest) {
 
         WaterReport waterReport = new WaterReport();
 
@@ -80,30 +80,42 @@ public class WaterReportService {
 
     }
 
-    public void deleteWaterReport(Long waterReportId) {
-
+    public void deleteWaterReport(Long waterReportId) throws ParseException {
 
         WaterReport waterReport = waterReportRepository.getWaterReportByWaterReportId(waterReportId);
-        List<WaterReport> waterReports = waterReportRepository.getWaterReportByPond(waterReport.getPond());
-        if(waterReports.size() == 1){
-            waterReport.setWaterReportUpdatedDate(new Date());
-            waterReport.setWaterReportTemperature(0);
-            waterReport.setWaterReportSalt(0);
-            waterReport.setWaterReportOxygen(0);
-            waterReport.setWaterReportNitrite(0);
-            waterReport.setWaterReportNitrate(0);
-            waterReport.setWaterReportHardness(0);
-            waterReport.setWaterReportCarbonDioxide(0);
-            waterReport.setWaterReportCarbonate(0);
-            waterReport.setWaterReportAmmonia(0);
-            waterReport.setWaterReport_pH(0);
-            waterReport.setPond(waterReport.getPond());
-            waterReportRepository.save(waterReport);
-        }
-        else if (waterReport == null) {
-            throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
+        if (waterReport != null) {
+            List<WaterReport> waterReports = waterReportRepository.getWaterReportByPond(waterReport.getPond());
+            if (waterReports.size() == 1) {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date today = formatter.parse(formatter.format(new Date()));
+
+                // Sử dụng Calendar để thêm giờ vào Date
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(today);
+                cal.set(Calendar.HOUR_OF_DAY, 7);  // Đặt giờ thành 7
+                cal.set(Calendar.MINUTE, 0);       // Đặt phút thành 0
+                cal.set(Calendar.SECOND, 0);       // Đặt giây thành 0
+                cal.set(Calendar.MILLISECOND, 0);  // Đặt milli giây thành 0
+
+                // Đặt lại giá trị ngày đã thêm giờ
+                waterReport.setWaterReportUpdatedDate(cal.getTime());
+                waterReport.setWaterReportTemperature(0);
+                waterReport.setWaterReportSalt(0);
+                waterReport.setWaterReportOxygen(0);
+                waterReport.setWaterReportNitrite(0);
+                waterReport.setWaterReportNitrate(0);
+                waterReport.setWaterReportHardness(0);
+                waterReport.setWaterReportCarbonDioxide(0);
+                waterReport.setWaterReportCarbonate(0);
+                waterReport.setWaterReportAmmonia(0);
+                waterReport.setWaterReport_pH(0);
+                waterReport.setPond(waterReport.getPond());
+                waterReportRepository.save(waterReport);
+            } else {
+                waterReportRepository.deleteById(waterReportId);
+            }
         } else {
-            waterReportRepository.deleteById(waterReportId);
+            throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
         }
 
     }
@@ -136,9 +148,8 @@ public class WaterReportService {
             //nếu trùng report sẽ báo lỗi
 
 
-
             Date date = waterReportRequest.getWaterReportUpdatedDate();
-            WaterReport oldWaterReport = waterReportRepository.getWaterReportByWaterReportUpdatedDateAndPond(date ,waterReport.getPond());
+            WaterReport oldWaterReport = waterReportRepository.getWaterReportByWaterReportUpdatedDateAndPond(date, waterReport.getPond());
 
             if (oldWaterReport != null) {
                 throw new AppException(ErrorCode.WATER_REPORT_EXISTED);
@@ -213,9 +224,9 @@ public class WaterReportService {
             throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
         } else {
             WaterReport waterReportFinal = new WaterReport();
-            for(WaterReport waterReport : waterReports){
+            for (WaterReport waterReport : waterReports) {
                 period = dateBetween(waterReport.getWaterReportUpdatedDate());
-                if(period < leastDate){
+                if (period < leastDate) {
                     waterReportFinal = waterReport;
                     leastDate = period;
                 }
