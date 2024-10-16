@@ -122,12 +122,13 @@ public class WaterReportService {
     public WaterReport updaWaterReport(long waterReportID, WaterReportRequest waterReportRequest) {
         WaterReport waterReport = waterReportRepository.getWaterReportByWaterReportId(waterReportID);
 
+
         if (waterReport == null) {
             throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
         } else {
             //nếu trùng report sẽ báo lỗi
             Date oldDate = waterReportRequest.getWaterReportUpdatedDate();
-            WaterReport oldWaterReport = waterReportRepository.getWaterReportByWaterReportUpdatedDate(oldDate);
+            WaterReport oldWaterReport = waterReportRepository.getWaterReportByWaterReportUpdatedDateAndPond(oldDate,waterReport.getPond());
             if (oldWaterReport != null) {
                 throw new AppException(ErrorCode.WATER_REPORT_EXISTED);
             }
