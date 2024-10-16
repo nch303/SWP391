@@ -13,6 +13,8 @@ import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -51,7 +53,7 @@ public class KoiFishService {
 
 
     //tạo cá koi
-    public KoiFish createKoiFish(KoiFishRequest request) {
+    public KoiFish createKoiFish(KoiFishRequest request) throws ParseException {
 
         KoiFish koiFish = new KoiFish();
 
@@ -85,7 +87,9 @@ public class KoiFishService {
             koiReport.setWeight(0);
             koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(11));
             koiReport.setKoiFish(koiFish);
-            koiReport.setUpdateDate(new Date());
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date today = formatter.parse(formatter.format(new Date()));
+            koiReport.setUpdateDate(today);
             koiReportRepository.save(koiReport);
 
 

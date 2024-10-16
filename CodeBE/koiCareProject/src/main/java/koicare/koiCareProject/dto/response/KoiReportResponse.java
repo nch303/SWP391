@@ -8,7 +8,7 @@ import koicare.koiCareProject.entity.KoiFish;
 import koicare.koiCareProject.entity.KoiStatus;
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 public class KoiReportResponse {

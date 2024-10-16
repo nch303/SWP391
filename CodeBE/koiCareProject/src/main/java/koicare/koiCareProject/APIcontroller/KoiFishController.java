@@ -19,6 +19,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,7 @@ public class KoiFishController {
 
     //tạo cá koi
     @PostMapping("create")
-    public ResponseEntity createKoiFish(@Valid @RequestBody KoiFishRequest request){
+    public ResponseEntity createKoiFish(@Valid @RequestBody KoiFishRequest request) throws ParseException {
         APIResponse<KoiFishResponse> apiResponse = new APIResponse<>();
 
         KoiFishResponse koiFishResponse = modelMapper.map(koiFishService.createKoiFish(request), KoiFishResponse.class);
