@@ -10,7 +10,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +40,7 @@ public class PondService {
     private KoiReportService koiReportService;
 
     //tạo Pond
-    public Pond createPond(PondCreationRequest request) {
+    public Pond createPond(PondCreationRequest request) throws ParseException {
 
         Pond pond = new Pond();
 
@@ -58,8 +61,20 @@ public class PondService {
         pond = pondRepository.save(pond);
 
         //tạo 1 waterReport tương ứng với hồ, nhưng giá trị bằng 0
-        Date date = new Date();
+
         WaterReport waterReport = new WaterReport();
+
+        SimpleDateFormat formatter = new SimpleDateFormat(
+                "dd/MM/yyyy");
+
+        Date date = formatter.parse(formatter.format(new Date()));
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, 7);  // Đặt giờ thành 7
+        cal.set(Calendar.MINUTE, 0);       // Đặt phút thành 0
+        cal.set(Calendar.SECOND, 0);       // Đặt giây thành 0
+        cal.set(Calendar.MILLISECOND, 0);  // Đặt milli giây thành 0
+        waterReport.setWaterReportUpdatedDate(cal.getTime());
         waterReport.setWaterReportUpdatedDate(date);
         waterReport.setWaterReportAmmonia(0);
         waterReport.setWaterReportCarbonDioxide(0);

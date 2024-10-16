@@ -41,20 +41,10 @@ public class WaterReportService {
         Pond pond = pondRepository.getPondByPondID(waterReportRequest.getPondID());
         if (pond != null) {
             //nếu trùng report sẽ báo lỗi
-            SimpleDateFormat formatter = new SimpleDateFormat(
-                    "dd/MM/yyyy");
+
 
             Date date = waterReportRequest.getWaterReportUpdatedDate();
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            cal.set(Calendar.HOUR_OF_DAY, 7);  // Đặt giờ thành 7
-            cal.set(Calendar.MINUTE, 0);       // Đặt phút thành 0
-            cal.set(Calendar.SECOND, 0);       // Đặt giây thành 0
-            cal.set(Calendar.MILLISECOND, 0);  // Đặt milli giây thành 0
-
-
             WaterReport oldWaterReport = waterReportRepository.getWaterReportByWaterReportUpdatedDateAndPond(date, pond);
-            oldWaterReport.setWaterReportUpdatedDate(cal.getTime());
 
 
             if (oldWaterReport != null) {
@@ -144,20 +134,12 @@ public class WaterReportService {
             throw new AppException(ErrorCode.WATER_REPORT_NOT_EXISTED);
         } else {
             //nếu trùng report sẽ báo lỗi
-            SimpleDateFormat formatter = new SimpleDateFormat(
-                    "dd/MM/yyyy");
+
+
+
             Date date = waterReportRequest.getWaterReportUpdatedDate();
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            cal.set(Calendar.HOUR_OF_DAY, 7);  // Đặt giờ thành 7
-            cal.set(Calendar.MINUTE, 0);       // Đặt phút thành 0
-            cal.set(Calendar.SECOND, 0);       // Đặt giây thành 0
-            cal.set(Calendar.MILLISECOND, 0);  // Đặt milli giây thành 0
-
-
-
             WaterReport oldWaterReport = waterReportRepository.getWaterReportByWaterReportUpdatedDateAndPond(date ,waterReport.getPond());
-            oldWaterReport.setWaterReportUpdatedDate(cal.getTime());
+
             if (oldWaterReport != null) {
                 throw new AppException(ErrorCode.WATER_REPORT_EXISTED);
             }
