@@ -14,7 +14,7 @@ public class SaltService {
 
     public double calculatorSaltPerWaterChange(SaltRequest request) {
         long volume = pondRepository.getPondByPondID(request.getPondID()).getVolume();
-        double salt = volume * (request.getExpectSalt() / 100) * (request.getWaterchangePer() / 100) ;
+        double salt = volume * (request.getExpectSalt() / 100) * (request.getWaterchangePer() / 100);
 
         return Math.round(salt * 100.0) / 100.0;
 
@@ -25,16 +25,21 @@ public class SaltService {
         if (request.getExpectSalt() > request.getCurrentSalt()) {
             double salt = volume * (request.getExpectSalt() - request.getCurrentSalt()) / 100;
             return Math.round(salt * 100.0) / 100.0;
-        }else return 0;
+        } else return 0;
     }
 
-    public long calculatePerWaterChange(SaltRequest request){
+    public long calculatePerWaterChange(SaltRequest request) {
         long volume = pondRepository.getPondByPondID(request.getPondID()).getVolume();
+        if(request.getExpectSalt() < 0.01){
+            request.setExpectSalt(0.009);
+        }
 
-        double perChange = volume * (request.getCurrentSalt() - request.getExpectSalt()) * 4 / (request.getWaterchangePer() * volume / 100);
+        double perChange = Math.log(request.getExpectSalt() / request.getCurrentSalt()) / Math.log(1 - request.getWaterchangePer() / 100);
 
-        long roundedValue = Math.round(perChange);
+        long roundedValue = (long) Math.ceil(perChange); // Làm tròn lên
+        if(roundedValue <= 0) roundedValue = 1;
         return roundedValue;
+
     }
 
 }

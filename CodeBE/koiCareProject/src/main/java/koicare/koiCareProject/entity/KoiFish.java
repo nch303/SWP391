@@ -25,6 +25,8 @@ public class KoiFish {
 
     private Date birthday;
 
+    private long age;
+
 
     private String koiSex;
 
