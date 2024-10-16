@@ -39,7 +39,7 @@ public class WaterReportService {
         if (pond != null) {
             //nếu trùng report sẽ báo lỗi
             Date date = waterReportRequest.getWaterReportUpdatedDate();
-            WaterReport oldWaterReport = waterReportRepository.getWaterReportByWaterReportUpdatedDate(date);
+            WaterReport oldWaterReport = waterReportRepository.getWaterReportByWaterReportUpdatedDateAndPond(date, pond);
             if (oldWaterReport != null) {
                 throw new AppException(ErrorCode.WATER_REPORT_EXISTED);
             } else {

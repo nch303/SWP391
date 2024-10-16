@@ -12,5 +12,7 @@ import java.util.List;
 public interface WaterReportRepository extends JpaRepository<WaterReport, Long> {
     WaterReport getWaterReportByWaterReportId(long waterReportId);
     List<WaterReport> getWaterReportByPond(Pond pond);
+    WaterReport getWaterReportByWaterReportUpdatedDateAndPond(Date updatedDate, Pond pond);
     WaterReport getWaterReportByWaterReportUpdatedDate(Date updatedDate);
+
 }
