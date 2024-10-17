@@ -19,6 +19,7 @@ public class AccountResponse {
     private int premiumStatus;
     private Date expiredDate;
     private int numberOfPosts;
+    private boolean status;
     private String token;
 
 }

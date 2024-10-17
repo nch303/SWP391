@@ -7,8 +7,10 @@ import koicare.koiCareProject.dto.request.ForgotPasswordRequest;
 import koicare.koiCareProject.dto.request.LoginRequest;
 import koicare.koiCareProject.dto.request.RegisterRequest;
 import koicare.koiCareProject.dto.request.ResetPasswordRequest;
+import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.dto.response.AccountResponse;
 import koicare.koiCareProject.entity.Account;
+import koicare.koiCareProject.repository.AccountRepository;
 import koicare.koiCareProject.repository.MemberRepository;
 import koicare.koiCareProject.repository.ShopRepository;
 import koicare.koiCareProject.service.AuthenticationService;
@@ -37,6 +39,10 @@ public class AuthenticationAPI {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
 
     //API register
     @PostMapping("register")
@@ -69,6 +75,17 @@ public class AuthenticationAPI {
                 })
                 .toList();
         return ResponseEntity.ok(accountResponses);
+    }
+
+    //API lấy thông tin của account theo ID
+    @GetMapping("account/{accountID}")
+    public ResponseEntity getAccountByAccountID(@PathVariable long accountID){
+        APIResponse<AccountResponse> response = new APIResponse<>();
+        Account account = accountRepository.findAccountByAccountID(accountID);
+        AccountResponse accountResponse = modelMapper.map(account,AccountResponse.class);
+
+        response.setResult(accountResponse);
+        return ResponseEntity.ok(response);
     }
 
     //API lấy thông tin của account hiện tại
