@@ -15,22 +15,22 @@ import java.util.List;
 public class TransactionService {
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    ApackageRepository apackageRepository;
+    private ApackageRepository apackageRepository;
 
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @Autowired
-    OrderDetailRepository orderDetailRepository;
+    private OrderDetailRepository orderDetailRepository;
 
     @Autowired
-    PaymentRepository paymentRepository;
+    private PaymentRepository paymentRepository;
 
     public List<TransactionResponse> viewAllTransaction(){
         List<TransactionResponse> responses = new ArrayList<>();
