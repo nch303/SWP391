@@ -197,5 +197,6 @@ public class AuthenticationService implements UserDetailsService {
         account.setPassword(passwordEncoder.encode(request.getPassword()));
         accountRepository.save(account);
     }
+
 }
 

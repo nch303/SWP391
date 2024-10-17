@@ -31,7 +31,7 @@ public class Account implements UserDetails{
     @Size(min = 6, message = "Password must be at least 6 characters!")
     private String password;
 
-    float balance = 0;
+    private float balance = 0;
 
 
     @NotBlank(message = "Email can not be blank!")
@@ -39,7 +39,7 @@ public class Account implements UserDetails{
     private String email;
 
     @Enumerated(EnumType.STRING)
-    Role role;
+    private Role role;
 
 
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -50,16 +50,16 @@ public class Account implements UserDetails{
     private Shop shop;
 
     @OneToMany(mappedBy = "customer")
-    List<Orders> orders;
+    private List<Orders> orders;
 
     @OneToMany(mappedBy = "from")
-    Set<Transactions> transactionsFrom;
+    private Set<Transactions> transactionsFrom;
 
     @OneToMany(mappedBy = "to")
-    Set<Transactions> transactionsTo;
+    private Set<Transactions> transactionsTo;
 
     @OneToMany (mappedBy = "account")
-    Set<Apackage> apackages;
+    private Set<Apackage> apackages;
 
 
     @Override
