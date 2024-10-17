@@ -30,7 +30,7 @@ public class TransactionController {
 
     @GetMapping("view/currentAccount")
     public ResponseEntity viewTransactionsByAccount(){
-        List<TransactionResponse> responses = transactionService.viewAllTransaction();
+        List<TransactionResponse> responses = transactionService.viewTransactionsByAccount();
         Collections.sort(responses, Comparator.comparing(TransactionResponse::getDate).reversed());
         return ResponseEntity.ok(responses);
     }
