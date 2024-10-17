@@ -16,6 +16,7 @@ public class PostDetailResponse {
     private Date postDate;
     private boolean postStatus;
     private Long shopID;
+    private Date expiredDate;
     private Long producTypeID;
 
 }

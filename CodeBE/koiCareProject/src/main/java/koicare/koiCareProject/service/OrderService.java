@@ -96,7 +96,7 @@ public class OrderService {
         String secretKey = "49WRMPUBCXWRNU4NVHTMUML5G9DNBQCW";
         String vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         //trang thanh toan thanh cong
-        String returnUrl = "http://103.90.227.68/shop/checkout?orderID=" + orders.getId();
+        String returnUrl = "http://103.90.227.68/checkout?orderID=" + orders.getId();
         String currCode = "VND";
 
         Map<String, String> vnpParams = new TreeMap<>();
