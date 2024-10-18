@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import koicare.koiCareProject.dto.request.ApackageRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.dto.response.ApackageResponse;
+import koicare.koiCareProject.dto.response.TransactionResponse;
 import koicare.koiCareProject.entity.Account;
 import koicare.koiCareProject.entity.Apackage;
 import koicare.koiCareProject.service.ApackageService;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -59,6 +62,7 @@ public class ApackageController {
 
                     return apackageResponse;
                 })
+                .sorted(Comparator.comparing(ApackageResponse::getDuration).reversed())
                 .toList();
 
         response.setResult(apackageResponses);
@@ -93,6 +97,7 @@ public class ApackageController {
 
                     return apackageResponse;
                 })
+                .sorted(Comparator.comparing(ApackageResponse::getDuration).reversed())
                 .toList();
 
         response.setResult(apackageResponses);
@@ -114,6 +119,7 @@ public class ApackageController {
 
                     return apackageResponse;
                 })
+                .sorted(Comparator.comparing(ApackageResponse::getDuration).reversed())
                 .toList();
 
         response.setResult(apackageResponses);

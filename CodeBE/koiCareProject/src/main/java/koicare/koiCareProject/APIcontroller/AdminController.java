@@ -9,6 +9,7 @@ import koicare.koiCareProject.dto.request.WaterStandardRequest;
 import koicare.koiCareProject.dto.response.*;
 
 import koicare.koiCareProject.entity.*;
+import koicare.koiCareProject.repository.ProductTypeRepository;
 import koicare.koiCareProject.service.*;
 
 import org.modelmapper.ModelMapper;
@@ -32,6 +33,9 @@ public class AdminController {
     @Autowired
     private AuthenticationService authenticationService;
 
+    @Autowired
+    ProductTypeRepository productTypeRepository;
+
 
 
     //POST DETAIL CONTROLLER
@@ -53,6 +57,8 @@ public class AdminController {
             postDetailResponse.setPostStatus(postDetail.isPostStatus());
             postDetailResponse.setShopID(postDetail.getShop().getShopID());
             postDetailResponse.setProducTypeID(postDetail.getProductType().getProductTypeID());
+            postDetailResponse.setProductTypeName(postDetail.getProductType().getProductTypeName());
+            postDetailResponse.setExpiredDate(postDetail.getExpiredDate());
 
             postDetailResponses.add(postDetailResponse);
         }
@@ -98,6 +104,8 @@ public class AdminController {
             postDetailResponse.setPostStatus(postDetail.isPostStatus());
             postDetailResponse.setShopID(postDetail.getShop().getShopID());
             postDetailResponse.setProducTypeID(postDetail.getProductType().getProductTypeID());
+            postDetailResponse.setProductTypeName(postDetail.getProductType().getProductTypeName());
+            postDetailResponse.setExpiredDate(postDetail.getExpiredDate());
 
             postDetailResponses.add(postDetailResponse);
         }

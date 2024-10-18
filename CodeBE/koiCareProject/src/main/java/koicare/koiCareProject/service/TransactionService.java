@@ -39,6 +39,7 @@ public class TransactionService {
         for(Orders orders1: orders){
             TransactionResponse response = new TransactionResponse();
             response.setOrderID(orders1.getId());
+            response.setOrderCode(orders1.getOrderCode());
             response.setDate(orders1.getDate());
             response.setApackage(orderDetailRepository.getByOrderId(orders1.getId()).getApackage().getName());
             response.setDuration(orderDetailRepository.getByOrderId(orders1.getId()).getApackage().getDuration());
@@ -58,6 +59,7 @@ public class TransactionService {
         for(Orders orders1: orders){
             TransactionResponse response = new TransactionResponse();
             response.setOrderID(orders1.getId());
+            response.setOrderCode(orders1.getOrderCode());
             response.setDate(orders1.getDate());
             response.setApackage(orderDetailRepository.getByOrderId(orders1.getId()).getApackage().getName());
             response.setDuration(orderDetailRepository.getByOrderId(orders1.getId()).getApackage().getDuration());

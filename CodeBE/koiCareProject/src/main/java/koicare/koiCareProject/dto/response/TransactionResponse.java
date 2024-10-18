@@ -10,6 +10,7 @@ import java.util.UUID;
 public class TransactionResponse {
 
     UUID orderID;
+    String orderCode;
     Date date;
     String apackage;
     float price;

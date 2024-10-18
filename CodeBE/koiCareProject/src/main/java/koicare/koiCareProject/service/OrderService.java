@@ -19,6 +19,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -51,7 +52,7 @@ public class OrderService {
     private MemberRepository memberRepository;
 
 
-    public Orders create(OrderRequest orderRequest){
+    public Orders create(OrderRequest orderRequest) {
 
         Account customer = authenticationService.getCurrentAccount();
         Orders order = new Orders();
@@ -59,9 +60,25 @@ public class OrderService {
         float total = 0;
 
         order.setCustomer(customer);
-        order.setDate(new Date()); //current date
+        order.setDate(new Date());
 
-        for(OrderDetailRequest orderDetailRequest: orderRequest.getDetail()){
+        //set orderCode
+        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMM"); // Định dạng ngày thành dd_MM
+        String datePart = dateFormat.format(new Date());
+
+        List<Orders> orders = orderRepository.findAll();
+        int orderSize = orders.size() + 1;
+        String orderSizeString = String.format("%02d", orderSize);
+
+        long id = customer.getAccountID();
+
+        String idString = String.format("%02d", id);
+
+        if (customer.getRole().toString().equals("MEMBER"))
+            order.setOrderCode("ME-" + datePart + "-" + idString + "-" + orderSizeString);
+        else order.setOrderCode("SH-" + datePart + "-" + idString + "-" + orderSizeString);
+
+        for (OrderDetailRequest orderDetailRequest : orderRequest.getDetail()) {
             Apackage apackage = apackageRepository.findApackageById(orderDetailRequest.getPackageID());
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setPrice(apackage.getPrice());
@@ -79,7 +96,7 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public String createUrl(OrderRequest orderRequest) throws  Exception {
+    public String createUrl(OrderRequest orderRequest) throws Exception {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime createDate = LocalDateTime.now();
         String formattedCreateDate = createDate.format(formatter);
@@ -105,10 +122,10 @@ public class OrderService {
         vnpParams.put("vnp_TmnCode", tmnCode);
         vnpParams.put("vnp_Locale", "vn");
         vnpParams.put("vnp_CurrCode", currCode);
-        vnpParams.put("vnp_TxnRef", orders.getId().toString());
-        vnpParams.put("vnp_OrderInfo", "Thanh toan cho ma GD: " + orders.getId());
+        vnpParams.put("vnp_TxnRef", orders.getOrderCode());
+        vnpParams.put("vnp_OrderInfo", "Thanh toan cho ma GD: " + orders.getOrderCode());
         vnpParams.put("vnp_OrderType", "other");
-        vnpParams.put("vnp_Amount",amount);
+        vnpParams.put("vnp_Amount", amount);
 
         vnpParams.put("vnp_ReturnUrl", returnUrl);
         vnpParams.put("vnp_CreateDate", formattedCreateDate);
@@ -154,7 +171,7 @@ public class OrderService {
         return result.toString();
     }
 
-    public void createTransactions(UUID uuid){
+    public void createTransactions(UUID uuid) {
         //tim cai order
         Orders orders = orderRepository.findById(uuid)
                 .orElseThrow(() -> new AppException(ErrorCode.ORDER_IS_NOT_EXISTED));
@@ -208,7 +225,6 @@ public class OrderService {
 //        setTransactions.add(transactions3);
 
 
-
         payment.setTransactions(setTransactions);
 
         accountRepository.save(admin);
@@ -216,7 +232,7 @@ public class OrderService {
 
 
         //set gia tri numberOfpost va ExpiredDate cho shop hoac member
-        if(customer.getRole().toString().contains("SHOP")){
+        if (customer.getRole().toString().contains("SHOP")) {
             Shop shop = shopRepository.getShopByAccount(customer);
 
             //cap nhat numberOfPost
@@ -234,7 +250,7 @@ public class OrderService {
 
             shopRepository.save(shop);
         }
-        if(customer.getRole().toString().contains("MEMBER")){
+        if (customer.getRole().toString().contains("MEMBER")) {
             Member member = memberRepository.getMemberByAccount(customer);
 
             //cap nhat expiredDate

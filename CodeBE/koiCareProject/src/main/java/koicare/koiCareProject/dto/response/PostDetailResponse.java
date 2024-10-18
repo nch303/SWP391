@@ -18,5 +18,6 @@ public class PostDetailResponse {
     private Long shopID;
     private Date expiredDate;
     private Long producTypeID;
+    private String productTypeName;
 
 }
