@@ -198,6 +198,84 @@ public class AdminController {
         return ResponseEntity.ok("Deleted account id: " + accountID + " successfully");
     }
 
+
+    @GetMapping("viewWaterstandard/{waterStandardId}")
+    public ResponseEntity viewWaterStandard(@PathVariable("waterStandardId") long waterStandardId){
+        APIResponse<WaterStandardResponse> response = new APIResponse<>();
+        WaterStandardResponse waterStandardResponse = new WaterStandardResponse();
+        WaterStandard waterStandard = adminService.getWaterStandardByID(waterStandardId);
+
+        waterStandardResponse.setMax_pH_Standard(waterStandard.getMax_pH_Standard());
+        waterStandardResponse.setMin_pH_Standard(waterStandard.getMin_pH_Standard());
+
+        waterStandardResponse.setMaxTempStandard(waterStandard.getMaxTempStandard());
+        waterStandardResponse.setMinTempStandard(waterStandard.getMinTempStandard());
+
+        waterStandardResponse.setMinOxygenStandard(waterStandard.getMinOxygenStandard());
+        waterStandardResponse.setMaxOxygenStandard(waterStandard.getMaxOxygenStandard());
+
+        waterStandardResponse.setMaxHardnessStandard(waterStandard.getMaxHardnessStandard());
+        waterStandardResponse.setMinHardnessStandard(waterStandard.getMinHardnessStandard());
+
+        waterStandardResponse.setMinAmmoniaStandard(waterStandard.getMinAmmoniaStandard());
+        waterStandardResponse.setMaxAmmoniaStandard(waterStandard.getMaxAmmoniaStandard());
+
+        waterStandardResponse.setMinNitriteStandard(waterStandard.getMinNitriteStandard());
+        waterStandardResponse.setMaxNitriteStandard(waterStandard.getMaxNitriteStandard());
+
+        waterStandardResponse.setMinNitrateStandard(waterStandard.getMinNitrateStandard());
+        waterStandardResponse.setMaxNitrateStandard(waterStandard.getMaxNitrateStandard());
+
+        waterStandardResponse.setMaxCarbonateStandard(waterStandard.getMaxCarbonateStandard());
+        waterStandardResponse.setMinCarbonateStandard(waterStandard.getMinCarbonateStandard());
+
+        waterStandardResponse.setMaxCarbonDioxideStandard(waterStandard.getMaxCarbonDioxideStandard());
+        waterStandardResponse.setMinCarbonDioxideStandard(waterStandard.getMinCarbonDioxideStandard());
+
+        waterStandardResponse.setMaxSaltStandard(waterStandard.getMaxSaltStandard());
+        waterStandardResponse.setMinSaltStandard(waterStandard.getMinSaltStandard());
+
+        response.setResult(waterStandardResponse);
+        return ResponseEntity.ok(response);
+
+    }
+
+
+    @GetMapping("viewPondstandard/{pondStandardID}")
+    public ResponseEntity viewPondStandard(@PathVariable("pondStandardID") long pondStandardID){
+        APIResponse<PondStandardResponse> response = new APIResponse<>();
+        PondStandardResponse pondStandardResponse = new PondStandardResponse();
+        PondStandard pondStandard = adminService.getPondStandardByID(pondStandardID);
+
+        pondStandardResponse.setMaxDepth(pondStandard.getMaxDepth());
+        pondStandardResponse.setMinDepth(pondStandard.getMinDepth());
+
+        pondStandardResponse.setMaxArea(pondStandard.getMaxArea());
+        pondStandardResponse.setMinArea(pondStandard.getMinArea());
+
+        pondStandardResponse.setMaxAmountFish(pondStandard.getMaxAmountFish());
+        pondStandardResponse.setMinAmountFish(pondStandard.getMinAmountFish());
+
+        pondStandardResponse.setMaxSkimmerCount(pondStandard.getMaxSkimmerCount());
+        pondStandardResponse.setMinSkimmerCount(pondStandard.getMinSkimmerCount());
+
+        pondStandardResponse.setMaxVolume(pondStandard.getMaxVolume());
+        pondStandardResponse.setMinVolume(pondStandard.getMinVolume());
+
+        pondStandardResponse.setMaxDrainCount(pondStandard.getMaxDrainCount());
+        pondStandardResponse.setMinDrainCount(pondStandard.getMinDrainCount());
+
+        pondStandardResponse.setMaxPumpingCapacity(pondStandard.getMaxPumpingCapacity());
+        pondStandardResponse.setMinPumpingCapacity(pondStandard.getMinPumpingCapacity());
+
+        response.setResult(pondStandardResponse);
+        return ResponseEntity.ok(response);
+
+
+    }
+
+
+
     @PutMapping("restoreAccount/{accountID}")
     public ResponseEntity unbanAccount(@PathVariable("accountID") long accountID){
         Account account = authenticationService.restoreAccount(accountID);

@@ -218,6 +218,16 @@ public class AdminService {
         pondStandardRepository.save(pondStandard);
     }
 
+    public WaterStandard getWaterStandardByID(long waterStandardID) {
+        return waterStandardRepository.findByWaterStandardId(waterStandardID);
+    }
+
+    public PondStandard getPondStandardByID(long pondStandardID) {
+        return pondStandardRepository.findByPondStandardID(pondStandardID);
+    }
+
+
+
     public ProductType createProductType(ProductType type){
         ProductType productType = new ProductType();
         return productTypeRepository.save(productType);
