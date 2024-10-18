@@ -38,7 +38,7 @@ public class AdminController {
 
 
 
-    //POST DETAIL CONTROLLER
+    //POST DETAIL CONTROLLER ADMIN
     @GetMapping("post/view/pending")
     public ResponseEntity getPendingPosts() {
         APIResponse<List<PostDetailResponse>> response = new APIResponse<>();
