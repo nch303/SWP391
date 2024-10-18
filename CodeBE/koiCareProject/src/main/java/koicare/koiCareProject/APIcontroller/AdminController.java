@@ -115,95 +115,14 @@ public class AdminController {
 
 
     //Standard Controller
-    @PutMapping("waterstandard/update")
-    public ResponseEntity updateWaterStandard(@RequestBody WaterStandardRequest request) {
-        APIResponse<WaterStandardResponse> response = new APIResponse<>();
 
-
-        WaterStandardResponse waterStandardResponse = new WaterStandardResponse();
-        adminService.updateWaterStandard(request);
-
-        waterStandardResponse.setMax_pH_Standard(request.getMax_pH_Standard());
-        waterStandardResponse.setMin_pH_Standard(request.getMin_pH_Standard());
-
-        waterStandardResponse.setMaxTempStandard(request.getMaxTempStandard());
-        waterStandardResponse.setMinTempStandard(request.getMinTempStandard());
-
-        waterStandardResponse.setMinOxygenStandard(request.getMinOxygenStandard());
-        waterStandardResponse.setMaxOxygenStandard(request.getMaxOxygenStandard());
-
-        waterStandardResponse.setMaxHardnessStandard(request.getMaxHardnessStandard());
-        waterStandardResponse.setMinHardnessStandard(request.getMinHardnessStandard());
-
-        waterStandardResponse.setMinAmmoniaStandard(request.getMinAmmoniaStandard());
-        waterStandardResponse.setMaxAmmoniaStandard(request.getMaxAmmoniaStandard());
-
-        waterStandardResponse.setMinNitriteStandard(request.getMinNitriteStandard());
-        waterStandardResponse.setMaxNitriteStandard(request.getMaxNitriteStandard());
-
-        waterStandardResponse.setMinNitrateStandard(request.getMinNitrateStandard());
-        waterStandardResponse.setMaxNitrateStandard(request.getMaxNitrateStandard());
-
-        waterStandardResponse.setMaxCarbonateStandard(request.getMaxCarbonateStandard());
-        waterStandardResponse.setMinCarbonateStandard(request.getMinCarbonateStandard());
-
-        waterStandardResponse.setMaxCarbonDioxideStandard(request.getMaxCarbonDioxideStandard());
-        waterStandardResponse.setMinCarbonDioxideStandard(request.getMinCarbonDioxideStandard());
-
-        waterStandardResponse.setMaxSaltStandard(request.getMaxSaltStandard());
-        waterStandardResponse.setMinSaltStandard(request.getMinSaltStandard());
-
-        response.setResult(waterStandardResponse);
-        return ResponseEntity.ok(response);
-    }
-
-
-    @PutMapping("pondstandard/update")
-    public ResponseEntity updatePondStandard(@RequestBody PondStandardRequest request) {
-        APIResponse<PondStandardResponse> response = new APIResponse<>();
-
-        PondStandardResponse pondStandardResponse = new PondStandardResponse();
-        adminService.updatePondStandard(request);
-
-        pondStandardResponse.setMaxDepth(request.getMaxDepth());
-        pondStandardResponse.setMinDepth(request.getMinDepth());
-
-        pondStandardResponse.setMaxArea(request.getMaxArea());
-        pondStandardResponse.setMinArea(request.getMinArea());
-
-        pondStandardResponse.setMaxAmountFish(request.getMaxAmountFish());
-        pondStandardResponse.setMinAmountFish(request.getMinAmountFish());
-
-        pondStandardResponse.setMaxSkimmerCount(request.getMaxSkimmerCount());
-        pondStandardResponse.setMinSkimmerCount(request.getMinSkimmerCount());
-
-        pondStandardResponse.setMaxVolume(request.getMaxVolume());
-        pondStandardResponse.setMinVolume(request.getMinVolume());
-
-        pondStandardResponse.setMinDrainCount(request.getMinDrainCount());
-        pondStandardResponse.setMaxDrainCount(request.getMaxDrainCount());
-
-        pondStandardResponse.setMaxPumpingCapacity(request.getMaxPumpingCapacity());
-        pondStandardResponse.setMinPumpingCapacity(request.getMinPumpingCapacity());
-
-        response.setResult(pondStandardResponse);
-
-        return ResponseEntity.ok(response);
-    }
-
-
-    @DeleteMapping("deleteAccount/{accountID}")
-    public ResponseEntity deleteAccount(@PathVariable("accountID") long accountID){
-        Account account = authenticationService.deleteAccount(accountID);
-        return ResponseEntity.ok("Deleted account id: " + accountID + " successfully");
-    }
-
-
-    @GetMapping("viewWaterstandard/{waterStandardId}")
-    public ResponseEntity viewWaterStandard(@PathVariable("waterStandardId") long waterStandardId){
+    @PostMapping("waterstandard/create")
+    public ResponseEntity createWaterStandard(WaterStandardRequest request) {
         APIResponse<WaterStandardResponse> response = new APIResponse<>();
         WaterStandardResponse waterStandardResponse = new WaterStandardResponse();
-        WaterStandard waterStandard = adminService.getWaterStandardByID(waterStandardId);
+        WaterStandard waterStandard = adminService.createWaterStandard(request);
+
+        waterStandardResponse.setWaterStandardID(waterStandard.getWaterStandardId());
 
         waterStandardResponse.setMax_pH_Standard(waterStandard.getMax_pH_Standard());
         waterStandardResponse.setMin_pH_Standard(waterStandard.getMin_pH_Standard());
@@ -240,12 +159,232 @@ public class AdminController {
 
     }
 
+    @PutMapping("waterstandard/update/{waterStandardID}")
+    public ResponseEntity updateWaterStandard(@PathVariable("waterStandardID") long waterStandardId,@RequestBody WaterStandardRequest request) {
+        APIResponse<WaterStandardResponse> response = new APIResponse<>();
+
+
+        WaterStandardResponse waterStandardResponse = new WaterStandardResponse();
+        WaterStandard waterStandard = adminService.updateWaterStandard(waterStandardId ,request);
+
+        waterStandardResponse.setWaterStandardID(waterStandard.getWaterStandardId());
+
+        waterStandardResponse.setMax_pH_Standard(waterStandard.getMax_pH_Standard());
+        waterStandardResponse.setMin_pH_Standard(waterStandard.getMin_pH_Standard());
+
+        waterStandardResponse.setMaxTempStandard(waterStandard.getMaxTempStandard());
+        waterStandardResponse.setMinTempStandard(waterStandard.getMinTempStandard());
+
+        waterStandardResponse.setMinOxygenStandard(waterStandard.getMinOxygenStandard());
+        waterStandardResponse.setMaxOxygenStandard(waterStandard.getMaxOxygenStandard());
+
+        waterStandardResponse.setMaxHardnessStandard(waterStandard.getMaxHardnessStandard());
+        waterStandardResponse.setMinHardnessStandard(waterStandard.getMinHardnessStandard());
+
+        waterStandardResponse.setMinAmmoniaStandard(waterStandard.getMinAmmoniaStandard());
+        waterStandardResponse.setMaxAmmoniaStandard(waterStandard.getMaxAmmoniaStandard());
+
+        waterStandardResponse.setMinNitriteStandard(waterStandard.getMinNitriteStandard());
+        waterStandardResponse.setMaxNitriteStandard(waterStandard.getMaxNitriteStandard());
+
+        waterStandardResponse.setMinNitrateStandard(waterStandard.getMinNitrateStandard());
+        waterStandardResponse.setMaxNitrateStandard(waterStandard.getMaxNitrateStandard());
+
+        waterStandardResponse.setMaxCarbonateStandard(waterStandard.getMaxCarbonateStandard());
+        waterStandardResponse.setMinCarbonateStandard(waterStandard.getMinCarbonateStandard());
+
+        waterStandardResponse.setMaxCarbonDioxideStandard(waterStandard.getMaxCarbonDioxideStandard());
+        waterStandardResponse.setMinCarbonDioxideStandard(waterStandard.getMinCarbonDioxideStandard());
+
+        waterStandardResponse.setMaxSaltStandard(waterStandard.getMaxSaltStandard());
+        waterStandardResponse.setMinSaltStandard(waterStandard.getMinSaltStandard());
+
+        response.setResult(waterStandardResponse);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("viewall/waterstandard")
+    public ResponseEntity viewAllWaterStandard() {
+        APIResponse<List<WaterStandardResponse>> response = new APIResponse<>();
+        List<WaterStandardResponse> responses = new ArrayList<>();
+        List<WaterStandard> waterStandards = adminService.getWaterStandardList();
+        for (WaterStandard waterStandard : waterStandards) {
+            WaterStandardResponse waterStandardResponse = new WaterStandardResponse();
+
+            waterStandardResponse.setWaterStandardID(waterStandard.getWaterStandardId());
+
+            waterStandardResponse.setMax_pH_Standard(waterStandard.getMax_pH_Standard());
+            waterStandardResponse.setMin_pH_Standard(waterStandard.getMin_pH_Standard());
+
+            waterStandardResponse.setMaxTempStandard(waterStandard.getMaxTempStandard());
+            waterStandardResponse.setMinTempStandard(waterStandard.getMinTempStandard());
+
+            waterStandardResponse.setMinOxygenStandard(waterStandard.getMinOxygenStandard());
+            waterStandardResponse.setMaxOxygenStandard(waterStandard.getMaxOxygenStandard());
+
+            waterStandardResponse.setMaxHardnessStandard(waterStandard.getMaxHardnessStandard());
+            waterStandardResponse.setMinHardnessStandard(waterStandard.getMinHardnessStandard());
+
+            waterStandardResponse.setMinAmmoniaStandard(waterStandard.getMinAmmoniaStandard());
+            waterStandardResponse.setMaxAmmoniaStandard(waterStandard.getMaxAmmoniaStandard());
+
+            waterStandardResponse.setMinNitriteStandard(waterStandard.getMinNitriteStandard());
+            waterStandardResponse.setMaxNitriteStandard(waterStandard.getMaxNitriteStandard());
+
+            waterStandardResponse.setMinNitrateStandard(waterStandard.getMinNitrateStandard());
+            waterStandardResponse.setMaxNitrateStandard(waterStandard.getMaxNitrateStandard());
+
+            waterStandardResponse.setMaxCarbonateStandard(waterStandard.getMaxCarbonateStandard());
+            waterStandardResponse.setMinCarbonateStandard(waterStandard.getMinCarbonateStandard());
+
+            waterStandardResponse.setMaxCarbonDioxideStandard(waterStandard.getMaxCarbonDioxideStandard());
+            waterStandardResponse.setMinCarbonDioxideStandard(waterStandard.getMinCarbonDioxideStandard());
+
+            waterStandardResponse.setMaxSaltStandard(waterStandard.getMaxSaltStandard());
+            waterStandardResponse.setMinSaltStandard(waterStandard.getMinSaltStandard());
+
+            responses.add(waterStandardResponse);
+        }
+        response.setResult(responses);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("viewWaterstandard/{waterStandardId}")
+    public ResponseEntity viewWaterStandard(@PathVariable("waterStandardId") long waterStandardId){
+        APIResponse<WaterStandardResponse> response = new APIResponse<>();
+        WaterStandardResponse waterStandardResponse = new WaterStandardResponse();
+        WaterStandard waterStandard = adminService.getWaterStandardByID(waterStandardId);
+
+        waterStandardResponse.setWaterStandardID(waterStandard.getWaterStandardId());
+
+        waterStandardResponse.setMax_pH_Standard(waterStandard.getMax_pH_Standard());
+        waterStandardResponse.setMin_pH_Standard(waterStandard.getMin_pH_Standard());
+
+        waterStandardResponse.setMaxTempStandard(waterStandard.getMaxTempStandard());
+        waterStandardResponse.setMinTempStandard(waterStandard.getMinTempStandard());
+
+        waterStandardResponse.setMinOxygenStandard(waterStandard.getMinOxygenStandard());
+        waterStandardResponse.setMaxOxygenStandard(waterStandard.getMaxOxygenStandard());
+
+        waterStandardResponse.setMaxHardnessStandard(waterStandard.getMaxHardnessStandard());
+        waterStandardResponse.setMinHardnessStandard(waterStandard.getMinHardnessStandard());
+
+        waterStandardResponse.setMinAmmoniaStandard(waterStandard.getMinAmmoniaStandard());
+        waterStandardResponse.setMaxAmmoniaStandard(waterStandard.getMaxAmmoniaStandard());
+
+        waterStandardResponse.setMinNitriteStandard(waterStandard.getMinNitriteStandard());
+        waterStandardResponse.setMaxNitriteStandard(waterStandard.getMaxNitriteStandard());
+
+        waterStandardResponse.setMinNitrateStandard(waterStandard.getMinNitrateStandard());
+        waterStandardResponse.setMaxNitrateStandard(waterStandard.getMaxNitrateStandard());
+
+        waterStandardResponse.setMaxCarbonateStandard(waterStandard.getMaxCarbonateStandard());
+        waterStandardResponse.setMinCarbonateStandard(waterStandard.getMinCarbonateStandard());
+
+        waterStandardResponse.setMaxCarbonDioxideStandard(waterStandard.getMaxCarbonDioxideStandard());
+        waterStandardResponse.setMinCarbonDioxideStandard(waterStandard.getMinCarbonDioxideStandard());
+
+        waterStandardResponse.setMaxSaltStandard(waterStandard.getMaxSaltStandard());
+        waterStandardResponse.setMinSaltStandard(waterStandard.getMinSaltStandard());
+
+        response.setResult(waterStandardResponse);
+        return ResponseEntity.ok(response);
+
+    }
+
+    @DeleteMapping("delete/waterstandard/{waterStandardID}")
+    public ResponseEntity deleteWaterStandard(@PathVariable("waterStandardID") long waterStandardID){
+        APIResponse response = new APIResponse();
+
+        adminService.deleteWaterStandard(waterStandardID);
+        response.setResult("DELETED");
+        return ResponseEntity.ok(response);
+
+    }
+
+    @PostMapping("pondstandard/create")
+    public ResponseEntity createPondStandard(@RequestBody PondStandardRequest request) {
+        APIResponse<PondStandardResponse> response = new APIResponse<>();
+        PondStandardResponse pondStandardResponse = new PondStandardResponse();
+        PondStandard pondStandard = adminService.createPondStandard(request);
+
+        pondStandardResponse.setPondStandardID(pondStandard.getPondStandardID());
+
+        pondStandardResponse.setMaxDepth(pondStandard.getMaxDepth());
+        pondStandardResponse.setMinDepth(pondStandard.getMinDepth());
+
+        pondStandardResponse.setMaxArea(pondStandard.getMaxArea());
+        pondStandardResponse.setMinArea(pondStandard.getMinArea());
+
+        pondStandardResponse.setMaxAmountFish(pondStandard.getMaxAmountFish());
+        pondStandardResponse.setMinAmountFish(pondStandard.getMinAmountFish());
+
+        pondStandardResponse.setMaxSkimmerCount(pondStandard.getMaxSkimmerCount());
+        pondStandardResponse.setMinSkimmerCount(pondStandard.getMinSkimmerCount());
+
+        pondStandardResponse.setMaxVolume(pondStandard.getMaxVolume());
+        pondStandardResponse.setMinVolume(pondStandard.getMinVolume());
+
+        pondStandardResponse.setMinDrainCount(pondStandard.getMinDrainCount());
+        pondStandardResponse.setMaxDrainCount(pondStandard.getMaxDrainCount());
+
+        pondStandardResponse.setMaxPumpingCapacity(pondStandard.getMaxPumpingCapacity());
+        pondStandardResponse.setMinPumpingCapacity(pondStandard.getMinPumpingCapacity());
+
+        response.setResult(pondStandardResponse);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("pondstandard/update/{pondStandardID}")
+    public ResponseEntity updatePondStandard(@PathVariable long pondStandardID, @RequestBody PondStandardRequest request) {
+        APIResponse<PondStandardResponse> response = new APIResponse<>();
+
+        PondStandardResponse pondStandardResponse = new PondStandardResponse();
+        PondStandard pondStandard = adminService.updatePondStandardByID(pondStandardID, request);
+
+
+        pondStandardResponse.setPondStandardID(pondStandard.getPondStandardID());
+
+        pondStandardResponse.setMaxDepth(pondStandard.getMaxDepth());
+        pondStandardResponse.setMinDepth(pondStandard.getMinDepth());
+
+        pondStandardResponse.setMaxArea(pondStandard.getMaxArea());
+        pondStandardResponse.setMinArea(pondStandard.getMinArea());
+
+        pondStandardResponse.setMaxAmountFish(pondStandard.getMaxAmountFish());
+        pondStandardResponse.setMinAmountFish(pondStandard.getMinAmountFish());
+
+        pondStandardResponse.setMaxSkimmerCount(pondStandard.getMaxSkimmerCount());
+        pondStandardResponse.setMinSkimmerCount(pondStandard.getMinSkimmerCount());
+
+        pondStandardResponse.setMaxVolume(pondStandard.getMaxVolume());
+        pondStandardResponse.setMinVolume(pondStandard.getMinVolume());
+
+        pondStandardResponse.setMinDrainCount(pondStandard.getMinDrainCount());
+        pondStandardResponse.setMaxDrainCount(pondStandard.getMaxDrainCount());
+
+        pondStandardResponse.setMaxPumpingCapacity(pondStandard.getMaxPumpingCapacity());
+        pondStandardResponse.setMinPumpingCapacity(pondStandard.getMinPumpingCapacity());
+
+        response.setResult(pondStandardResponse);
+
+        return ResponseEntity.ok(response);
+    }
+
+
+
+
+
+
+
 
     @GetMapping("viewPondstandard/{pondStandardID}")
     public ResponseEntity viewPondStandard(@PathVariable("pondStandardID") long pondStandardID){
         APIResponse<PondStandardResponse> response = new APIResponse<>();
         PondStandardResponse pondStandardResponse = new PondStandardResponse();
         PondStandard pondStandard = adminService.getPondStandardByID(pondStandardID);
+
+        pondStandardResponse.setPondStandardID(pondStandard.getPondStandardID());
 
         pondStandardResponse.setMaxDepth(pondStandard.getMaxDepth());
         pondStandardResponse.setMinDepth(pondStandard.getMinDepth());
@@ -274,6 +413,21 @@ public class AdminController {
 
     }
 
+    @DeleteMapping("deletePondStandard/{pondStandardID}")
+    public ResponseEntity deletePondStandard(@PathVariable("pondStandardID") long pondStandardID){
+        APIResponse response = new APIResponse();
+        adminService.deletePondStandard(pondStandardID);
+        response.setResult("DELETED");
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("viewall/pondstandard")
+    public ResponseEntity viewAllPondStandard(){
+        APIResponse<List<PondStandard>> response = new APIResponse<>();
+        List<PondStandard> pondStandardList = adminService.getAllPondStandard();
+        response.setResult(pondStandardList);
+        return ResponseEntity.ok(response);
+    }
 
 
     @PutMapping("restoreAccount/{accountID}")
@@ -282,6 +436,10 @@ public class AdminController {
         return ResponseEntity.ok("Restore account id: " + accountID + " successfully");
     }
 
-
+    @DeleteMapping("deleteAccount/{accountID}")
+    public ResponseEntity deleteAccount(@PathVariable("accountID") long accountID){
+        Account account = authenticationService.deleteAccount(accountID);
+        return ResponseEntity.ok("Deleted account id: " + accountID + " successfully");
+    }
 
 }

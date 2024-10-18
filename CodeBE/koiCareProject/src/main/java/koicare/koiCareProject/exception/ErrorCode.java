@@ -41,7 +41,11 @@ public enum ErrorCode {
     FEEDCOEF_IS_NOT_EXISTED(1028, "FeedCoef is not existed"),
     PACKAGE_IS_NOT_EXISTED(1029, "Package is not existed"),
     ORDER_IS_NOT_EXISTED(1030, "Order is not existed"),
-    RUN_OUT_POST(1031, "You have run out of posts to submit or duration have been validated.")
+
+    RUN_OUT_POST(1031, "You have run out of posts to submit or duration have been validated."),
+    POND_STANDARD_NOT_EXISTED(1032, "PondStandard is not existed"),
+    WATER_STANDARD_NOT_EXISTED(1033, "WaterStandard is not existed"),
+    WATER_STANDARD_IS_EXISTED(1034, "Can not create new Water Standard because it's already existed")
     ;
 
 

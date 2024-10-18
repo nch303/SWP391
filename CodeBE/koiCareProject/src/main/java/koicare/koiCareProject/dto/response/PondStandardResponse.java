@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class PondStandardResponse {
+    private long pondStandardID;
+
     private long minArea;
     private long maxArea;
 

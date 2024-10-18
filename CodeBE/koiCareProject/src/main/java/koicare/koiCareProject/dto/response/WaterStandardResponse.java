@@ -5,6 +5,9 @@ import lombok.Data;
 @Data
 public class WaterStandardResponse {
 
+
+    private long waterStandardID;
+
     private double minTempStandard;
     private double maxTempStandard;
 
