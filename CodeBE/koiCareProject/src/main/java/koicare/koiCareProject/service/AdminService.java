@@ -38,16 +38,19 @@ public class AdminService {
     @Autowired
     private WaterStandardRepository waterStandardRepository;
 
+    //get all pending post detail
     public List<PostDetail> getAllPendingPostDetails(){
 
         return postDetailRepository.findByPostStatus(false);
     }
 
+    //get all approved post detail
     public List<PostDetail> getAllApprovedPostDetails(){
 
         return postDetailRepository.findByPostStatus(true);
     }
 
+    //approved post detail
     public PostDetail approvedPostDetail(Long postID){
         PostDetail postDetail = postDetailRepository.findByPostID(postID);
 
@@ -86,7 +89,33 @@ public class AdminService {
         }
     }
 
+    //deleted postdetail
+    public void deletePostDetail(Long postID){
+        PostDetail postDetail = postDetailRepository.findByPostID(postID);
 
+        if (postDetail == null) {
+            throw new AppException(ErrorCode.POST_DOES_NOT_EXIST);
+        }
+        else{
+            long shopID = postDetail.getShop().getShopID();
+            Account account = accountRepository.findAccountByAccountID(postDetail.getShop().getAccount().getAccountID());
+            EmailDetail emailDetail = new EmailDetail();
+            emailDetail.setAccount(account);
+            emailDetail.setSubject("Your post is deleted!");
+            emailDetail.setLink("http://103.90.227.68/shop/postManager");
+
+            emailService.sendEmailDeletePost(emailDetail);
+            postDetailRepository.delete(postDetail);
+
+            Shop shop = shopRepository.getShopByAccount(account);
+            shop.setNumberOfPosts(shop.getNumberOfPosts() + 1);
+            shop.setShopID(shop.getShopID());
+
+            shopRepository.save(shop);
+        }
+    }
+
+    //create water standard
     public WaterStandard createWaterStandard(WaterStandardRequest request){
 
         List<WaterStandard> waterStandards = waterStandardRepository.findAll();
@@ -132,6 +161,7 @@ public class AdminService {
 
     }
 
+    //update water standard
     public WaterStandard updateWaterStandard(long waterStandardID, WaterStandardRequest request) {
         WaterStandard waterStandard = waterStandardRepository.findByWaterStandardId(waterStandardID);
         if (waterStandard != null) {
@@ -171,6 +201,7 @@ public class AdminService {
         }
     }
 
+    //get water standard by ID
     public WaterStandard getWaterStandardByID(long waterStandardID) {
         WaterStandard waterStandard = waterStandardRepository.findByWaterStandardId(waterStandardID);
         if (waterStandard == null) {
@@ -181,6 +212,7 @@ public class AdminService {
         }
     }
 
+    //get all water standard
     public List<WaterStandard> getWaterStandardList() {
         List<WaterStandard> list = waterStandardRepository.findAll();
         if (list.size() <= 0) {
@@ -190,6 +222,7 @@ public class AdminService {
         }
     }
 
+    //delete water standard
     public void deleteWaterStandard(long waterStandardID) {
         WaterStandard waterStandard = waterStandardRepository.findByWaterStandardId(waterStandardID);
         if (waterStandard != null) {
@@ -200,7 +233,7 @@ public class AdminService {
     }
 
 
-
+    //create pond standard
     public PondStandard createPondStandard(PondStandardRequest request) {
         PondStandard pondStandard = new PondStandard();
 
@@ -228,7 +261,7 @@ public class AdminService {
         return pondStandardRepository.save(pondStandard);
     }
 
-
+    //update pond standard
     public PondStandard updatePondStandardByID(long pondStandardID, PondStandardRequest request){
         PondStandard pondStandard = pondStandardRepository.findByPondStandardID(pondStandardID);
         if (pondStandard == null) {
@@ -261,10 +294,7 @@ public class AdminService {
 
     }
 
-
-
-
-
+    //get pond standard by ID
     public PondStandard getPondStandardByID(long pondStandardID) {
         PondStandard pondStandard = pondStandardRepository.findByPondStandardID(pondStandardID);
         if (pondStandard == null) {
@@ -274,8 +304,7 @@ public class AdminService {
         }
     }
 
-
-
+    //delete pond standard by ID
     public void deletePondStandard(long pondStandardID) {
         PondStandard pondStandard = pondStandardRepository.findByPondStandardID(pondStandardID);
         if (pondStandard == null) {
@@ -285,10 +314,9 @@ public class AdminService {
         }
     }
 
+    //get all pond standard
     public List<PondStandard> getAllPondStandard() {
         return pondStandardRepository.findAll();
     }
-
-
 
 }

@@ -18,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,6 +68,7 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    //approved a post
     @PutMapping("post/approve/{postID}")
     public ResponseEntity approvePost(@PathVariable long postID) {
         APIResponse response = new APIResponse();
@@ -76,6 +79,7 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    //reject a post
     @DeleteMapping("post/reject/{postID}")
     public ResponseEntity rejectPost(@PathVariable long postID) {
         APIResponse response = new APIResponse();
@@ -86,6 +90,18 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    //delete a post
+    @DeleteMapping("post/delete/{postID}")
+    public ResponseEntity deletePost(@PathVariable long postID) {
+        APIResponse response = new APIResponse();
+
+        adminService.deletePostDetail(postID);
+
+        response.setResult("POST HAS BEEN DELETED");
+        return ResponseEntity.ok(response);
+    }
+
+    //view approved post
     @GetMapping("post/view/approved")
     public ResponseEntity getApprovedPosts() {
         APIResponse<List<PostDetailResponse>> response = new APIResponse<>();
@@ -109,13 +125,16 @@ public class AdminController {
 
             postDetailResponses.add(postDetailResponse);
         }
+
+        Collections.sort(postDetailResponses, Comparator.comparing(PostDetailResponse::getPostDetailId).reversed());
         response.setResult(postDetailResponses);
+
         return ResponseEntity.ok(response);
     }
 
 
     //Standard Controller
-
+    //create water standard
     @PostMapping("waterstandard/create")
     public ResponseEntity createWaterStandard(WaterStandardRequest request) {
         APIResponse<WaterStandardResponse> response = new APIResponse<>();
@@ -159,6 +178,7 @@ public class AdminController {
 
     }
 
+    //update waterstandard
     @PutMapping("waterstandard/update/{waterStandardID}")
     public ResponseEntity updateWaterStandard(@PathVariable("waterStandardID") long waterStandardId,@RequestBody WaterStandardRequest request) {
         APIResponse<WaterStandardResponse> response = new APIResponse<>();
@@ -203,6 +223,7 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    //view all waterstandard
     @GetMapping("viewall/waterstandard")
     public ResponseEntity viewAllWaterStandard() {
         APIResponse<List<WaterStandardResponse>> response = new APIResponse<>();
@@ -249,6 +270,7 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    // view waterstandard by ID
     @GetMapping("viewWaterstandard/{waterStandardId}")
     public ResponseEntity viewWaterStandard(@PathVariable("waterStandardId") long waterStandardId){
         APIResponse<WaterStandardResponse> response = new APIResponse<>();
@@ -292,6 +314,7 @@ public class AdminController {
 
     }
 
+    //delete waterstandard
     @DeleteMapping("delete/waterstandard/{waterStandardID}")
     public ResponseEntity deleteWaterStandard(@PathVariable("waterStandardID") long waterStandardID){
         APIResponse response = new APIResponse();
@@ -302,6 +325,7 @@ public class AdminController {
 
     }
 
+    //create pondstandard
     @PostMapping("pondstandard/create")
     public ResponseEntity createPondStandard(@RequestBody PondStandardRequest request) {
         APIResponse<PondStandardResponse> response = new APIResponse<>();
@@ -335,6 +359,8 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+
+    //update pondstandard
     @PutMapping("pondstandard/update/{pondStandardID}")
     public ResponseEntity updatePondStandard(@PathVariable long pondStandardID, @RequestBody PondStandardRequest request) {
         APIResponse<PondStandardResponse> response = new APIResponse<>();

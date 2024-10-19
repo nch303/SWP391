@@ -90,6 +90,31 @@ public class EmailService {
         }
     }
 
+    public void sendEmailDeletePost(EmailDetail emailDetail) {
+        try {
+            //context cua thymeleaf
+            Context context = new Context();
+            context.setVariable("name", emailDetail.getAccount().getShop().getName());
+            context.setVariable("button", "Go to your shop page");
+            context.setVariable("link", emailDetail.getLink());
+
+            String template = templateEngine.process("deletePostOfShop.html", context);
+            // Creating a simple mail message
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+
+            // Setting up necessary details
+            mimeMessageHelper.setFrom("admin@gmail.com");
+            mimeMessageHelper.setTo(emailDetail.getAccount().getEmail());
+            mimeMessageHelper.setText(template, true);
+            mimeMessageHelper.setSubject(emailDetail.getSubject());
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            System.out.println("Error send email!!!");
+        }
+    }
+
+
     public void sendEmailUpdateShop(EmailDetail emailDetail) {
         try {
             //context cua thymeleaf
