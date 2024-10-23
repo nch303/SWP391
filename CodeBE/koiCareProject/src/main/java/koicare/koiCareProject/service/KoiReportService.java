@@ -122,12 +122,13 @@ public class KoiReportService {
         KoiReport koiReport = koiReportRepository.getKoiReportByKoiReportID(koiReportID);
         if (koiReport != null) {
             //nếu trùng report sẽ báo lỗi
-            Date date = request.getUpdateDate();
-            KoiReport oldKoiReport = koiReportRepository.getKoiReportsByUpdateDateAndKoiFish(date, koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()));
-            if (oldKoiReport != null) {
-                throw new AppException(ErrorCode.KOIREPORT_EXISTED);
-            }
+//            Date date = request.getUpdateDate();
+//            KoiReport oldKoiReport = koiReportRepository.getKoiReportsByUpdateDateAndKoiFish(date, koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()));
+//            if (oldKoiReport != null) {
+//                throw new AppException(ErrorCode.KOIREPORT_EXISTED);
+//            }
 
+            koiReport.setUpdateDate(koiReport.getUpdateDate());
             koiReport.setWeight(request.getWeight());
             koiReport.setLength(request.getLength());
 

@@ -35,12 +35,12 @@ public class ShopService {
 
         Account account = authenticationService.getCurrentAccount();
         Shop shop = shopRepository.getShopByAccount(account);
-        shop.setName(request.getMemberName());
-        shop.setPhone(request.getMemberPhone());
+        shop.setName(request.getName());
+        shop.setPhone(request.getPhone());
 
-        if(!shop.getEmail().equals(request.getMemberEmail())){
-            shop.setEmail(request.getMemberEmail());
-            account.setEmail(request.getMemberEmail());
+        if(!shop.getEmail().equals(request.getEmail())){
+            shop.setEmail(request.getEmail());
+            account.setEmail(request.getEmail());
 
             EmailDetail emailDetail = new EmailDetail();
             emailDetail.setAccount(account);

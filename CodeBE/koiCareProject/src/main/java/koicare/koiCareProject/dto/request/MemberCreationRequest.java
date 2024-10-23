@@ -12,11 +12,11 @@ import lombok.Setter;
 public class MemberCreationRequest {
 
 
-    private String memberName;
+    private String name;
 
-    private String memberEmail;
+    private String email;
 
-    private String memberPhone;
+    private String phone;
 
 
 

@@ -40,12 +40,12 @@ public class MemberService {
 
         Account account = authenticationService.getCurrentAccount();
         Member member = memberRepository.getMemberByAccount(account);
-        member.setName(request.getMemberName());
-        member.setPhone(request.getMemberPhone());
+        member.setName(request.getName());
+        member.setPhone(request.getPhone());
 
-        if(!member.getEmail().equals(request.getMemberEmail())){
-            member.setEmail(request.getMemberEmail());
-            account.setEmail(request.getMemberEmail());
+        if(!member.getEmail().equals(request.getEmail())){
+            member.setEmail(request.getEmail());
+            account.setEmail(request.getEmail());
 
             EmailDetail emailDetail = new EmailDetail();
             emailDetail.setAccount(account);

@@ -83,6 +83,16 @@ public class AuthenticationAPI {
         APIResponse<AccountResponse> response = new APIResponse<>();
         Account account = accountRepository.findAccountByAccountID(accountID);
         AccountResponse accountResponse = modelMapper.map(account,AccountResponse.class);
+        if (account.getRole().toString().contains("SHOP")) {
+            accountResponse.setName(shopRepository.getShopByAccount(account).getName());
+            accountResponse.setPhone(shopRepository.getShopByAccount(account).getPhone());
+            accountResponse.setNumberOfPosts(shopRepository.getShopByAccount(account).getNumberOfPosts());
+        } else if (account.getRole().toString().contains("MEMBER")) {
+            accountResponse.setName(memberRepository.getMemberByAccount(account).getName());
+            accountResponse.setPhone(memberRepository.getMemberByAccount(account).getPhone());
+            accountResponse.setPremiumStatus(memberRepository.getMemberByAccount(account).getPremiumStatus());
+            accountResponse.setExpiredDate(memberRepository.getMemberByAccount(account).getExpiredDate());
+        }
 
         response.setResult(accountResponse);
         return ResponseEntity.ok(response);

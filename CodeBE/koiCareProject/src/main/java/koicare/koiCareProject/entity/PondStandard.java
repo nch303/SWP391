@@ -15,8 +15,7 @@ public class PondStandard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pondStandardID;
 
-    private long minArea;
-    private long maxArea;
+    private long area;
 
     private double minDepth;
     private double maxDepth;
@@ -24,11 +23,9 @@ public class PondStandard {
     private long minVolume;
     private long maxVolume;
 
-    private long minDrainCount;
-    private long maxDrainCount;
+    private long drainCount;
 
-    private long minSkimmerCount;
-    private long maxSkimmerCount;
+    private long skimmerCount;
 
     private long minAmountFish;
     private long maxAmountFish;

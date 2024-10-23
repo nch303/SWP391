@@ -74,7 +74,7 @@ public class Filter extends OncePerRequestFilter {
             String token = getToken(request);
             if (token == null) {
                 //ko được phép truy cập
-                resolver.resolveException(request, response, null, new AuthException("Empty token"));
+                resolver.resolveException(request, response, null, new AppException(ErrorCode.EMPTY_TOKEN));
               return;
 
             }

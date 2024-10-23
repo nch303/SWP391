@@ -237,14 +237,12 @@ public class AdminService {
     public PondStandard createPondStandard(PondStandardRequest request) {
         PondStandard pondStandard = new PondStandard();
 
-        pondStandard.setMaxArea(request.getMaxArea());
-        pondStandard.setMinArea(request.getMinArea());
+        pondStandard.setArea(request.getArea());
 
         pondStandard.setMaxVolume(request.getMaxVolume());
         pondStandard.setMinVolume(request.getMinVolume());
 
-        pondStandard.setMaxSkimmerCount(request.getMaxSkimmerCount());
-        pondStandard.setMinSkimmerCount(request.getMinSkimmerCount());
+        pondStandard.setSkimmerCount(request.getSkimmerCount());
 
         pondStandard.setMinDepth(request.getMinDepth());
         pondStandard.setMaxDepth(request.getMaxDepth());
@@ -252,8 +250,7 @@ public class AdminService {
         pondStandard.setMaxPumpingCapacity(request.getMaxPumpingCapacity());
         pondStandard.setMinPumpingCapacity(request.getMinPumpingCapacity());
 
-        pondStandard.setMinDrainCount(request.getMinDrainCount());
-        pondStandard.setMaxDrainCount(request.getMaxDrainCount());
+        pondStandard.setDrainCount(request.getDrainCount());
 
         pondStandard.setMinAmountFish(request.getMinAmountFish());
         pondStandard.setMaxAmountFish(request.getMaxAmountFish());
@@ -268,14 +265,12 @@ public class AdminService {
             throw new AppException(ErrorCode.POND_STANDARD_NOT_EXISTED);
         }
         else{
-            pondStandard.setMaxArea(request.getMaxArea());
-            pondStandard.setMinArea(request.getMinArea());
+            pondStandard.setArea(request.getArea());
 
             pondStandard.setMaxVolume(request.getMaxVolume());
             pondStandard.setMinVolume(request.getMinVolume());
 
-            pondStandard.setMaxSkimmerCount(request.getMaxSkimmerCount());
-            pondStandard.setMinSkimmerCount(request.getMinSkimmerCount());
+            pondStandard.setSkimmerCount(request.getSkimmerCount());
 
             pondStandard.setMinDepth(request.getMinDepth());
             pondStandard.setMaxDepth(request.getMaxDepth());
@@ -283,8 +278,7 @@ public class AdminService {
             pondStandard.setMaxPumpingCapacity(request.getMaxPumpingCapacity());
             pondStandard.setMinPumpingCapacity(request.getMinPumpingCapacity());
 
-            pondStandard.setMinDrainCount(request.getMinDrainCount());
-            pondStandard.setMaxDrainCount(request.getMaxDrainCount());
+            pondStandard.setDrainCount(request.getDrainCount());
 
             pondStandard.setMinAmountFish(request.getMinAmountFish());
             pondStandard.setMaxAmountFish(request.getMaxAmountFish());

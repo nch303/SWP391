@@ -9,6 +9,8 @@ import koicare.koiCareProject.dto.request.WaterStandardRequest;
 import koicare.koiCareProject.dto.response.*;
 
 import koicare.koiCareProject.entity.*;
+import koicare.koiCareProject.repository.AccountRepository;
+import koicare.koiCareProject.repository.OrderRepository;
 import koicare.koiCareProject.repository.ProductTypeRepository;
 import koicare.koiCareProject.service.*;
 
@@ -37,6 +39,12 @@ public class AdminController {
 
     @Autowired
     ProductTypeRepository productTypeRepository;
+
+    @Autowired
+    AccountRepository accountRepository;
+
+    @Autowired
+    OrderRepository orderRepository;
 
 
 
@@ -337,20 +345,17 @@ public class AdminController {
         pondStandardResponse.setMaxDepth(pondStandard.getMaxDepth());
         pondStandardResponse.setMinDepth(pondStandard.getMinDepth());
 
-        pondStandardResponse.setMaxArea(pondStandard.getMaxArea());
-        pondStandardResponse.setMinArea(pondStandard.getMinArea());
+        pondStandardResponse.setArea(pondStandard.getArea());
 
         pondStandardResponse.setMaxAmountFish(pondStandard.getMaxAmountFish());
         pondStandardResponse.setMinAmountFish(pondStandard.getMinAmountFish());
 
-        pondStandardResponse.setMaxSkimmerCount(pondStandard.getMaxSkimmerCount());
-        pondStandardResponse.setMinSkimmerCount(pondStandard.getMinSkimmerCount());
+        pondStandardResponse.setSkimmerCount(pondStandard.getSkimmerCount());
 
         pondStandardResponse.setMaxVolume(pondStandard.getMaxVolume());
         pondStandardResponse.setMinVolume(pondStandard.getMinVolume());
 
-        pondStandardResponse.setMinDrainCount(pondStandard.getMinDrainCount());
-        pondStandardResponse.setMaxDrainCount(pondStandard.getMaxDrainCount());
+        pondStandardResponse.setDrainCount(pondStandard.getDrainCount());
 
         pondStandardResponse.setMaxPumpingCapacity(pondStandard.getMaxPumpingCapacity());
         pondStandardResponse.setMinPumpingCapacity(pondStandard.getMinPumpingCapacity());
@@ -374,20 +379,17 @@ public class AdminController {
         pondStandardResponse.setMaxDepth(pondStandard.getMaxDepth());
         pondStandardResponse.setMinDepth(pondStandard.getMinDepth());
 
-        pondStandardResponse.setMaxArea(pondStandard.getMaxArea());
-        pondStandardResponse.setMinArea(pondStandard.getMinArea());
+        pondStandardResponse.setArea(pondStandard.getArea());
 
         pondStandardResponse.setMaxAmountFish(pondStandard.getMaxAmountFish());
         pondStandardResponse.setMinAmountFish(pondStandard.getMinAmountFish());
 
-        pondStandardResponse.setMaxSkimmerCount(pondStandard.getMaxSkimmerCount());
-        pondStandardResponse.setMinSkimmerCount(pondStandard.getMinSkimmerCount());
+        pondStandardResponse.setSkimmerCount(pondStandard.getSkimmerCount());
 
         pondStandardResponse.setMaxVolume(pondStandard.getMaxVolume());
         pondStandardResponse.setMinVolume(pondStandard.getMinVolume());
 
-        pondStandardResponse.setMinDrainCount(pondStandard.getMinDrainCount());
-        pondStandardResponse.setMaxDrainCount(pondStandard.getMaxDrainCount());
+        pondStandardResponse.setDrainCount(pondStandard.getDrainCount());
 
         pondStandardResponse.setMaxPumpingCapacity(pondStandard.getMaxPumpingCapacity());
         pondStandardResponse.setMinPumpingCapacity(pondStandard.getMinPumpingCapacity());
@@ -415,20 +417,17 @@ public class AdminController {
         pondStandardResponse.setMaxDepth(pondStandard.getMaxDepth());
         pondStandardResponse.setMinDepth(pondStandard.getMinDepth());
 
-        pondStandardResponse.setMaxArea(pondStandard.getMaxArea());
-        pondStandardResponse.setMinArea(pondStandard.getMinArea());
+        pondStandardResponse.setArea(pondStandard.getArea());
 
         pondStandardResponse.setMaxAmountFish(pondStandard.getMaxAmountFish());
         pondStandardResponse.setMinAmountFish(pondStandard.getMinAmountFish());
 
-        pondStandardResponse.setMaxSkimmerCount(pondStandard.getMaxSkimmerCount());
-        pondStandardResponse.setMinSkimmerCount(pondStandard.getMinSkimmerCount());
+        pondStandardResponse.setSkimmerCount(pondStandard.getSkimmerCount());
 
         pondStandardResponse.setMaxVolume(pondStandard.getMaxVolume());
         pondStandardResponse.setMinVolume(pondStandard.getMinVolume());
 
-        pondStandardResponse.setMaxDrainCount(pondStandard.getMaxDrainCount());
-        pondStandardResponse.setMinDrainCount(pondStandard.getMinDrainCount());
+        pondStandardResponse.setDrainCount(pondStandard.getDrainCount());
 
         pondStandardResponse.setMaxPumpingCapacity(pondStandard.getMaxPumpingCapacity());
         pondStandardResponse.setMinPumpingCapacity(pondStandard.getMinPumpingCapacity());
@@ -466,6 +465,36 @@ public class AdminController {
     public ResponseEntity deleteAccount(@PathVariable("accountID") long accountID){
         Account account = authenticationService.deleteAccount(accountID);
         return ResponseEntity.ok("Deleted account id: " + accountID + " successfully");
+    }
+
+    @GetMapping("totalAccount")
+    public ResponseEntity TotalAccount(){
+        APIResponse<Long> response = new APIResponse<>();
+        List<Account> accounts = accountRepository.findAll();
+        long totalAccount = accounts.size();
+        response.setResult(totalAccount);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("totalOrder")
+    public ResponseEntity TotalOrder(){
+        APIResponse<Long> response = new APIResponse<>();
+        List<Orders> orders = orderRepository.findAll();
+        long totalOrder = orders.size();
+        response.setResult(totalOrder);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("totalRevenue")
+    public ResponseEntity TotalRevenue(){
+        APIResponse<Float> response = new APIResponse<>();
+        List<Orders> orders = orderRepository.findAll();
+        float totalRevenue = 0;
+        for(Orders orders1 : orders){
+            totalRevenue += orders1.getTotal();
+        }
+        response.setResult(totalRevenue);
+        return ResponseEntity.ok(response);
     }
 
 }
