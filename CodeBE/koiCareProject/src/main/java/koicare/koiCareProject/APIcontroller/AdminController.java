@@ -144,7 +144,7 @@ public class AdminController {
     //Standard Controller
     //create water standard
     @PostMapping("waterstandard/create")
-    public ResponseEntity createWaterStandard(WaterStandardRequest request) {
+    public ResponseEntity createWaterStandard(@RequestBody WaterStandardRequest request) {
         APIResponse<WaterStandardResponse> response = new APIResponse<>();
         WaterStandardResponse waterStandardResponse = new WaterStandardResponse();
         WaterStandard waterStandard = adminService.createWaterStandard(request);

@@ -125,6 +125,11 @@ public class AuthenticationService implements UserDetailsService {
             //kiểm tra xem member còn hạn premium không
             if(account.getRole().toString().equals("MEMBER")){
                 Member member = memberRepository.getMemberByAccount(account);
+                if(member.getExpiredDate() == null){
+                    member.setExpiredDate(new Date());
+                    member.setMemberID(member.getMemberID());
+                    memberRepository.save(member);
+                }
                 if(member.getExpiredDate().before(new Date())){
                     member.setPremiumStatus(0);
                 }
