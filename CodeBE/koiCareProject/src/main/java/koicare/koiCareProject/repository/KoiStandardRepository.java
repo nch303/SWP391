@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface KoiStandardRepository extends JpaRepository<KoiStandard, Long> {
     KoiStandard getKoiStandardByKoiVarietyAndPeriod(KoiVariety koiVariety, long Period);
+    KoiStandard getKoiStandardBykoiStandID(long koiStandID);
 }
