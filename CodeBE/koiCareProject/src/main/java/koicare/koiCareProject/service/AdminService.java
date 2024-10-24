@@ -308,6 +308,15 @@ public class AdminService {
         }
     }
 
+
+    public PondStandard getPondStandardByArea(double area){
+        PondStandard pondStandard = pondStandardRepository.findByArea(area);
+        if (pondStandard == null) {
+            throw new AppException(ErrorCode.POND_STANDARD_NOT_EXISTED);
+        } else{
+            return pondStandard;
+        }
+    }
     //get all pond standard
     public List<PondStandard> getAllPondStandard() {
         return pondStandardRepository.findAll();

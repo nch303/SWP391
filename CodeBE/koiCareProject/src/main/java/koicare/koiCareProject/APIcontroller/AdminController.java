@@ -454,6 +454,13 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("viewByArea/{area}")
+    public ResponseEntity viewPondStandardByArea(@PathVariable double area){
+        APIResponse<PondStandard> response = new APIResponse<>();
+        PondStandard pondStandard = adminService.getPondStandardByArea(area);
+        response.setResult(pondStandard);
+        return ResponseEntity.ok(response);
+    }
 
     @PutMapping("restoreAccount/{accountID}")
     public ResponseEntity unbanAccount(@PathVariable("accountID") long accountID){
