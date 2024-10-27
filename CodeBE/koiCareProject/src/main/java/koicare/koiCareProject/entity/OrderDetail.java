@@ -21,9 +21,9 @@ public class OrderDetail {
     @ManyToOne
     @JoinColumn(name = "order_id")
     @JsonIgnore
-    Orders order;
+    private Orders order;
 
     @ManyToOne
     @JoinColumn(name = "apackage_id")
-    Apackage apackage;
+    private Apackage apackage;
 }
