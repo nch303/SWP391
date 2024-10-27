@@ -50,54 +50,53 @@ public class RevenueService {
         return revenueResponses;
     }
 
-    public List<PackageNumberResponse> getPackage() {
+    public List<PackageNumberResponse> getShopPackage() {
 
         List<TransactionResponse> transactionResponses = transactionService.viewAllTransaction();
-        // Khởi tạo bản đồ để lưu số lượng package theo năm-tháng và tên package
-        Map<String, Map<String, PackageNumberResponse>> monthlyPackageCount = new HashMap<>();
+        // Khởi tạo bản đồ để lưu tổng số lượng package theo tên package
+        Map<String, PackageNumberResponse> packageCountMap = new HashMap<>();
 
         for (TransactionResponse transactionResponse : transactionResponses) {
-            Date transactionDate = transactionResponse.getDate();
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(transactionDate);
-
-            int month = calendar.get(Calendar.MONTH) + 1; // Tháng trong Calendar là 0-11, thêm 1 để chuyển đổi thành 1-12
-            int year = calendar.get(Calendar.YEAR);
             String packageName = transactionResponse.getApackage(); // Lấy tên package
 
-            // Tạo key cho bản đồ theo định dạng "yyyy-MM"
-            String yearMonthKey = year + "-" + month;
+            // Kiểm tra nếu tên package chứa "-sh"
+            if (packageName.contains("-sh")) {
+                // Nếu tên package chưa tồn tại trong bản đồ, khởi tạo một PackageNumberResponse mới
+                packageCountMap.putIfAbsent(packageName, new PackageNumberResponse(packageName, 0));
 
-            // Nếu key chưa tồn tại trong bản đồ, khởi tạo một Map cho package
-            monthlyPackageCount.putIfAbsent(yearMonthKey, new HashMap<>());
-
-            // Lấy bản đồ của tháng và năm hiện tại
-            Map<String, PackageNumberResponse> packageMap = monthlyPackageCount.get(yearMonthKey);
-
-            // Nếu tên package chưa tồn tại trong bản đồ, khởi tạo một PackageNumberResponse mới
-            if (!packageMap.containsKey(packageName)) {
-                PackageNumberResponse packageResponse = new PackageNumberResponse();
-                packageResponse.setMonth(month);
-                packageResponse.setYear(year);
-                packageResponse.setNumberOfPackage(0); // Khởi tạo số lượng package bằng 0
-                packageResponse.setNameOfPackage(packageName); // Lưu tên package
-
-                packageMap.put(packageName, packageResponse);
+                // Lấy PackageNumberResponse hiện tại và tăng số lượng package lên 1
+                PackageNumberResponse packageResponse = packageCountMap.get(packageName);
+                packageResponse.setNumberOfPackage(packageResponse.getNumberOfPackage() + 1);
             }
-
-            // Cộng dồn số lượng package vào bản đồ theo tháng, năm và tên package
-            PackageNumberResponse packageResponse = packageMap.get(packageName);
-            packageResponse.setNumberOfPackage(packageResponse.getNumberOfPackage() + 1); // Tăng số lượng package lên 1
         }
 
-// Tạo danh sách để lưu kết quả
-        List<PackageNumberResponse> packageResponses = new ArrayList<>();
-
-// Duyệt qua bản đồ để thu thập kết quả
-        for (Map<String, PackageNumberResponse> packageMap : monthlyPackageCount.values()) {
-            packageResponses.addAll(packageMap.values());
-        }
-        return packageResponses;
+        // Trả về danh sách các PackageNumberResponse chỉ chứa các package có "-sh" trong tên
+        return new ArrayList<>(packageCountMap.values());
     }
+
+    public List<PackageNumberResponse> getMemberPackage() {
+
+        List<TransactionResponse> transactionResponses = transactionService.viewAllTransaction();
+        // Khởi tạo bản đồ để lưu tổng số lượng package theo tên package
+        Map<String, PackageNumberResponse> packageCountMap = new HashMap<>();
+
+        for (TransactionResponse transactionResponse : transactionResponses) {
+            String packageName = transactionResponse.getApackage(); // Lấy tên package
+
+            // Kiểm tra nếu tên package chứa "-sh"
+            if (packageName.contains("-me")) {
+                // Nếu tên package chưa tồn tại trong bản đồ, khởi tạo một PackageNumberResponse mới
+                packageCountMap.putIfAbsent(packageName, new PackageNumberResponse(packageName, 0));
+
+                // Lấy PackageNumberResponse hiện tại và tăng số lượng package lên 1
+                PackageNumberResponse packageResponse = packageCountMap.get(packageName);
+                packageResponse.setNumberOfPackage(packageResponse.getNumberOfPackage() + 1);
+            }
+        }
+
+        // Trả về danh sách các PackageNumberResponse chỉ chứa các package có "-sh" trong tên
+        return new ArrayList<>(packageCountMap.values());
+    }
+
 
 }

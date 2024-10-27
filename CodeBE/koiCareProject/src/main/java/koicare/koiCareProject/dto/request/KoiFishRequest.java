@@ -15,6 +15,8 @@ public class KoiFishRequest {
     private Date birthday;
     private String koiSex;
     private String image;
+    private double length;
+    private double weight;
     private Long pondID;
     private Long koiVarietyID;
 }

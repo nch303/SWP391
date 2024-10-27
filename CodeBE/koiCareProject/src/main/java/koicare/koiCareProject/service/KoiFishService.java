@@ -1,6 +1,7 @@
 package koicare.koiCareProject.service;
 
 import koicare.koiCareProject.dto.request.KoiFishRequest;
+import koicare.koiCareProject.dto.request.KoiReportRequest;
 import koicare.koiCareProject.dto.response.KoiReportResponse;
 import koicare.koiCareProject.dto.response.PondResponse;
 import koicare.koiCareProject.entity.*;
@@ -84,9 +85,17 @@ public class KoiFishService {
 
             //tao koiReport
             KoiReport koiReport = new KoiReport();
-            koiReport.setLength(0);
-            koiReport.setWeight(0);
-            koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(11));
+            koiReport.setLength(request.getLength());
+            koiReport.setWeight(request.getWeight());
+
+            KoiReportRequest reportRequest = new KoiReportRequest();
+            reportRequest.setUpdateDate(new Date());
+            reportRequest.setWeight(koiReport.getWeight());
+            reportRequest.setLength(koiReport.getLength());
+            reportRequest.setKoiFishID(koiFish.getKoiFishID());
+
+            //set koiStatus
+            koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(koiReportService.createKoiStatus(reportRequest)));
             koiReport.setKoiFish(koiFish);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date today = formatter.parse(formatter.format(new Date()));
@@ -102,7 +111,6 @@ public class KoiFishService {
             // Đặt lại giá trị ngày đã thêm giờ
             koiReport.setUpdateDate(cal.getTime());
             koiReportRepository.save(koiReport);
-
 
             return koiFish;
         } else {
@@ -129,9 +137,9 @@ public class KoiFishService {
     //lấy cá koi theo koiFishID
     public KoiFish getKoiFish(long koiFishID) {
         KoiFish koiFish = koiFishRepository.getKoiFishByKoiFishID(koiFishID);
-        if (koiFish != null)
+        if (koiFish != null){
             return koiFish;
-        else
+        }else
             throw new AppException(ErrorCode.KOIFISH_NOT_EXISTED);
     }
 
@@ -165,8 +173,23 @@ public class KoiFishService {
             Member member = memberRepository.getMemberByAccount(account);
             koiFish.setMember(member);
 
+            koiFishRepository.save(koiFish);
 
-            return koiFishRepository.save(koiFish);
+            List<KoiReport> koiReports = koiReportRepository.getKoiReportsByKoiFish(koiFish);
+            for(KoiReport koiReport:koiReports){
+                KoiReportRequest reportRequest = new KoiReportRequest();
+                reportRequest.setUpdateDate(koiReport.getUpdateDate());
+                reportRequest.setWeight(koiReport.getWeight());
+                reportRequest.setLength(koiReport.getLength());
+                reportRequest.setKoiFishID(koiFish.getKoiFishID());
+                //set koiStatus
+                koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(koiReportService.createKoiStatus(reportRequest)));
+                koiReport.setKoiReportID(koiReport.getKoiReportID());
+                koiReportRepository.save(koiReport);
+            }
+
+
+            return koiFish;
         } else
             throw new AppException(ErrorCode.KOIFISH_NOT_EXISTED);
     }

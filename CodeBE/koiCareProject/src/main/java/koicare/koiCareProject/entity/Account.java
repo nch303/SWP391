@@ -8,7 +8,6 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Collection;
 import java.util.List;
@@ -25,7 +24,6 @@ public class Account implements UserDetails{
 
     private String username;
 
-
     private boolean status ;
 
     @Size(min = 6, message = "Password must be at least 6 characters!")
@@ -36,6 +34,7 @@ public class Account implements UserDetails{
 
     @NotBlank(message = "Email can not be blank!")
     @Email(message = "Invalid email!")
+    @Column(unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)

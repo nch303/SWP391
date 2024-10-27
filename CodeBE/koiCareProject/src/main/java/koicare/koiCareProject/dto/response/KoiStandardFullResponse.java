@@ -1,20 +1,10 @@
-package koicare.koiCareProject.entity;
+package koicare.koiCareProject.dto.response;
 
-import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Entity
 @Data
-public class KoiStandard {
+public class KoiStandardFullResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "koistandid")
     private long koiStandID;
 
     private long period;
@@ -30,8 +20,6 @@ public class KoiStandard {
     private double lowWeightFemale;
     private double medWeightFemale;
     private double hiWeightFemale;
+    private long koiVarietyID;
 
-    @ManyToOne
-    @JoinColumn(name = "koivarietyid")
-    private KoiVariety koiVariety;
 }

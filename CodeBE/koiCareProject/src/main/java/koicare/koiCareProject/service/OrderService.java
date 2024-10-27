@@ -51,6 +51,9 @@ public class OrderService {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private TransactionRepository transactionRepository;
+
 
     public Orders create(OrderRequest orderRequest) {
 
@@ -92,8 +95,54 @@ public class OrderService {
 
         order.setOrderDetails(orderDetails);
         order.setTotal(total);
+        orderRepository.save(order);
 
-        return orderRepository.save(order);
+
+        //tao transaction Fail
+        //tim cai order
+        Orders orders1 = orderRepository.findById(order.getId()).orElseThrow(() -> new AppException(ErrorCode.ORDER_IS_NOT_EXISTED));
+
+        //tao payment
+        Payment payment = new Payment();
+        payment.setOrders(orders1);
+        payment.setCreateAt(new Date());
+        payment.setPayment_method(PaymentEnums.BANKING);
+
+        Set<Transactions> setTransactions = new HashSet<>();
+
+        //tao Transaction
+        Transactions transactions1 = new Transactions();
+
+        //VNPAY TO CUSTOMER
+//        Account customer = authenticationService.getCurrentAccount();
+        transactions1.setFrom(null);
+        transactions1.setTo(customer);
+        transactions1.setPayment(payment);
+        transactions1.setStatus(TransactionsEnum.FAIL);
+        transactions1.setDescription("NAP TIEN VNPAY TO CUSTOMER");
+        setTransactions.add(transactions1);
+
+        //tao Transaction
+        Transactions transactions2 = new Transactions();
+
+        //CUSTOMER TO ADMIN
+        Account admin = accountRepository.findAccountByRole(Role.ADMIN);
+        transactions2.setFrom(customer);
+        transactions2.setTo(admin);
+        transactions2.setPayment(payment);
+        transactions2.setStatus(TransactionsEnum.FAIL);
+        transactions2.setDescription("CUSTOMER TO ADMIN");
+        float newBalance = admin.getBalance() + 0;
+        admin.setBalance(newBalance);
+        setTransactions.add(transactions2);
+
+
+        payment.setTransactions(setTransactions);
+
+        accountRepository.save(admin);
+        paymentRepository.save(payment);
+
+        return order;
     }
 
     public String createUrl(OrderRequest orderRequest) throws Exception {
@@ -173,65 +222,29 @@ public class OrderService {
 
     public void createTransactions(UUID uuid) {
         //tim cai order
-        Orders orders = orderRepository.findById(uuid)
-                .orElseThrow(() -> new AppException(ErrorCode.ORDER_IS_NOT_EXISTED));
+        Orders orders = orderRepository.findById(uuid).orElseThrow(() -> new AppException(ErrorCode.ORDER_IS_NOT_EXISTED));
 
         //tao payment
-        Payment payment = new Payment();
-        payment.setOrders(orders);
-        payment.setCreateAt(new Date());
-        payment.setPayment_method(PaymentEnums.BANKING);
+        Payment payment = paymentRepository.getByOrders(orders);
 
-        Set<Transactions> setTransactions = new HashSet<>();
+        List<Transactions> transactions = transactionRepository.getAllByPayment(payment);
+        for (Transactions transactions1 : transactions) {
+            transactions1.setStatus(TransactionsEnum.SUCCESS);
+            transactions1.setId(transactions1.getId());
+            transactionRepository.save(transactions1);
+        }
 
-        //tao Transaction
-        Transactions transactions1 = new Transactions();
-
-        //VNPAY TO CUSTOMER
-        Account customer = authenticationService.getCurrentAccount();
-        transactions1.setFrom(null);
-        transactions1.setTo(customer);
-        transactions1.setPayment(payment);
-        transactions1.setStatus(TransactionsEnum.SUCCESS);
-        transactions1.setDescription("NAP TIEN VNPAY TO CUSTOMER");
-        setTransactions.add(transactions1);
-
-        //tao Transaction
-        Transactions transactions2 = new Transactions();
-
-        //CUSTOMER TO ADMIN
+        //set tien cho admin
         Account admin = accountRepository.findAccountByRole(Role.ADMIN);
-        transactions2.setFrom(customer);
-        transactions2.setTo(admin);
-        transactions2.setPayment(payment);
-        transactions2.setStatus(TransactionsEnum.SUCCESS);
-        transactions2.setDescription("CUSTOMER TO ADMIN");
         float newBalance = admin.getBalance() + orders.getTotal();
         admin.setBalance(newBalance);
-        setTransactions.add(transactions2);
 
-//        //tao Transaction
-//        Transactions transactions3 = new Transactions();
-//
-//        //ADMIN TO CUSTOMER
-//        transactions3.setPayment(payment);
-//        transactions3.setStatus(TransactionsEnum.SUCCESS);
-//        transactions3.setDescription("ADMIN TO CUSTOMER");
-//        transactions3.setFrom(admin);
-//        Account owner = orders.getOrderDetails().get(0).getKoi().getAccount();
-//        transactions3.setTo(owner);
-//        float newShopBalance = owner.getBalance() + orders.getTotal() * 0.9f;
-//        owner.setBalance(newShopBalance);
-//        setTransactions.add(transactions3);
-
-
-        payment.setTransactions(setTransactions);
 
         accountRepository.save(admin);
-        paymentRepository.save(payment);
 
 
         //set gia tri numberOfpost va ExpiredDate cho shop hoac member
+        Account customer = authenticationService.getCurrentAccount();
         if (customer.getRole().toString().contains("SHOP")) {
             Shop shop = shopRepository.getShopByAccount(customer);
 

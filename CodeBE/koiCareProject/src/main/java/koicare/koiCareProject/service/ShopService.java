@@ -54,4 +54,9 @@ public class ShopService {
         accountRepository.save(account);
         return shopRepository.save(shop);
     }
+
+    public Shop getShopByID(long shopID){
+        Shop shop = shopRepository.getShopByShopID(shopID);
+        return shop;
+    }
 }

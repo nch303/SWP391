@@ -15,6 +15,7 @@ public class TransactionResponse {
     String apackage;
     float price;
     int duration;
+    String status;
 //    String payment_method;
 
 }

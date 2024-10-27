@@ -26,6 +26,7 @@ public enum ErrorCode {
     WATER_REPORT_EXISTED(1015, "WaterReport Date existed"),
     LIST_NOT_EXISTED(1016, "List not existed"),
     EMAIL_EXISTED(1017, "Email is duplicated"),
+    PHONE_EXISTED(1017, "Phone is duplicated"),
     EMPTY_TOKEN(1018, "Empty token"),
     FISH_IS_EXISTED_IN_POND(1019, "Cannot be deleted because there are still fish in the pond"),
     FISH_IS_NOT_EXISTED_IN_POND(1020, "Your pond don't have any fishes"),
@@ -45,7 +46,9 @@ public enum ErrorCode {
     RUN_OUT_POST(1031, "You have run out of posts to submit or duration have been validated."),
     POND_STANDARD_NOT_EXISTED(1032, "PondStandard is not existed"),
     WATER_STANDARD_NOT_EXISTED(1033, "WaterStandard is not existed"),
-    WATER_STANDARD_IS_EXISTED(1034, "Can not create new Water Standard because it's already existed")
+    WATER_STANDARD_IS_EXISTED(1034, "Can not create new Water Standard because it's already existed"),
+    BLOG_NOT_EXISTED(1035, "Post not found"),
+
     ;
 
 

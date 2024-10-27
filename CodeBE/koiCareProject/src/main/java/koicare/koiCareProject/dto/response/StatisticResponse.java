@@ -9,5 +9,9 @@ public class StatisticResponse {
     private double hiLength;
     private double lowWeight;
     private double hiWeight;
+    private double lowLengthto;
+    private double hiLengthto;
+    private double lowWeightto;
+    private double hiWeightto;
 
 }

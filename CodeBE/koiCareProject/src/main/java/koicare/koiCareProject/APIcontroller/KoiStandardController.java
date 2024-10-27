@@ -1,23 +1,23 @@
 package koicare.koiCareProject.APIcontroller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import koicare.koiCareProject.dto.request.KoiStandardByVarietyRequest;
 import koicare.koiCareProject.dto.request.KoiStandardFullRequest;
 import koicare.koiCareProject.dto.request.KoiStandardRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
-import koicare.koiCareProject.dto.response.KoiReportResponse;
+import koicare.koiCareProject.dto.response.KoiStandardFullResponse;
 import koicare.koiCareProject.dto.response.KoiStandardResponse;
-import koicare.koiCareProject.dto.response.KoiStatusResponse;
+import koicare.koiCareProject.entity.KoiFish;
 import koicare.koiCareProject.entity.KoiStandard;
+import koicare.koiCareProject.repository.KoiFishRepository;
 import koicare.koiCareProject.service.KoiStandardService;
-import org.modelmapper.AbstractProvider;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/koistandard")
@@ -31,51 +31,112 @@ public class KoiStandardController {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private KoiFishRepository koiFishRepository;
+
 
     // Lấy KoiStandard theo KoiVarietyID va Period
     @PostMapping("byPeriodandKoiVarietyID")
     public ResponseEntity getKoiStandard(@RequestBody KoiStandardRequest request){
         APIResponse<KoiStandardResponse> response =new APIResponse<>();
 
+        KoiFish koiFish = koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID());
         KoiStandard koiStandard = koiStandardService.getKoiStandardByVarietyAndPeriod(request);
-        KoiStandardResponse koiStandardResponse = modelMapper.map(koiStandard, KoiStandardResponse.class);
-        koiStandardResponse.setKoiVarietyID(koiStandard.getKoiVariety().getKoiVarietyID());
+        KoiStandardResponse koiStandardResponse = new KoiStandardResponse();
+        if(koiFish.getKoiSex().equals("Male")){
+            koiStandardResponse.setHiLength(koiStandard.getHiLengthMale());
+            koiStandardResponse.setLowLength(koiStandard.getLowLengthMale());
+            koiStandardResponse.setHiWeight(koiStandard.getHiWeightMale());
+            koiStandardResponse.setLowWeigh(koiStandard.getLowWeightMale());
+        }
+        else{
+            koiStandardResponse.setHiLength(koiStandard.getHiLengthFemale());
+            koiStandardResponse.setLowLength(koiStandard.getLowLengthFemale());
+            koiStandardResponse.setHiWeight(koiStandard.getHiWeightFemale());
+            koiStandardResponse.setLowWeigh(koiStandard.getLowWeightFemale());
+        }
+
         response.setResult(koiStandardResponse);
 
+        return ResponseEntity.ok(response);
+    }
+
+    //lay koi standard theo variety
+    @PostMapping("byKoiVarietyID")
+    public ResponseEntity getKoiStandardByVariety(@RequestBody KoiStandardByVarietyRequest request){
+        APIResponse<KoiStandardResponse> response =new APIResponse<>();
+
+
+        KoiStandard koiStandard = koiStandardService.getKoiStandardByVariety(request);
+        KoiStandardResponse koiStandardResponse = new KoiStandardResponse();
+        if(request.getKoiSex().equals("Male")){
+            koiStandardResponse.setHiLength(koiStandard.getHiLengthMale());
+            koiStandardResponse.setLowLength(koiStandard.getLowLengthMale());
+            koiStandardResponse.setHiWeight(koiStandard.getHiWeightMale());
+            koiStandardResponse.setLowWeigh(koiStandard.getLowWeightMale());
+        }
+        else{
+            koiStandardResponse.setHiLength(koiStandard.getHiLengthFemale());
+            koiStandardResponse.setLowLength(koiStandard.getLowLengthFemale());
+            koiStandardResponse.setHiWeight(koiStandard.getHiWeightFemale());
+            koiStandardResponse.setLowWeigh(koiStandard.getLowWeightFemale());
+        }
+
+        response.setResult(koiStandardResponse);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("create")
+    public ResponseEntity createKoiStandard(@RequestBody KoiStandardFullRequest request){
+        APIResponse<KoiStandardFullResponse> response = new APIResponse<>();
+        KoiStandard koiStandard = koiStandardService.createKoiStandard(request);
+        KoiStandardFullResponse koiStandardFullResponse = modelMapper.map(koiStandard,KoiStandardFullResponse.class);
+
+        response.setResult(koiStandardFullResponse);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("viewall")
     public  ResponseEntity getAllKoiStandard(){
-        APIResponse<List<KoiStandardResponse>> response = new APIResponse<>();
+        APIResponse<List<KoiStandardFullResponse>> response = new APIResponse<>();
 
         List<KoiStandard> koiStandards = koiStandardService.getAllKoiStandard();
-        List<KoiStandardResponse> koiStandardResponses = koiStandards.stream()
-                .map(koiStandard -> modelMapper.map(koiStandard,KoiStandardResponse.class))
+        List<KoiStandardFullResponse> koiStandardFullRespons = koiStandards.stream()
+                .map(koiStandard -> modelMapper.map(koiStandard, KoiStandardFullResponse.class))
                 .toList();
 
-        response.setResult(koiStandardResponses);
+        response.setResult(koiStandardFullRespons);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("view/{koiStandardID}")
     public ResponseEntity getKoiStandardByID(@PathVariable long koiStandardID){
-        APIResponse<KoiStandardResponse> response = new APIResponse<>();
+        APIResponse<KoiStandardFullResponse> response = new APIResponse<>();
 
         KoiStandard koiStandard = koiStandardService.getKoiStandardByID(koiStandardID);
-        KoiStandardResponse koiStandardResponse = modelMapper.map(koiStandard,KoiStandardResponse.class);
-        response.setResult(koiStandardResponse);
+        KoiStandardFullResponse koiStandardFullResponse = modelMapper.map(koiStandard, KoiStandardFullResponse.class);
+        response.setResult(koiStandardFullResponse);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("update/{koiStandardID}")
     public ResponseEntity updateKoiStandard(@RequestBody KoiStandardFullRequest request, @PathVariable long koiStandardID){
-        APIResponse<KoiStandardResponse> response = new APIResponse<>();
+        APIResponse<KoiStandardFullResponse> response = new APIResponse<>();
 
         KoiStandard koiStandard = koiStandardService.updateKoiStandard(request,koiStandardID);
-        KoiStandardResponse koiStandardResponse = modelMapper.map(koiStandard,KoiStandardResponse.class);
-        response.setResult(koiStandardResponse);
+        KoiStandardFullResponse koiStandardFullResponse = modelMapper.map(koiStandard, KoiStandardFullResponse.class);
+        response.setResult(koiStandardFullResponse);
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping("delete/{koiStandardID}")
+    public ResponseEntity deleteKoiStandard(@PathVariable long koiStandardID){
+        APIResponse<String> response = new APIResponse<>();
+
+        koiStandardService.deleteKoiStandard(koiStandardID);
+
+        response.setResult("Delete koiStandard " + koiStandardID + " successfully");
+        return ResponseEntity.ok(response);
+    }
 }

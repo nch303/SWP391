@@ -49,7 +49,9 @@ public class Filter extends OncePerRequestFilter {
             "/api/post/view/postdetail/{postID}",
             "/api/contact/send",
             "/api/productType/view",
-            "/api/forgot-password"
+            "/api/forgot-password",
+            "/api/blog/{id}",
+            "/api/blog"
 
     );
 
