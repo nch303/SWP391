@@ -13,6 +13,7 @@ import java.util.List;
 public class KoiStandard {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "koistandid")
     private long koiStandID;
 

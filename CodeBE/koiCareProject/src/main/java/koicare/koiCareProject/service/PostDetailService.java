@@ -1,5 +1,6 @@
 package koicare.koiCareProject.service;
 
+import koicare.koiCareProject.dto.request.EmailDetail;
 import koicare.koiCareProject.dto.request.PostDetailRequest;
 import koicare.koiCareProject.entity.*;
 import koicare.koiCareProject.exception.AppException;
@@ -8,6 +9,7 @@ import koicare.koiCareProject.repository.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.internal.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,7 +32,9 @@ public class PostDetailService {
 
     @Autowired
     private AuthenticationService authenticationService;
-    //
+
+    @Autowired
+    private EmailService emailService;
 
     public PostDetail createPostDetail(PostDetailRequest postDetailRequest) {
         Account account = authenticationService.getCurrentAccount();
@@ -71,15 +75,30 @@ public class PostDetailService {
             shopRepository.save(shop);
 
             return postDetailRepository.save(postDetail);
-        } throw new AppException(ErrorCode.RUN_OUT_POST);
-
-
+        }
+        throw new AppException(ErrorCode.RUN_OUT_POST);
 
 
     }
 
     public List<PostDetail> getAllPostDetails() {
-        return postDetailRepository.findAll();
+        List<PostDetail> postDetails = postDetailRepository.findAll();
+        //kiểm tra nếu bài post hết hạn sẽ tự động xóa khỏi danh sách
+        for (PostDetail postDetail : postDetails) {
+            if (postDetail.getExpiredDate().before(new Date())) {
+                postDetailRepository.delete(postDetail);
+
+                //Gửi email thông báo
+                Account account = authenticationService.getCurrentAccount();
+                EmailDetail emailDetail = new EmailDetail();
+                emailDetail.setAccount(account);
+                emailDetail.setSubject("Your post was expired!");
+                emailDetail.setLink("http://103.90.227.68/shop");
+
+                emailService.sendEmailForExpiredPost(emailDetail);
+            }
+        }
+        return postDetails;
     }
 
     public List<PostDetail> getAllPostByShopID() {
@@ -105,7 +124,7 @@ public class PostDetailService {
         List<PostDetail> postDetails = postDetailRepository.findByShop(shop);
         List<PostDetail> postDetailList = new ArrayList<>();
         for (PostDetail postDetail : postDetails) {
-            if ( !postDetail.isPostStatus()) {
+            if (!postDetail.isPostStatus()) {
                 postDetailList.add(postDetail);
             }
         }
@@ -116,7 +135,10 @@ public class PostDetailService {
         }
     }
 
-    public PostDetail getPostDetailById(long postID){
-        return postDetailRepository.findByPostID(postID);
+    public PostDetail getPostDetailById(long postID) {
+        PostDetail postDetail = postDetailRepository.findByPostID(postID);
+        if (postDetail != null)
+            return postDetail;
+        else throw new AppException(ErrorCode.POST_DOES_NOT_EXIST);
     }
 }

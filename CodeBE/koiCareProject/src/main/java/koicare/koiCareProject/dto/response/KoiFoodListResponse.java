@@ -10,4 +10,6 @@ public class KoiFoodListResponse {
     private double length;
     private double weight;
     private double food;
+    private long age;
+    private String image;
 }

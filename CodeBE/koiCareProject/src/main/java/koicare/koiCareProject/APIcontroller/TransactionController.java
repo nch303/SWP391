@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -17,17 +19,19 @@ import java.util.List;
 public class TransactionController {
 
     @Autowired
-    TransactionService transactionService;
+    private TransactionService transactionService;
 
     @GetMapping("viewAll")
     public ResponseEntity viewAllTransactions(){
         List<TransactionResponse> responses = transactionService.viewAllTransaction();
+        Collections.sort(responses, Comparator.comparing(TransactionResponse::getDate).reversed());
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("view/currentAccount)")
+    @GetMapping("view/currentAccount")
     public ResponseEntity viewTransactionsByAccount(){
         List<TransactionResponse> responses = transactionService.viewTransactionsByAccount();
+        Collections.sort(responses, Comparator.comparing(TransactionResponse::getDate).reversed());
         return ResponseEntity.ok(responses);
     }
 }

@@ -8,7 +8,6 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Collection;
 import java.util.List;
@@ -25,21 +24,21 @@ public class Account implements UserDetails{
 
     private String username;
 
-
     private boolean status ;
 
     @Size(min = 6, message = "Password must be at least 6 characters!")
     private String password;
 
-    float balance = 0;
+    private float balance = 0;
 
 
     @NotBlank(message = "Email can not be blank!")
     @Email(message = "Invalid email!")
+    @Column(unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
-    Role role;
+    private Role role;
 
 
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -50,16 +49,16 @@ public class Account implements UserDetails{
     private Shop shop;
 
     @OneToMany(mappedBy = "customer")
-    List<Orders> orders;
+    private List<Orders> orders;
 
     @OneToMany(mappedBy = "from")
-    Set<Transactions> transactionsFrom;
+    private Set<Transactions> transactionsFrom;
 
     @OneToMany(mappedBy = "to")
-    Set<Transactions> transactionsTo;
+    private Set<Transactions> transactionsTo;
 
     @OneToMany (mappedBy = "account")
-    Set<Apackage> apackages;
+    private Set<Apackage> apackages;
 
 
     @Override

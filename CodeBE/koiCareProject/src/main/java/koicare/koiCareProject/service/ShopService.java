@@ -31,27 +31,32 @@ public class ShopService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Shop updateShop(MemberCreationRequest request){
+    public Shop updateShop(MemberCreationRequest request) {
 
         Account account = authenticationService.getCurrentAccount();
         Shop shop = shopRepository.getShopByAccount(account);
-        shop.setName(request.getMemberName());
-        shop.setPhone(request.getMemberPhone());
-        shop.setEmail(request.getMemberEmail());
-        account.setEmail(request.getMemberEmail());
-        if(passwordEncoder.matches(request.getOldPassword(), account.getPassword())) {
-            account.setPassword(passwordEncoder.encode(request.getNewPassword()));
-        } else {
-            throw new AppException(ErrorCode.WRONG_PASSWORD);
-        }
-        EmailDetail emailDetail = new EmailDetail();
-        emailDetail.setAccount(account);
-        emailDetail.setSubject("You have changed your email!");
-        emailDetail.setLink("http://103.90.227.68/shop");
+        shop.setName(request.getName());
+        shop.setPhone(request.getPhone());
 
-        emailService.sendEmailUpdateShop(emailDetail);
+        if(!shop.getEmail().equals(request.getEmail())){
+            shop.setEmail(request.getEmail());
+            account.setEmail(request.getEmail());
+
+            EmailDetail emailDetail = new EmailDetail();
+            emailDetail.setAccount(account);
+            emailDetail.setSubject("You have changed your email!");
+            emailDetail.setLink("http://103.90.227.68/shop");
+
+            emailService.sendEmailUpdateShop(emailDetail);
+        }
+
 
         accountRepository.save(account);
         return shopRepository.save(shop);
+    }
+
+    public Shop getShopByID(long shopID){
+        Shop shop = shopRepository.getShopByShopID(shopID);
+        return shop;
     }
 }

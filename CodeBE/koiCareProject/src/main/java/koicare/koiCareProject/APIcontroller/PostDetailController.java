@@ -7,6 +7,8 @@ import koicare.koiCareProject.dto.response.PondResponse;
 import koicare.koiCareProject.dto.response.PostDetailResponse;
 import koicare.koiCareProject.entity.Pond;
 import koicare.koiCareProject.entity.PostDetail;
+import koicare.koiCareProject.entity.ProductType;
+import koicare.koiCareProject.repository.ProductTypeRepository;
 import koicare.koiCareProject.service.PostDetailService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +31,9 @@ public class PostDetailController {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    ProductTypeRepository productTypeRepository;
 
     @PostMapping("create")
     public ResponseEntity createPost(@RequestBody PostDetailRequest postDetailRequest) {
@@ -44,7 +51,15 @@ public class PostDetailController {
         APIResponse<List<PostDetailResponse>> response = new APIResponse<>();
         List<PostDetail> postDetails = postDetailService.getAllPostDetails();
         List<PostDetailResponse> postDetailResponses = postDetails.stream()
-                .map(postDetail -> modelMapper.map(postDetail, PostDetailResponse.class)).collect(Collectors.toList());
+                .map(postDetail -> {
+                    PostDetailResponse postDetailResponse = modelMapper.map(postDetail, PostDetailResponse.class);
+
+                    postDetailResponse.setProducTypeID(postDetail.getProductType().getProductTypeID());
+
+                    return postDetailResponse;
+                })
+                .collect(Collectors.toList());
+        Collections.sort(postDetailResponses, Comparator.comparing(PostDetailResponse::getPostDetailId).reversed());
         response.setResult(postDetailResponses);
         return ResponseEntity.ok(response);
     }
@@ -54,8 +69,15 @@ public class PostDetailController {
         APIResponse<List<PostDetailResponse>> response = new APIResponse<>();
         List<PostDetail> postDetails = postDetailService.getAllPostByShopID();
         List<PostDetailResponse> postDetailResponses = postDetails.stream()
-                .map(postDetail -> modelMapper.map(postDetail, PostDetailResponse.class)).collect(Collectors.toList());
+                .map(postDetail -> {
+                    PostDetailResponse postDetailResponse = modelMapper.map(postDetail, PostDetailResponse.class);
 
+                    postDetailResponse.setProducTypeID(postDetail.getProductType().getProductTypeID());
+
+                    return postDetailResponse;
+                })
+                .collect(Collectors.toList());
+        Collections.sort(postDetailResponses, Comparator.comparing(PostDetailResponse::getPostDetailId).reversed());
         response.setResult(postDetailResponses);
         return ResponseEntity.ok(response);
     }
@@ -65,7 +87,15 @@ public class PostDetailController {
         APIResponse<List<PostDetailResponse>> response = new APIResponse<>();
         List<PostDetail> postDetails = postDetailService.getAllPendingPostByShopID();
         List<PostDetailResponse> postDetailResponses = postDetails.stream()
-                .map(postDetail -> modelMapper.map(postDetail, PostDetailResponse.class)).collect(Collectors.toList());
+                .map(postDetail -> {
+                    PostDetailResponse postDetailResponse = modelMapper.map(postDetail, PostDetailResponse.class);
+
+                    postDetailResponse.setProducTypeID(postDetail.getProductType().getProductTypeID());
+
+                    return postDetailResponse;
+                })
+                .collect(Collectors.toList());
+        Collections.sort(postDetailResponses, Comparator.comparing(PostDetailResponse::getPostDetailId).reversed());
         response.setResult(postDetailResponses);
         return ResponseEntity.ok(response);
     }
@@ -73,8 +103,11 @@ public class PostDetailController {
     @GetMapping("view/postdetail/{postID}")
     public ResponseEntity getPostDetail(@PathVariable long postID) {
         APIResponse<PostDetailResponse> response = new APIResponse<>();
-        PostDetailResponse postDetailResponse = modelMapper.map
-                (postDetailService.getPostDetailById(postID), PostDetailResponse.class);
+        PostDetail postDetail = postDetailService.getPostDetailById(postID);
+        PostDetailResponse postDetailResponse = modelMapper.map(postDetail, PostDetailResponse.class);
+
+        postDetailResponse.setProducTypeID(postDetail.getProductType().getProductTypeID());
+
         response.setResult(postDetailResponse);
         return ResponseEntity.ok(response);
     }

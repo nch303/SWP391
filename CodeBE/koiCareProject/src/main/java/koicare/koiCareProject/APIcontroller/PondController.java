@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,7 +33,7 @@ public class PondController {
     private ModelMapper modelMapper;
 
     @PostMapping("create")
-    public APIResponse<PondResponse> createPond(@RequestBody PondCreationRequest pondCreationRequest) {
+    public APIResponse<PondResponse> createPond(@RequestBody PondCreationRequest pondCreationRequest) throws ParseException {
         APIResponse<PondResponse> response = new APIResponse<>();
 
         PondResponse pondResponse = modelMapper.map(pondService.createPond(pondCreationRequest), PondResponse.class);
@@ -40,6 +41,7 @@ public class PondController {
 
         return response;
     }
+
     @GetMapping
     public ResponseEntity getAllPonds() {
         List<Pond> ponds = pondService.getAllPonds();

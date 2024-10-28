@@ -121,6 +121,8 @@ public class KoiFoodService {
             KoiReport koiReport = koiReportService.getLatestKoiReport(koiFish.getKoiFishID());
             koiFoodListResponse.setLength(koiReport.getLength());
             koiFoodListResponse.setWeight(koiReport.getWeight());
+            koiFoodListResponse.setImage(koiFish.getImage());
+            koiFoodListResponse.setAge(koiFish.getAge());
             // Chuyển đổi từ Date sang LocalDate
             LocalDate koiBirthday = koiFoodListResponse.getBirthday().toInstant()
                     .atZone(ZoneId.systemDefault())

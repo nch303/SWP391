@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class WaterReportController {
     }
 
     @DeleteMapping("/delete/{waterReportID}")
-    public ResponseEntity deleteWaterReport(@PathVariable("waterReportID") long waterReportID) {
+    public ResponseEntity deleteWaterReport(@PathVariable("waterReportID") long waterReportID) throws ParseException {
         APIResponse response = new APIResponse();
         waterReportService.deleteWaterReport(waterReportID);
         response.setResult("DELETED SUCCESSFULLY");
@@ -71,7 +72,7 @@ public class WaterReportController {
     public ResponseEntity updateWaterReport(@PathVariable("waterReportID") long waterReportID, @RequestBody WaterReportRequest request) {
         APIResponse<WaterReportResponse> response = new APIResponse<>();
         WaterReportResponse waterReportResponse =
-                modelMapper.map(waterReportService.updaWaterReport(waterReportID, request), WaterReportResponse.class);
+                modelMapper.map(waterReportService.updateWaterReport(waterReportID, request), WaterReportResponse.class);
 
         response.setResult(waterReportResponse);
         return ResponseEntity.ok(response);

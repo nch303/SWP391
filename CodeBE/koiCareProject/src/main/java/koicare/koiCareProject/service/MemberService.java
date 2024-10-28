@@ -40,21 +40,21 @@ public class MemberService {
 
         Account account = authenticationService.getCurrentAccount();
         Member member = memberRepository.getMemberByAccount(account);
-        member.setName(request.getMemberName());
-        member.setPhone(request.getMemberPhone());
-        member.setEmail(request.getMemberEmail());
-        account.setEmail(request.getMemberEmail());
-        if(passwordEncoder.matches(request.getOldPassword(), account.getPassword())) {
-            account.setPassword(passwordEncoder.encode(request.getNewPassword()));
-        } else {
-            throw new AppException(ErrorCode.WRONG_PASSWORD);
-        }
-        EmailDetail emailDetail = new EmailDetail();
-        emailDetail.setAccount(account);
-        emailDetail.setSubject("You have changed your email!");
-        emailDetail.setLink("http://103.90.227.68/");
+        member.setName(request.getName());
+        member.setPhone(request.getPhone());
 
-        emailService.sendEmailUpdateMember(emailDetail);
+        if(!member.getEmail().equals(request.getEmail())){
+            member.setEmail(request.getEmail());
+            account.setEmail(request.getEmail());
+
+            EmailDetail emailDetail = new EmailDetail();
+            emailDetail.setAccount(account);
+            emailDetail.setSubject("You have changed your email!");
+            emailDetail.setLink("http://103.90.227.68/");
+
+            emailService.sendEmailUpdateMember(emailDetail);
+        }
+
 
         accountRepository.save(account);
         return memberRepository.save(member);

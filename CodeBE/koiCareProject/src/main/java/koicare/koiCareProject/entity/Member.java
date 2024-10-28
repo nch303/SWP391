@@ -46,7 +46,7 @@ public class Member {
     private List<KoiFish> koiFishes;
 
     @OneToOne
-    @JoinColumn(name = "accountid")
+    @JoinColumn(name = "accountid", referencedColumnName = "accountid")
     private Account account;
 
 

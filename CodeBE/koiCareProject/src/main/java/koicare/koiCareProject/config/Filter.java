@@ -44,7 +44,14 @@ public class Filter extends OncePerRequestFilter {
             "/v3/api-docs/**",
             "/swagger-resources/**",
             "/api/login",
-            "/api/register"
+            "/api/register",
+            "/api/admin/post/view/approved",
+            "/api/post/view/postdetail/{postID}",
+            "/api/contact/send",
+            "/api/productType/view",
+            "/api/forgot-password",
+            "/api/blog/{id}",
+            "/api/blog"
 
     );
 
@@ -71,7 +78,7 @@ public class Filter extends OncePerRequestFilter {
             String token = getToken(request);
             if (token == null) {
                 //ko được phép truy cập
-                resolver.resolveException(request, response, null, new AuthException("Empty token"));
+                resolver.resolveException(request, response, null, new AppException(ErrorCode.EMPTY_TOKEN));
               return;
 
             }

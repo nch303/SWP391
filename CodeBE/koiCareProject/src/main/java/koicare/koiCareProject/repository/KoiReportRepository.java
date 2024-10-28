@@ -13,6 +13,8 @@ public interface KoiReportRepository extends JpaRepository<KoiReport, Long> {
 
     List<KoiReport> getKoiReportsByKoiFish(KoiFish koiFish);
 
-    KoiReport getKoiReportsByUpdateDate(Date updateDate);
+    KoiReport getKoiReportsByUpdateDateAndKoiFish(Date updateDate, KoiFish koiFish);
+
+
 
 }

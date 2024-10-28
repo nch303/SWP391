@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface ShopRepository extends JpaRepository<Shop, Long> {
     Shop getShopByAccount(Account account);
 
+    Shop getShopByShopID(long shopID);
+
 }

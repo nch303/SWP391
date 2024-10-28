@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PondStandardRepository extends JpaRepository<PondStandard, Long> {
     PondStandard findByPondStandardID(long pondStandardID);
+    PondStandard findByArea(double area);
 }

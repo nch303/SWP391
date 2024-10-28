@@ -1,6 +1,8 @@
 package koicare.koiCareProject.service;
 
 import koicare.koiCareProject.dto.request.KoiFishRequest;
+import koicare.koiCareProject.dto.request.KoiReportRequest;
+import koicare.koiCareProject.dto.response.KoiReportResponse;
 import koicare.koiCareProject.dto.response.PondResponse;
 import koicare.koiCareProject.entity.*;
 import koicare.koiCareProject.exception.AppException;
@@ -12,6 +14,10 @@ import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -41,9 +47,15 @@ public class KoiFishService {
     @Autowired
     private PondService pondService;
 
+    @Autowired
+    private KoiReportService koiReportService;
+
+    @Autowired
+    private KoiStatusRepository koiStatusRepository;
+
 
     //tạo cá koi
-    public KoiFish createKoiFish(KoiFishRequest request) {
+    public KoiFish createKoiFish(KoiFishRequest request) throws ParseException {
 
         KoiFish koiFish = new KoiFish();
 
@@ -55,6 +67,7 @@ public class KoiFishService {
             koiFish.setKoiName(request.getKoiName());
             koiFish.setImage(request.getImage());
             koiFish.setBirthday(request.getBirthday());
+            koiFish.setAge(Math.round(koiReportService.dateBetween(request.getBirthday()) / 365.0f));
             koiFish.setKoiVariety(koiVarietyRepository.getKoiVarietyByKoiVarietyID(request.getKoiVarietyID()));
             koiFish.setPond(modelMapper.map(pondResponse, Pond.class));
 
@@ -67,7 +80,37 @@ public class KoiFishService {
             pond.setAmountFish(pond.getAmountFish() + 1);
             pondRepository.save(pond);
 
+
             koiFishRepository.save(koiFish);
+
+            //tao koiReport
+            KoiReport koiReport = new KoiReport();
+            koiReport.setLength(request.getLength());
+            koiReport.setWeight(request.getWeight());
+
+            KoiReportRequest reportRequest = new KoiReportRequest();
+            reportRequest.setUpdateDate(new Date());
+            reportRequest.setWeight(koiReport.getWeight());
+            reportRequest.setLength(koiReport.getLength());
+            reportRequest.setKoiFishID(koiFish.getKoiFishID());
+
+            //set koiStatus
+            koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(koiReportService.createKoiStatus(reportRequest)));
+            koiReport.setKoiFish(koiFish);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date today = formatter.parse(formatter.format(new Date()));
+
+            // Sử dụng Calendar để thêm giờ vào Date
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(today);
+            cal.set(Calendar.HOUR_OF_DAY, 7);  // Đặt giờ thành 7
+            cal.set(Calendar.MINUTE, 0);       // Đặt phút thành 0
+            cal.set(Calendar.SECOND, 0);       // Đặt giây thành 0
+            cal.set(Calendar.MILLISECOND, 0);  // Đặt milli giây thành 0
+
+            // Đặt lại giá trị ngày đã thêm giờ
+            koiReport.setUpdateDate(cal.getTime());
+            koiReportRepository.save(koiReport);
 
             return koiFish;
         } else {
@@ -82,16 +125,21 @@ public class KoiFishService {
 
         Account account = authenticationService.getCurrentAccount();
         Member member = memberRepository.getMemberByAccount(account);
+        List<KoiFish> koiFishList = koiFishRepository.findAllByMember(member);
+        for (KoiFish koiFish : koiFishList) {
+            koiFish.setAge(Math.round(koiReportService.dateBetween(koiFish.getBirthday()) / 365.0f));
+            koiFishRepository.save(koiFish);
+        }
 
-        return koiFishRepository.findAllByMember(member);
+        return koiFishList;
     }
 
     //lấy cá koi theo koiFishID
     public KoiFish getKoiFish(long koiFishID) {
         KoiFish koiFish = koiFishRepository.getKoiFishByKoiFishID(koiFishID);
-        if (koiFish != null)
+        if (koiFish != null){
             return koiFish;
-        else
+        }else
             throw new AppException(ErrorCode.KOIFISH_NOT_EXISTED);
     }
 
@@ -125,8 +173,23 @@ public class KoiFishService {
             Member member = memberRepository.getMemberByAccount(account);
             koiFish.setMember(member);
 
+            koiFishRepository.save(koiFish);
 
-            return koiFishRepository.save(koiFish);
+            List<KoiReport> koiReports = koiReportRepository.getKoiReportsByKoiFish(koiFish);
+            for(KoiReport koiReport:koiReports){
+                KoiReportRequest reportRequest = new KoiReportRequest();
+                reportRequest.setUpdateDate(koiReport.getUpdateDate());
+                reportRequest.setWeight(koiReport.getWeight());
+                reportRequest.setLength(koiReport.getLength());
+                reportRequest.setKoiFishID(koiFish.getKoiFishID());
+                //set koiStatus
+                koiReport.setKoiStatus(koiStatusRepository.getKoiStatusByKoiStatusID(koiReportService.createKoiStatus(reportRequest)));
+                koiReport.setKoiReportID(koiReport.getKoiReportID());
+                koiReportRepository.save(koiReport);
+            }
+
+
+            return koiFish;
         } else
             throw new AppException(ErrorCode.KOIFISH_NOT_EXISTED);
     }

@@ -17,7 +17,10 @@ public class PostDetail {
     private String productName;
     private double productPrice;
     private String image;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
     private String link;
     private Date postDate;
     private boolean postStatus;

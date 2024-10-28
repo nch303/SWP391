@@ -23,6 +23,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -95,12 +96,14 @@ public class AuthenticationService implements UserDetailsService {
                     emailDetail.setLink("http://103.90.227.68/shop");
                     emailService.sendEmailShop(emailDetail);
                 }
-                
+
                 return modelMapper.map(account, AccountResponse.class);
             } catch (Exception e) {
                 e.printStackTrace(); // In chi tiết lỗi ra console
                 if (e.getMessage().contains(account.getUsername())) {
                     throw new AppException(ErrorCode.USERNAME_EXISTED);
+                } else if (e.getMessage().contains(account.getEmail())) {
+                    throw new AppException(ErrorCode.EMAIL_EXISTED);
                 }
             }
         } else throw new AppException(ErrorCode.USERNAME_EXISTED);
@@ -120,12 +123,34 @@ public class AuthenticationService implements UserDetailsService {
                     loginRequest.getPassword()
             ));
             Account account = (Account) authentication.getPrincipal();
+            Member member = memberRepository.getMemberByAccount(account);
+            //kiểm tra xem member còn hạn premium không
+            if (account.getRole().toString().equals("MEMBER")) {
+                if (member.getExpiredDate() == null) {
+                    member.setExpiredDate(new Date());
+                    member.setMemberID(member.getMemberID());
+                    memberRepository.save(member);
+                }
+                if (member.getExpiredDate().before(new Date())) {
+                    member.setPremiumStatus(0);
+                } else member.setPremiumStatus(1);
+                member.setMemberID(member.getMemberID());
+                memberRepository.save(member);
+            }
+
             //kiểm tra tài khoản có bị banned không
             if (account.isStatus()) {
                 AccountResponse accountResponse = modelMapper.map(account, AccountResponse.class);
                 accountResponse.setToken(tokenService.generateToken(account));
+                if (account.getRole().toString().equals("MEMBER")) {
+                    accountResponse.setPhone(member.getPhone());
+                    accountResponse.setName(member.getName());
+                    accountResponse.setExpiredDate(member.getExpiredDate());
+                    accountResponse.setPremiumStatus(member.getPremiumStatus());
+                }
                 return accountResponse;
             } else throw new AppException(ErrorCode.USER_NOT_EXISTED);
+
         } catch (Exception e) {
             throw new AppException(ErrorCode.LOGIN_FAIL);
         }
@@ -151,7 +176,7 @@ public class AuthenticationService implements UserDetailsService {
         EmailDetail emailDetail = new EmailDetail();
         emailDetail.setAccount(account);
         emailDetail.setSubject("Your account have been banned!");
-        emailDetail.setLink("http://103.90.227.68/shop");
+        emailDetail.setLink("");
 
         emailService.sendEmailBannedAccount(emailDetail);
 
@@ -166,7 +191,11 @@ public class AuthenticationService implements UserDetailsService {
         EmailDetail emailDetail = new EmailDetail();
         emailDetail.setAccount(account);
         emailDetail.setSubject("Your account have been restore!");
-        emailDetail.setLink("http://103.90.227.68/");
+        if (account.getRole().toString().equals("MEMBER")) {
+            emailDetail.setLink("http://103.90.227.68/");
+        } else {
+            emailDetail.setLink("http://103.90.227.68/shop");
+        }
 
         emailService.sendEmailRestoreAccount(emailDetail);
 
@@ -193,5 +222,6 @@ public class AuthenticationService implements UserDetailsService {
         account.setPassword(passwordEncoder.encode(request.getPassword()));
         accountRepository.save(account);
     }
+
 }
 

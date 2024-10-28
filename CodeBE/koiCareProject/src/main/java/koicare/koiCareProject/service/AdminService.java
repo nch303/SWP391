@@ -18,6 +18,9 @@ import java.util.List;
 public class AdminService {
 
     @Autowired
+    private PondStandardRepository pondStandardRepository;
+
+    @Autowired
     private PostDetailRepository postDetailRepository;
 
     @Autowired
@@ -32,16 +35,22 @@ public class AdminService {
     @Autowired
     private ShopRepository shopRepository;
 
+    @Autowired
+    private WaterStandardRepository waterStandardRepository;
+
+    //get all pending post detail
     public List<PostDetail> getAllPendingPostDetails(){
 
         return postDetailRepository.findByPostStatus(false);
     }
 
+    //get all approved post detail
     public List<PostDetail> getAllApprovedPostDetails(){
 
         return postDetailRepository.findByPostStatus(true);
     }
 
+    //approved post detail
     public PostDetail approvedPostDetail(Long postID){
         PostDetail postDetail = postDetailRepository.findByPostID(postID);
 
@@ -80,128 +89,160 @@ public class AdminService {
         }
     }
 
-    @Autowired
-    private WaterStandardRepository waterStandardRepository;
+    //deleted postdetail
+    public void deletePostDetail(Long postID){
+        PostDetail postDetail = postDetailRepository.findByPostID(postID);
 
-
-    public void updateWaterStandard(WaterStandardRequest request) {
-
-
-        List<WaterStandard> list = waterStandardRepository.findAll();
-        if (list.size() <= 0) {
-            WaterStandard waterStandard = new WaterStandard();
-
-            waterStandard.setMinTempStandard(0);
-            waterStandard.setMaxTempStandard(0);
-
-            waterStandard.setMaxOxygenStandard(0);
-            waterStandard.setMinOxygenStandard(0);
-
-            waterStandard.setMax_pH_Standard(0);
-            waterStandard.setMin_pH_Standard(0);
-
-            waterStandard.setMinHardnessStandard(0);
-            waterStandard.setMaxHardnessStandard(0);
-
-            waterStandard.setMaxAmmoniaStandard(0);
-            waterStandard.setMinAmmoniaStandard(0);
-
-            waterStandard.setMaxNitriteStandard(0);
-            waterStandard.setMinNitriteStandard(0);
-
-            waterStandard.setMaxNitrateStandard(0);
-            waterStandard.setMinNitrateStandard(0);
-
-            waterStandard.setMaxCarbonateStandard(0);
-            waterStandard.setMinCarbonateStandard(0);
-
-            waterStandard.setMaxCarbonDioxideStandard(0);
-            waterStandard.setMinCarbonDioxideStandard(0);
-
-            waterStandard.setMaxSaltStandard(0);
-            waterStandard.setMinSaltStandard(0);
-
-            waterStandardRepository.save(waterStandard);
-
+        if (postDetail == null) {
+            throw new AppException(ErrorCode.POST_DOES_NOT_EXIST);
         }
+        else{
+            long shopID = postDetail.getShop().getShopID();
+            Account account = accountRepository.findAccountByAccountID(postDetail.getShop().getAccount().getAccountID());
+            EmailDetail emailDetail = new EmailDetail();
+            emailDetail.setAccount(account);
+            emailDetail.setSubject("Your post is deleted!");
+            emailDetail.setLink("http://103.90.227.68/shop/postManager");
 
-        WaterStandard waterStandard = waterStandardRepository.findByWaterStandardId(1);
+            emailService.sendEmailDeletePost(emailDetail);
+            postDetailRepository.delete(postDetail);
 
-        waterStandard.setMinTempStandard(request.getMinTempStandard());
-        waterStandard.setMaxTempStandard(request.getMaxTempStandard());
+            Shop shop = shopRepository.getShopByAccount(account);
+            shop.setNumberOfPosts(shop.getNumberOfPosts() + 1);
+            shop.setShopID(shop.getShopID());
 
-        waterStandard.setMaxOxygenStandard(request.getMaxOxygenStandard());
-        waterStandard.setMinOxygenStandard(request.getMinOxygenStandard());
-
-        waterStandard.setMax_pH_Standard(request.getMax_pH_Standard());
-        waterStandard.setMin_pH_Standard(request.getMin_pH_Standard());
-
-        waterStandard.setMinHardnessStandard(request.getMinHardnessStandard());
-        waterStandard.setMaxHardnessStandard(request.getMaxHardnessStandard());
-
-        waterStandard.setMaxAmmoniaStandard(request.getMaxAmmoniaStandard());
-        waterStandard.setMinAmmoniaStandard(request.getMinAmmoniaStandard());
-
-        waterStandard.setMaxNitriteStandard(request.getMaxNitriteStandard());
-        waterStandard.setMinNitriteStandard(request.getMinNitriteStandard());
-
-        waterStandard.setMaxNitrateStandard(request.getMaxNitrateStandard());
-        waterStandard.setMinNitrateStandard(request.getMinNitrateStandard());
-
-        waterStandard.setMaxCarbonateStandard(request.getMaxCarbonateStandard());
-        waterStandard.setMinCarbonateStandard(request.getMinCarbonateStandard());
-
-        waterStandard.setMaxCarbonDioxideStandard(request.getMaxCarbonDioxideStandard());
-        waterStandard.setMinCarbonDioxideStandard(request.getMinCarbonDioxideStandard());
-
-        waterStandard.setMaxSaltStandard(request.getMaxSaltStandard());
-        waterStandard.setMinSaltStandard(request.getMinSaltStandard());
-
-        waterStandardRepository.save(waterStandard);
+            shopRepository.save(shop);
+        }
     }
 
-    @Autowired
-    private PondStandardRepository pondStandardRepository;
+    //create water standard
+    public WaterStandard createWaterStandard(WaterStandardRequest request){
 
-    public void updatePondStandard(PondStandardRequest request){
-        List<PondStandard> pondStandards = pondStandardRepository.findAll();
+        List<WaterStandard> waterStandards = waterStandardRepository.findAll();
+        if (waterStandards.isEmpty()){
+            WaterStandard waterStandard = new WaterStandard();
 
-        if (pondStandards.size() <= 0){
-            PondStandard pondStandard = new PondStandard();
+            waterStandard.setMinTempStandard(request.getMinTempStandard());
+            waterStandard.setMaxTempStandard(request.getMaxTempStandard());
 
-            pondStandard.setMaxArea(0);
-            pondStandard.setMinArea(0);
+            waterStandard.setMaxOxygenStandard(request.getMaxOxygenStandard());
+            waterStandard.setMinOxygenStandard(request.getMinOxygenStandard());
 
-            pondStandard.setMaxVolume(0);
-            pondStandard.setMinVolume(0);
+            waterStandard.setMax_pH_Standard(request.getMax_pH_Standard());
+            waterStandard.setMin_pH_Standard(request.getMin_pH_Standard());
 
-            pondStandard.setMaxSkimmerCount(0);
-            pondStandard.setMinSkimmerCount(0);
+            waterStandard.setMinHardnessStandard(request.getMinHardnessStandard());
+            waterStandard.setMaxHardnessStandard(request.getMaxHardnessStandard());
 
-            pondStandard.setMinDepth(0);
-            pondStandard.setMaxDepth(0);
+            waterStandard.setMaxAmmoniaStandard(request.getMaxAmmoniaStandard());
+            waterStandard.setMinAmmoniaStandard(request.getMinAmmoniaStandard());
 
-            pondStandard.setMaxPumpingCapacity(0);
-            pondStandard.setMinPumpingCapacity(0);
+            waterStandard.setMaxNitriteStandard(request.getMaxNitriteStandard());
+            waterStandard.setMinNitriteStandard(request.getMinNitriteStandard());
 
-            pondStandard.setMinDrainCount(0);
-            pondStandard.setMaxDrainCount(0);
+            waterStandard.setMaxNitrateStandard(request.getMaxNitrateStandard());
+            waterStandard.setMinNitrateStandard(request.getMinNitrateStandard());
 
-            pondStandard.setMinAmountFish(0);
-            pondStandard.setMaxAmountFish(0);
-            pondStandardRepository.save(pondStandard);
+            waterStandard.setMaxCarbonateStandard(request.getMaxCarbonateStandard());
+            waterStandard.setMinCarbonateStandard(request.getMinCarbonateStandard());
+
+            waterStandard.setMaxCarbonDioxideStandard(request.getMaxCarbonDioxideStandard());
+            waterStandard.setMinCarbonDioxideStandard(request.getMinCarbonDioxideStandard());
+
+            waterStandard.setMaxSaltStandard(request.getMaxSaltStandard());
+            waterStandard.setMinSaltStandard(request.getMinSaltStandard());
+
+            return waterStandardRepository.save(waterStandard);
+        }
+        else {
+            throw new AppException(ErrorCode.WATER_STANDARD_IS_EXISTED);
         }
 
-        PondStandard pondStandard = pondStandardRepository.findByPondStandardID(1);
 
-        pondStandard.setMaxArea(request.getMaxArea());
-        pondStandard.setMinArea(request.getMinArea());
+    }
+
+    //update water standard
+    public WaterStandard updateWaterStandard(long waterStandardID, WaterStandardRequest request) {
+        WaterStandard waterStandard = waterStandardRepository.findByWaterStandardId(waterStandardID);
+        if (waterStandard != null) {
+            waterStandard.setMinTempStandard(request.getMinTempStandard());
+            waterStandard.setMaxTempStandard(request.getMaxTempStandard());
+
+            waterStandard.setMaxOxygenStandard(request.getMaxOxygenStandard());
+            waterStandard.setMinOxygenStandard(request.getMinOxygenStandard());
+
+            waterStandard.setMax_pH_Standard(request.getMax_pH_Standard());
+            waterStandard.setMin_pH_Standard(request.getMin_pH_Standard());
+
+            waterStandard.setMinHardnessStandard(request.getMinHardnessStandard());
+            waterStandard.setMaxHardnessStandard(request.getMaxHardnessStandard());
+
+            waterStandard.setMaxAmmoniaStandard(request.getMaxAmmoniaStandard());
+            waterStandard.setMinAmmoniaStandard(request.getMinAmmoniaStandard());
+
+            waterStandard.setMaxNitriteStandard(request.getMaxNitriteStandard());
+            waterStandard.setMinNitriteStandard(request.getMinNitriteStandard());
+
+            waterStandard.setMaxNitrateStandard(request.getMaxNitrateStandard());
+            waterStandard.setMinNitrateStandard(request.getMinNitrateStandard());
+
+            waterStandard.setMaxCarbonateStandard(request.getMaxCarbonateStandard());
+            waterStandard.setMinCarbonateStandard(request.getMinCarbonateStandard());
+
+            waterStandard.setMaxCarbonDioxideStandard(request.getMaxCarbonDioxideStandard());
+            waterStandard.setMinCarbonDioxideStandard(request.getMinCarbonDioxideStandard());
+
+            waterStandard.setMaxSaltStandard(request.getMaxSaltStandard());
+            waterStandard.setMinSaltStandard(request.getMinSaltStandard());
+
+            return waterStandardRepository.save(waterStandard);
+        } else {
+            throw new AppException(ErrorCode.WATER_STANDARD_NOT_EXISTED);
+        }
+    }
+
+    //get water standard by ID
+    public WaterStandard getWaterStandardByID(long waterStandardID) {
+        WaterStandard waterStandard = waterStandardRepository.findByWaterStandardId(waterStandardID);
+        if (waterStandard == null) {
+            throw new AppException(ErrorCode.WATER_STANDARD_NOT_EXISTED);
+        }
+        else{
+            return waterStandard;
+        }
+    }
+
+    //get all water standard
+    public List<WaterStandard> getWaterStandardList() {
+        List<WaterStandard> list = waterStandardRepository.findAll();
+        if (list.size() <= 0) {
+            throw new AppException(ErrorCode.WATER_STANDARD_NOT_EXISTED);
+        } else {
+            return list;
+        }
+    }
+
+    //delete water standard
+    public void deleteWaterStandard(long waterStandardID) {
+        WaterStandard waterStandard = waterStandardRepository.findByWaterStandardId(waterStandardID);
+        if (waterStandard != null) {
+            waterStandardRepository.delete(waterStandard);
+        } else {
+            throw new AppException(ErrorCode.WATER_STANDARD_NOT_EXISTED);
+        }
+    }
+
+
+    //create pond standard
+    public PondStandard createPondStandard(PondStandardRequest request) {
+        PondStandard pondStandard = new PondStandard();
+
+        pondStandard.setArea(request.getArea());
 
         pondStandard.setMaxVolume(request.getMaxVolume());
         pondStandard.setMinVolume(request.getMinVolume());
 
-        pondStandard.setMaxSkimmerCount(request.getMaxSkimmerCount());
-        pondStandard.setMinSkimmerCount(request.getMinSkimmerCount());
+        pondStandard.setSkimmerCount(request.getSkimmerCount());
 
         pondStandard.setMinDepth(request.getMinDepth());
         pondStandard.setMaxDepth(request.getMaxDepth());
@@ -209,20 +250,76 @@ public class AdminService {
         pondStandard.setMaxPumpingCapacity(request.getMaxPumpingCapacity());
         pondStandard.setMinPumpingCapacity(request.getMinPumpingCapacity());
 
-        pondStandard.setMinDrainCount(request.getMinDrainCount());
-        pondStandard.setMaxDrainCount(request.getMaxDrainCount());
+        pondStandard.setDrainCount(request.getDrainCount());
 
         pondStandard.setMinAmountFish(request.getMinAmountFish());
         pondStandard.setMaxAmountFish(request.getMaxAmountFish());
 
-        pondStandardRepository.save(pondStandard);
+        return pondStandardRepository.save(pondStandard);
     }
 
-    public ProductType createProductType(ProductType type){
-        ProductType productType = new ProductType();
-        return productTypeRepository.save(productType);
+    //update pond standard
+    public PondStandard updatePondStandardByID(long pondStandardID, PondStandardRequest request){
+        PondStandard pondStandard = pondStandardRepository.findByPondStandardID(pondStandardID);
+        if (pondStandard == null) {
+            throw new AppException(ErrorCode.POND_STANDARD_NOT_EXISTED);
+        }
+        else{
+            pondStandard.setArea(request.getArea());
+
+            pondStandard.setMaxVolume(request.getMaxVolume());
+            pondStandard.setMinVolume(request.getMinVolume());
+
+            pondStandard.setSkimmerCount(request.getSkimmerCount());
+
+            pondStandard.setMinDepth(request.getMinDepth());
+            pondStandard.setMaxDepth(request.getMaxDepth());
+
+            pondStandard.setMaxPumpingCapacity(request.getMaxPumpingCapacity());
+            pondStandard.setMinPumpingCapacity(request.getMinPumpingCapacity());
+
+            pondStandard.setDrainCount(request.getDrainCount());
+
+            pondStandard.setMinAmountFish(request.getMinAmountFish());
+            pondStandard.setMaxAmountFish(request.getMaxAmountFish());
+
+            return pondStandardRepository.save(pondStandard);
+        }
+
+    }
+
+    //get pond standard by ID
+    public PondStandard getPondStandardByID(long pondStandardID) {
+        PondStandard pondStandard = pondStandardRepository.findByPondStandardID(pondStandardID);
+        if (pondStandard == null) {
+            throw new AppException(ErrorCode.POND_STANDARD_NOT_EXISTED);
+        } else {
+            return pondStandard;
+        }
+    }
+
+    //delete pond standard by ID
+    public void deletePondStandard(long pondStandardID) {
+        PondStandard pondStandard = pondStandardRepository.findByPondStandardID(pondStandardID);
+        if (pondStandard == null) {
+            throw new AppException(ErrorCode.POND_STANDARD_NOT_EXISTED);
+        } else{
+            pondStandardRepository.delete(pondStandard);
+        }
     }
 
 
+    public PondStandard getPondStandardByArea(double area){
+        PondStandard pondStandard = pondStandardRepository.findByArea(area);
+        if (pondStandard == null) {
+            throw new AppException(ErrorCode.POND_STANDARD_NOT_EXISTED);
+        } else{
+            return pondStandard;
+        }
+    }
+    //get all pond standard
+    public List<PondStandard> getAllPondStandard() {
+        return pondStandardRepository.findAll();
+    }
 
 }

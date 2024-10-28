@@ -4,10 +4,12 @@ import koicare.koiCareProject.dto.request.ApackageRequest;
 import koicare.koiCareProject.dto.response.APIResponse;
 import koicare.koiCareProject.entity.Account;
 import koicare.koiCareProject.entity.Apackage;
+import koicare.koiCareProject.entity.OrderDetail;
 import koicare.koiCareProject.entity.Role;
 import koicare.koiCareProject.exception.AppException;
 import koicare.koiCareProject.exception.ErrorCode;
 import koicare.koiCareProject.repository.ApackageRepository;
+import koicare.koiCareProject.repository.OrderDetailRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,9 @@ public class ApackageService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    OrderDetailRepository orderDetailRepository;
 
     public Apackage createApackage(ApackageRequest request) {
         Account account = authenticationService.getCurrentAccount();
@@ -64,7 +69,13 @@ public class ApackageService {
 
     public void delete(UUID uuid){
         Apackage apackage = apackageRepository.findApackageById(uuid);
+        List<OrderDetail> orderDetails = orderDetailRepository.getAllByApackage(apackage);
         if (apackage != null) {
+            if(orderDetails != null){
+                for(OrderDetail orderDetail:orderDetails){
+                    orderDetailRepository.delete(orderDetail);
+                }
+            }
             apackageRepository.delete(apackage);
         }else throw new AppException(ErrorCode.PACKAGE_IS_NOT_EXISTED);
 

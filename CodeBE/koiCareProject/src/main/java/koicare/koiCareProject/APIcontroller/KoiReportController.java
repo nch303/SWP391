@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -99,7 +100,7 @@ public class KoiReportController {
 
     //Xóa KoiReport khỏi danh sách
     @DeleteMapping("{koiReportID}")
-    public ResponseEntity deleteKoiReport(@PathVariable("koiReportID") long koiReportID) {
+    public ResponseEntity deleteKoiReport(@PathVariable("koiReportID") long koiReportID) throws ParseException {
         koiReportService.deleteKoiReport(koiReportID);
         return ResponseEntity.ok("Detele koiReport " + koiReportID + " successfully!!!") ;
     }
