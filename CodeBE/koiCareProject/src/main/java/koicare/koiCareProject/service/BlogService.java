@@ -11,6 +11,7 @@ import org.springframework.boot.Banner;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +24,8 @@ public class BlogService {
     private ModelMapper modelMapper;
 
     public Blog createPost(BlogRequest post) {
-        post.setPublishedDate(LocalDate.now());
         Blog blog = modelMapper.map(post,Blog.class);
+        blog.setPublishedDate(new Date());
         return blogPostRepository.save(blog);
     }
 
@@ -42,6 +43,8 @@ public class BlogService {
                 .map(post -> {
                     post.setTitle(newPost.getTitle());
                     post.setContent(newPost.getContent());
+                    post.setMainImage(newPost.getMainImage());
+                    post.setAuthor(newPost.getAuthor());
                     return blogPostRepository.save(post);
                 })
                 .orElseThrow(() -> new AppException(ErrorCode.BLOG_NOT_EXISTED));
