@@ -60,23 +60,25 @@ public class RevenueService {
         Map<String, PackageNumberResponse> packageCountMap = new HashMap<>();
 
         for (TransactionResponse transactionResponse : transactionResponses) {
-            String packageName = transactionResponse.getApackage();
-            Date transactionDate = transactionResponse.getDate();
+            if (transactionResponse.getStatus().equals(TransactionsEnum.SUCCESS.toString())) {
+                String packageName = transactionResponse.getApackage();
+                Date transactionDate = transactionResponse.getDate();
 
-            //Lấy tháng và năm từ Date
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(transactionDate);
-            int month = calendar.get(Calendar.MONTH) + 1;
-            int year = calendar.get(Calendar.YEAR);
+                //Lấy tháng và năm từ Date
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(transactionDate);
+                int month = calendar.get(Calendar.MONTH) + 1;
+                int year = calendar.get(Calendar.YEAR);
 
-            //Tạo khóa dựa trên tên package, tháng và năm
-            String key = packageName + "-" + month + "-" + year;
+                //Tạo khóa dựa trên tên package, tháng và năm
+                String key = packageName + "-" + month + "-" + year;
 
-            if (packageName.contains("-sh")) {
-                packageCountMap.putIfAbsent(key, new PackageNumberResponse(packageName, 0, month, year));
+                if (packageName.contains("-sh")) {
+                    packageCountMap.putIfAbsent(key, new PackageNumberResponse(packageName, 0, month, year));
 
-                PackageNumberResponse packageResponse = packageCountMap.get(key);
-                packageResponse.setNumberOfPackage(packageResponse.getNumberOfPackage() + 1);
+                    PackageNumberResponse packageResponse = packageCountMap.get(key);
+                    packageResponse.setNumberOfPackage(packageResponse.getNumberOfPackage() + 1);
+                }
             }
         }
 
@@ -90,23 +92,25 @@ public class RevenueService {
         Map<String, PackageNumberResponse> packageCountMap = new HashMap<>();
 
         for (TransactionResponse transactionResponse : transactionResponses) {
-            String packageName = transactionResponse.getApackage();
-            Date transactionDate = transactionResponse.getDate();
+            if (transactionResponse.getStatus().equals(TransactionsEnum.SUCCESS.toString())) {
+                String packageName = transactionResponse.getApackage();
+                Date transactionDate = transactionResponse.getDate();
 
-            //Lấy tháng và năm từ Date
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(transactionDate);
-            int month = calendar.get(Calendar.MONTH) + 1;
-            int year = calendar.get(Calendar.YEAR);
+                //Lấy tháng và năm từ Date
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(transactionDate);
+                int month = calendar.get(Calendar.MONTH) + 1;
+                int year = calendar.get(Calendar.YEAR);
 
-            //Tạo khóa dựa trên tên package, tháng và năm
-            String key = packageName + "-" + month + "-" + year;
+                //Tạo khóa dựa trên tên package, tháng và năm
+                String key = packageName + "-" + month + "-" + year;
 
-            if (packageName.contains("-me")) {
-                packageCountMap.putIfAbsent(key, new PackageNumberResponse(packageName, 0, month, year));
+                if (packageName.contains("-me")) {
+                    packageCountMap.putIfAbsent(key, new PackageNumberResponse(packageName, 0, month, year));
 
-                PackageNumberResponse packageResponse = packageCountMap.get(key);
-                packageResponse.setNumberOfPackage(packageResponse.getNumberOfPackage() + 1);
+                    PackageNumberResponse packageResponse = packageCountMap.get(key);
+                    packageResponse.setNumberOfPackage(packageResponse.getNumberOfPackage() + 1);
+                }
             }
         }
 

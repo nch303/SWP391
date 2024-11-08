@@ -19,7 +19,7 @@ public class KoiFish {
 
 
     @Pattern(regexp = "^[a-zA-Z0-9 ]+$", message = "Koi name must not contain special characters!")
-    @Size(max = 10, message = "Name must be less than 10 characters!")
+    @Size(max = 25, message = "Name must be less than 25 characters!")
     private String koiName;
 
 

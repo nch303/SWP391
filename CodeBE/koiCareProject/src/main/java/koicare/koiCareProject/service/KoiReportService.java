@@ -208,7 +208,7 @@ public class KoiReportService {
         } else {
             KoiStandard koiStandard = koiStandardRepository.getKoiStandardByKoiVarietyAndPeriod(koiVariety, period);
             //xét giới tính "male"
-            if (koiFish.getKoiSex().contains("Male")) {
+            if (koiFish.getKoiSex().equalsIgnoreCase("Male")) {
                 //đạt chuẩn
                 if (request.getLength() <= koiStandard.getHiLengthMale() && request.getLength() >= koiStandard.getLowLengthMale()
                         && request.getWeight() <= koiStandard.getHiWeightMale() && request.getWeight() >= koiStandard.getLowWeightMale()) {
