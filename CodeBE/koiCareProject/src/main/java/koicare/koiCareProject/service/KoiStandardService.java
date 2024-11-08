@@ -61,6 +61,80 @@ public class KoiStandardService {
 
         KoiStandard koiStandard = koiStandardRepository.getKoiStandardByKoiVarietyAndPeriod(koiVariety, period);
         if (koiStandard != null) {
+            KoiStandard nextKoiStandard = koiStandardRepository.getKoiStandardByKoiVarietyAndPeriod
+                    (koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID()).getKoiVariety(), period + 100);
+
+            if (daysBetween % 100 <= 31) {
+                return koiStandard;
+            } else if (daysBetween % 100 <= 61 && daysBetween % 100 > 31) {
+                koiStandard.setHiWeightFemale(koiStandard.getHiWeightFemale()
+                        + (nextKoiStandard.getHiWeightFemale() - koiStandard.getHiWeightFemale()) * 0.3333);
+                koiStandard.setMedWeightFemale(koiStandard.getMedWeightFemale()
+                        + (nextKoiStandard.getMedWeightFemale() - koiStandard.getMedWeightFemale()) * 0.3333);
+                koiStandard.setLowWeightFemale(koiStandard.getLowWeightFemale()
+                        + (nextKoiStandard.getLowWeightFemale() - koiStandard.getLowWeightFemale()) * 0.3333);
+
+                koiStandard.setHiLengthFemale(koiStandard.getHiLengthFemale()
+                        + (nextKoiStandard.getHiLengthFemale() - koiStandard.getHiLengthFemale()) * 0.3333);
+                koiStandard.setMedLengthFemale(koiStandard.getMedLengthFemale()
+                        + (nextKoiStandard.getMedLengthFemale() - koiStandard.getMedLengthFemale()) * 0.3333);
+                koiStandard.setLowLengthFemale(koiStandard.getLowLengthFemale()
+                        + (nextKoiStandard.getLowLengthFemale() - koiStandard.getLowLengthFemale()) * 0.3333);
+
+                koiStandard.setHiWeightMale(koiStandard.getHiWeightMale()
+                        + (nextKoiStandard.getHiWeightMale() - koiStandard.getHiWeightMale()) * 0.3333);
+                koiStandard.setMedWeightMale(koiStandard.getMedWeightMale()
+                        + (nextKoiStandard.getMedWeightMale() - koiStandard.getMedWeightMale()) * 0.3333);
+                koiStandard.setLowWeightMale(koiStandard.getLowWeightMale()
+                        + (nextKoiStandard.getLowWeightMale() - koiStandard.getLowWeightMale()) * 0.3333);
+
+                koiStandard.setHiLengthMale(koiStandard.getHiLengthMale()
+                        + (nextKoiStandard.getHiLengthMale() - koiStandard.getHiLengthMale()) * 0.3333);
+                koiStandard.setMedLengthMale(koiStandard.getMedLengthMale()
+                        + (nextKoiStandard.getMedLengthMale() - koiStandard.getMedLengthMale()) * 0.3333);
+                koiStandard.setLowLengthMale(koiStandard.getLowLengthMale()
+                        + (nextKoiStandard.getLowLengthMale() - koiStandard.getLowLengthMale()) * 0.3333);
+            } else {
+                koiStandard.setHiWeightFemale(koiStandard.getHiWeightFemale()
+                        + (nextKoiStandard.getHiWeightFemale() - koiStandard.getHiWeightFemale()) * 0.6666);
+                koiStandard.setMedWeightFemale(koiStandard.getMedWeightFemale()
+                        + (nextKoiStandard.getMedWeightFemale() - koiStandard.getMedWeightFemale()) * 0.6666);
+                koiStandard.setLowWeightFemale(koiStandard.getLowWeightFemale()
+                        + (nextKoiStandard.getLowWeightFemale() - koiStandard.getLowWeightFemale()) * 0.6666);
+
+                koiStandard.setHiLengthFemale(koiStandard.getHiLengthFemale()
+                        + (nextKoiStandard.getHiLengthFemale() - koiStandard.getHiLengthFemale()) * 0.6666);
+                koiStandard.setMedLengthFemale(koiStandard.getMedLengthFemale()
+                        + (nextKoiStandard.getMedLengthFemale() - koiStandard.getMedLengthFemale()) * 0.6666);
+                koiStandard.setLowLengthFemale(koiStandard.getLowLengthFemale()
+                        + (nextKoiStandard.getLowLengthFemale() - koiStandard.getLowLengthFemale()) * 0.6666);
+
+                koiStandard.setHiWeightMale(koiStandard.getHiWeightMale()
+                        + (nextKoiStandard.getHiWeightMale() - koiStandard.getHiWeightMale()) * 0.6666);
+                koiStandard.setMedWeightMale(koiStandard.getMedWeightMale()
+                        + (nextKoiStandard.getMedWeightMale() - koiStandard.getMedWeightMale()) * 0.6666);
+                koiStandard.setLowWeightMale(koiStandard.getLowWeightMale()
+                        + (nextKoiStandard.getLowWeightMale() - koiStandard.getLowWeightMale()) * 0.6666);
+
+                koiStandard.setHiLengthMale(koiStandard.getHiLengthMale()
+                        + (nextKoiStandard.getHiLengthMale() - koiStandard.getHiLengthMale()) * 0.6666);
+                koiStandard.setMedLengthMale(koiStandard.getMedLengthMale()
+                        + (nextKoiStandard.getMedLengthMale() - koiStandard.getMedLengthMale()) * 0.6666);
+                koiStandard.setLowLengthMale(koiStandard.getLowLengthMale()
+                        + (nextKoiStandard.getLowLengthMale() - koiStandard.getLowLengthMale()) * 0.6666);
+            }
+
+            koiStandard.setLowWeightMale(Math.round(koiStandard.getLowWeightMale() * 100.0) / 100.0);
+            koiStandard.setHiWeightMale(Math.round(koiStandard.getHiWeightMale() * 100.0) / 100.0);
+            koiStandard.setLowWeightFemale(Math.round(koiStandard.getLowWeightFemale() * 100.0) / 100.0);
+            koiStandard.setHiWeightFemale(Math.round(koiStandard.getHiWeightFemale() * 100.0) / 100.0);
+
+            koiStandard.setLowLengthMale(Math.round(koiStandard.getLowLengthMale() * 100.0) / 100.0);
+            koiStandard.setHiLengthMale(Math.round(koiStandard.getHiLengthMale() * 100.0) / 100.0);
+            koiStandard.setLowLengthFemale(Math.round(koiStandard.getLowLengthFemale() * 100.0) / 100.0);
+            koiStandard.setHiLengthFemale(Math.round(koiStandard.getHiLengthFemale() * 100.0) / 100.0);
+
+
             return koiStandard;
         } else throw new AppException(ErrorCode.KOISTANDARD_NOT_EXISTED);
     }
@@ -88,6 +162,79 @@ public class KoiStandardService {
 
         KoiStandard koiStandard = koiStandardRepository.getKoiStandardByKoiVarietyAndPeriod(koiVariety, period);
         if (koiStandard != null) {
+            KoiStandard nextKoiStandard = koiStandardRepository.getKoiStandardByKoiVarietyAndPeriod
+                    (koiVarietyRepository.getKoiVarietyByKoiVarietyID(request.getVarietyID()), period + 100);
+
+            if (daysBetween % 100 <= 31) {
+                return koiStandard;
+            } else if (daysBetween % 100 <= 61 && daysBetween % 100 > 31) {
+                koiStandard.setHiWeightFemale(koiStandard.getHiWeightFemale()
+                        + (nextKoiStandard.getHiWeightFemale() - koiStandard.getHiWeightFemale()) * 0.3333);
+                koiStandard.setMedWeightFemale(koiStandard.getMedWeightFemale()
+                        + (nextKoiStandard.getMedWeightFemale() - koiStandard.getMedWeightFemale()) * 0.3333);
+                koiStandard.setLowWeightFemale(koiStandard.getLowWeightFemale()
+                        + (nextKoiStandard.getLowWeightFemale() - koiStandard.getLowWeightFemale()) * 0.3333);
+
+                koiStandard.setHiLengthFemale(koiStandard.getHiLengthFemale()
+                        + (nextKoiStandard.getHiLengthFemale() - koiStandard.getHiLengthFemale()) * 0.3333);
+                koiStandard.setMedLengthFemale(koiStandard.getMedLengthFemale()
+                        + (nextKoiStandard.getMedLengthFemale() - koiStandard.getMedLengthFemale()) * 0.3333);
+                koiStandard.setLowLengthFemale(koiStandard.getLowLengthFemale()
+                        + (nextKoiStandard.getLowLengthFemale() - koiStandard.getLowLengthFemale()) * 0.3333);
+
+                koiStandard.setHiWeightMale(koiStandard.getHiWeightMale()
+                        + (nextKoiStandard.getHiWeightMale() - koiStandard.getHiWeightMale()) * 0.3333);
+                koiStandard.setMedWeightMale(koiStandard.getMedWeightMale()
+                        + (nextKoiStandard.getMedWeightMale() - koiStandard.getMedWeightMale()) * 0.3333);
+                koiStandard.setLowWeightMale(koiStandard.getLowWeightMale()
+                        + (nextKoiStandard.getLowWeightMale() - koiStandard.getLowWeightMale()) * 0.3333);
+
+                koiStandard.setHiLengthMale(koiStandard.getHiLengthMale()
+                        + (nextKoiStandard.getHiLengthMale() - koiStandard.getHiLengthMale()) * 0.3333);
+                koiStandard.setMedLengthMale(koiStandard.getMedLengthMale()
+                        + (nextKoiStandard.getMedLengthMale() - koiStandard.getMedLengthMale()) * 0.3333);
+                koiStandard.setLowLengthMale(koiStandard.getLowLengthMale()
+                        + (nextKoiStandard.getLowLengthMale() - koiStandard.getLowLengthMale()) * 0.3333);
+            } else {
+                koiStandard.setHiWeightFemale(koiStandard.getHiWeightFemale()
+                        + (nextKoiStandard.getHiWeightFemale() - koiStandard.getHiWeightFemale()) * 0.6666);
+                koiStandard.setMedWeightFemale(koiStandard.getMedWeightFemale()
+                        + (nextKoiStandard.getMedWeightFemale() - koiStandard.getMedWeightFemale()) * 0.6666);
+                koiStandard.setLowWeightFemale(koiStandard.getLowWeightFemale()
+                        + (nextKoiStandard.getLowWeightFemale() - koiStandard.getLowWeightFemale()) * 0.6666);
+
+                koiStandard.setHiLengthFemale(koiStandard.getHiLengthFemale()
+                        + (nextKoiStandard.getHiLengthFemale() - koiStandard.getHiLengthFemale()) * 0.6666);
+                koiStandard.setMedLengthFemale(koiStandard.getMedLengthFemale()
+                        + (nextKoiStandard.getMedLengthFemale() - koiStandard.getMedLengthFemale()) * 0.6666);
+                koiStandard.setLowLengthFemale(koiStandard.getLowLengthFemale()
+                        + (nextKoiStandard.getLowLengthFemale() - koiStandard.getLowLengthFemale()) * 0.6666);
+
+                koiStandard.setHiWeightMale(koiStandard.getHiWeightMale()
+                        + (nextKoiStandard.getHiWeightMale() - koiStandard.getHiWeightMale()) * 0.6666);
+                koiStandard.setMedWeightMale(koiStandard.getMedWeightMale()
+                        + (nextKoiStandard.getMedWeightMale() - koiStandard.getMedWeightMale()) * 0.6666);
+                koiStandard.setLowWeightMale(koiStandard.getLowWeightMale()
+                        + (nextKoiStandard.getLowWeightMale() - koiStandard.getLowWeightMale()) * 0.6666);
+
+                koiStandard.setHiLengthMale(koiStandard.getHiLengthMale()
+                        + (nextKoiStandard.getHiLengthMale() - koiStandard.getHiLengthMale()) * 0.6666);
+                koiStandard.setMedLengthMale(koiStandard.getMedLengthMale()
+                        + (nextKoiStandard.getMedLengthMale() - koiStandard.getMedLengthMale()) * 0.6666);
+                koiStandard.setLowLengthMale(koiStandard.getLowLengthMale()
+                        + (nextKoiStandard.getLowLengthMale() - koiStandard.getLowLengthMale()) * 0.6666);
+            }
+
+            koiStandard.setLowWeightMale(Math.round(koiStandard.getLowWeightMale() * 100.0) / 100.0);
+            koiStandard.setHiWeightMale(Math.round(koiStandard.getHiWeightMale() * 100.0) / 100.0);
+            koiStandard.setLowWeightFemale(Math.round(koiStandard.getLowWeightFemale() * 100.0) / 100.0);
+            koiStandard.setHiWeightFemale(Math.round(koiStandard.getHiWeightFemale() * 100.0) / 100.0);
+
+            koiStandard.setLowLengthMale(Math.round(koiStandard.getLowLengthMale() * 100.0) / 100.0);
+            koiStandard.setHiLengthMale(Math.round(koiStandard.getHiLengthMale() * 100.0) / 100.0);
+            koiStandard.setLowLengthFemale(Math.round(koiStandard.getLowLengthFemale() * 100.0) / 100.0);
+            koiStandard.setHiLengthFemale(Math.round(koiStandard.getHiLengthFemale() * 100.0) / 100.0);
+
             return koiStandard;
         } else throw new AppException(ErrorCode.KOISTANDARD_NOT_EXISTED);
     }
@@ -129,5 +276,6 @@ public class KoiStandardService {
             koiStandardRepository.delete(koiStandard);
         } else throw new AppException(ErrorCode.KOISTANDARD_NOT_EXISTED);
     }
+
 
 }
