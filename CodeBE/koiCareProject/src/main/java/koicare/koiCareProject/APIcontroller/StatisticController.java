@@ -75,26 +75,41 @@ public class StatisticController {
 
         // Tính số ngày giữa hai ngày
         long daysBetween = ChronoUnit.DAYS.between(koiBirthday, requestDate);
+        long period = (daysBetween / 100) * 100;
+
+        KoiStandard koiStandardAtPeriod = koiStandardRepository.getKoiStandardByKoiVarietyAndPeriod
+                (koiFish.getKoiVariety(), period);
+
+        double hiWeightMalePlus = (koiStandard1.getHiWeightMale() - koiStandardAtPeriod.getHiWeightMale()) * 0.3333;
+        double lowWeightMalePlus = (koiStandard1.getLowWeightMale() - koiStandardAtPeriod.getLowWeightMale()) * 0.3333;
+        double hiLengthMalePlus = (koiStandard1.getHiLengthMale() - koiStandardAtPeriod.getHiLengthMale()) * 0.3333;
+        double lowLengthMalePlus = (koiStandard1.getLowLengthMale() - koiStandardAtPeriod.getLowLengthMale()) * 0.3333;
+
+        double hiWeightFemalePlus = (koiStandard1.getHiWeightFemale() - koiStandardAtPeriod.getHiWeightFemale()) * 0.3333;
+        double lowWeightFemalePlus = (koiStandard1.getLowWeightFemale() - koiStandardAtPeriod.getLowWeightFemale()) * 0.3333;
+        double hiLengthFemalePlus = (koiStandard1.getHiLengthFemale() - koiStandardAtPeriod.getHiLengthFemale()) * 0.3333;
+        double lowLengthFemalePlus = (koiStandard1.getLowLengthFemale() - koiStandardAtPeriod.getLowLengthFemale()) * 0.3333;
+
         if(koiFish.getKoiSex().equalsIgnoreCase("Male")){
             statisticResponse.setAgeByDate(daysBetween);
             statisticResponse.setHiWeight(koiStandard.getHiWeightMale());
             statisticResponse.setLowWeight(koiStandard.getLowWeightMale());
             statisticResponse.setHiLength(koiStandard.getHiLengthMale());
             statisticResponse.setLowLength(koiStandard.getLowLengthMale());
-            statisticResponse.setHiWeightto((koiStandard1.getHiWeightMale() - koiStandard.getHiWeightMale()) * 0.3333 + koiStandard.getHiWeightMale());
-            statisticResponse.setLowWeightto((koiStandard1.getLowWeightMale() - koiStandard.getLowWeightMale()) * 0.3333 + koiStandard.getLowWeightMale());
-            statisticResponse.setHiLengthto((koiStandard1.getHiLengthMale() - koiStandard.getHiLengthMale()) * 0.3333 + koiStandard.getHiLengthMale());
-            statisticResponse.setLowLengthto((koiStandard1.getLowLengthMale() - koiStandard.getLowLengthMale()) * 0.3333 + koiStandard.getLowLengthMale());
+            statisticResponse.setHiWeightto(hiWeightMalePlus + koiStandard.getHiWeightMale());
+            statisticResponse.setLowWeightto(lowWeightMalePlus + koiStandard.getLowWeightMale());
+            statisticResponse.setHiLengthto(hiLengthMalePlus + koiStandard.getHiLengthMale());
+            statisticResponse.setLowLengthto(lowLengthMalePlus + koiStandard.getLowLengthMale());
         }else{
             statisticResponse.setAgeByDate(daysBetween);
             statisticResponse.setHiWeight(koiStandard.getHiWeightFemale());
             statisticResponse.setLowWeight(koiStandard.getLowWeightFemale());
             statisticResponse.setHiLength(koiStandard.getHiLengthFemale());
             statisticResponse.setLowLength(koiStandard.getLowLengthFemale());
-            statisticResponse.setHiWeightto((koiStandard1.getHiWeightFemale() - koiStandard.getHiWeightFemale()) * 0.3333 + koiStandard.getHiWeightFemale());
-            statisticResponse.setLowWeightto((koiStandard1.getLowWeightFemale() - koiStandard.getLowWeightFemale()) * 0.3333 + koiStandard.getLowWeightFemale());
-            statisticResponse.setHiLengthto((koiStandard1.getHiLengthFemale() - koiStandard.getHiLengthFemale()) * 0.3333 + koiStandard.getHiLengthFemale());
-            statisticResponse.setLowLengthto((koiStandard1.getLowLengthMale() - koiStandard.getLowLengthMale()) * 0.3333 + koiStandard.getLowLengthFemale());
+            statisticResponse.setHiWeightto(hiWeightFemalePlus + koiStandard.getHiWeightFemale());
+            statisticResponse.setLowWeightto(lowWeightFemalePlus + koiStandard.getLowWeightFemale());
+            statisticResponse.setHiLengthto(hiLengthFemalePlus + koiStandard.getHiLengthFemale());
+            statisticResponse.setLowLengthto(lowLengthFemalePlus + koiStandard.getLowLengthFemale());
         }
 
         response.setResult(statisticResponse);
