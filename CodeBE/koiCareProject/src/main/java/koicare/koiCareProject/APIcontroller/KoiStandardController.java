@@ -43,7 +43,7 @@ public class KoiStandardController {
         KoiFish koiFish = koiFishRepository.getKoiFishByKoiFishID(request.getKoiFishID());
         KoiStandard koiStandard = koiStandardService.getKoiStandardByVarietyAndPeriod(request);
         KoiStandardResponse koiStandardResponse = new KoiStandardResponse();
-        if(koiFish.getKoiSex().equals("Male")){
+        if(koiFish.getKoiSex().equalsIgnoreCase("Male")){
             koiStandardResponse.setHiLength(koiStandard.getHiLengthMale());
             koiStandardResponse.setLowLength(koiStandard.getLowLengthMale());
             koiStandardResponse.setHiWeight(koiStandard.getHiWeightMale());
@@ -69,7 +69,7 @@ public class KoiStandardController {
 
         KoiStandard koiStandard = koiStandardService.getKoiStandardByVariety(request);
         KoiStandardResponse koiStandardResponse = new KoiStandardResponse();
-        if(request.getKoiSex().equals("Male")){
+        if(request.getKoiSex().equalsIgnoreCase("Male")){
             koiStandardResponse.setHiLength(koiStandard.getHiLengthMale());
             koiStandardResponse.setLowLength(koiStandard.getLowLengthMale());
             koiStandardResponse.setHiWeight(koiStandard.getHiWeightMale());

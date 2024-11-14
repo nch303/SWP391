@@ -36,6 +36,9 @@ public class PostDetailService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     public PostDetail createPostDetail(PostDetailRequest postDetailRequest) {
         Account account = authenticationService.getCurrentAccount();
         Shop shop = shopRepository.getShopByAccount(account);
@@ -83,12 +86,14 @@ public class PostDetailService {
 
     public List<PostDetail> getAllPostDetails() {
         List<PostDetail> postDetails = postDetailRepository.findAll();
-        //kiểm tra nếu bài post hết hạn sẽ tự động xóa khỏi danh sách
+        List<PostDetail> validPostDetails = new ArrayList<>();
+
+        // Kiểm tra và xóa các bài đăng hết hạn
         for (PostDetail postDetail : postDetails) {
             if (postDetail.getExpiredDate().before(new Date())) {
                 postDetailRepository.delete(postDetail);
 
-                //Gửi email thông báo
+                // Gửi email thông báo
                 Account account = authenticationService.getCurrentAccount();
                 EmailDetail emailDetail = new EmailDetail();
                 emailDetail.setAccount(account);
@@ -96,10 +101,13 @@ public class PostDetailService {
                 emailDetail.setLink("http://103.90.227.68/shop");
 
                 emailService.sendEmailForExpiredPost(emailDetail);
+            } else {
+                validPostDetails.add(postDetail);
             }
         }
-        return postDetails;
+        return validPostDetails;
     }
+
 
     public List<PostDetail> getAllPostByShopID() {
         Account account = authenticationService.getCurrentAccount();
@@ -139,6 +147,53 @@ public class PostDetailService {
         PostDetail postDetail = postDetailRepository.findByPostID(postID);
         if (postDetail != null)
             return postDetail;
+        else throw new AppException(ErrorCode.POST_DOES_NOT_EXIST);
+    }
+
+    public PostDetail updatePostDetail(long postID, PostDetailRequest request){
+        PostDetail postDetail = postDetailRepository.findByPostID(postID);
+        Account account = authenticationService.getCurrentAccount();
+        Shop shop = shopRepository.getShopByAccount(account);
+        Date date = new Date();
+
+        if (postDetail != null) {
+            postDetail.setProductName(request.getProductName());
+            postDetail.setDescription(request.getDescription());
+
+            postDetail.setPostDate(date);
+            postDetail.setPostStatus(false);
+            postDetail.setImage(request.getImage());
+            postDetail.setLink(request.getLink());
+            postDetail.setProductPrice(request.getProductPrice());
+
+            //set expiredDate
+            LocalDate currentDate = LocalDate.now();
+            LocalDate expiredDate = currentDate.plusMonths(3);
+            Date expiredDateAsDate = Date.from(expiredDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            postDetail.setExpiredDate(expiredDateAsDate);
+
+
+            ProductType productType = productTypeRepository.findByProductTypeID(request.getProducTypeID());
+            if (productType == null) {
+                throw new AppException(ErrorCode.PRODUCT_TYPE_IS_NOT_EXISTED);
+            } else {
+                postDetail.setProductType(productType);
+            }
+
+            //postDetail.setShop(shopRepository.findByShopID(postDetailRequest.getShopID()));
+            postDetail.setShop(shop);
+
+            postDetail.setPostID(postID);
+            return postDetailRepository.save(postDetail);
+        }
+        else throw new AppException(ErrorCode.POST_DOES_NOT_EXIST);
+    }
+
+    public void deletePostDetail(long postID){
+        PostDetail postDetail = postDetailRepository.findByPostID(postID);
+        if (postDetail != null) {
+            postDetailRepository.delete(postDetail);
+        }
         else throw new AppException(ErrorCode.POST_DOES_NOT_EXIST);
     }
 }

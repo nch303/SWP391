@@ -3,8 +3,11 @@ package koicare.koiCareProject.service;
 import koicare.koiCareProject.dto.response.PackageNumberResponse;
 import koicare.koiCareProject.dto.response.RevenueResponse;
 import koicare.koiCareProject.dto.response.TransactionResponse;
+import koicare.koiCareProject.enums.TransactionsEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Calendar;
 
 import java.util.*;
 
@@ -20,20 +23,21 @@ public class RevenueService {
         Map<String, Float> monthlyRevenue = new HashMap<>();
 
         for (TransactionResponse transactionResponse : transactionResponses) {
-            Date transactionDate = transactionResponse.getDate();
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(transactionDate);
+            if (transactionResponse.getStatus().equals(TransactionsEnum.SUCCESS.toString())) {
+                Date transactionDate = transactionResponse.getDate();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(transactionDate);
 
-            int month = calendar.get(Calendar.MONTH); // Lấy tháng từ ngày giao dịch
-            int year = calendar.get(Calendar.YEAR);   // Lấy năm từ ngày giao dịch
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
 
-            float price = transactionResponse.getPrice(); // Lấy giá trị giao dịch
+                float price = transactionResponse.getPrice();
 
-            // Tạo key cho bản đồ theo định dạng "yyyy-MM"
-            String key = year + "-" + (month + 1); // Tháng trong Calendar là 0-11, thêm 1 để chuyển đổi thành 1-12
+                String key = year + "-" + (month + 1);
 
-            // Cộng dồn doanh thu vào bản đồ theo tháng và năm
-            monthlyRevenue.put(key, monthlyRevenue.getOrDefault(key, 0f) + price);
+                monthlyRevenue.put(key, monthlyRevenue.getOrDefault(key, 0f) + price);
+            }
+
         }
 
         // Tạo danh sách RevenueResponse để lưu doanh thu cho từng tháng
@@ -42,8 +46,8 @@ public class RevenueService {
         for (Map.Entry<String, Float> entry : monthlyRevenue.entrySet()) {
             RevenueResponse revenueResponse = new RevenueResponse();
             String[] parts = entry.getKey().split("-");
-            revenueResponse.setMonth(Integer.parseInt(parts[1])); // Lấy tháng
-            revenueResponse.setYear(Integer.parseInt(parts[0]));  // Lấy năm
+            revenueResponse.setMonth(Integer.parseInt(parts[1]));
+            revenueResponse.setYear(Integer.parseInt(parts[0]));
             revenueResponse.setRevenue(entry.getValue());
             revenueResponses.add(revenueResponse);
         }
@@ -53,50 +57,63 @@ public class RevenueService {
     public List<PackageNumberResponse> getShopPackage() {
 
         List<TransactionResponse> transactionResponses = transactionService.viewAllTransaction();
-        // Khởi tạo bản đồ để lưu tổng số lượng package theo tên package
         Map<String, PackageNumberResponse> packageCountMap = new HashMap<>();
 
         for (TransactionResponse transactionResponse : transactionResponses) {
-            String packageName = transactionResponse.getApackage(); // Lấy tên package
+            if (transactionResponse.getStatus().equals(TransactionsEnum.SUCCESS.toString())) {
+                String packageName = transactionResponse.getApackage();
+                Date transactionDate = transactionResponse.getDate();
 
-            // Kiểm tra nếu tên package chứa "-sh"
-            if (packageName.contains("-sh")) {
-                // Nếu tên package chưa tồn tại trong bản đồ, khởi tạo một PackageNumberResponse mới
-                packageCountMap.putIfAbsent(packageName, new PackageNumberResponse(packageName, 0));
+                //Lấy tháng và năm từ Date
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(transactionDate);
+                int month = calendar.get(Calendar.MONTH) + 1;
+                int year = calendar.get(Calendar.YEAR);
 
-                // Lấy PackageNumberResponse hiện tại và tăng số lượng package lên 1
-                PackageNumberResponse packageResponse = packageCountMap.get(packageName);
-                packageResponse.setNumberOfPackage(packageResponse.getNumberOfPackage() + 1);
+                //Tạo khóa dựa trên tên package, tháng và năm
+                String key = packageName + "-" + month + "-" + year;
+
+                if (packageName.contains("-sh")) {
+                    packageCountMap.putIfAbsent(key, new PackageNumberResponse(packageName, 0, month, year));
+
+                    PackageNumberResponse packageResponse = packageCountMap.get(key);
+                    packageResponse.setNumberOfPackage(packageResponse.getNumberOfPackage() + 1);
+                }
             }
         }
 
-        // Trả về danh sách các PackageNumberResponse chỉ chứa các package có "-sh" trong tên
         return new ArrayList<>(packageCountMap.values());
     }
+
 
     public List<PackageNumberResponse> getMemberPackage() {
 
         List<TransactionResponse> transactionResponses = transactionService.viewAllTransaction();
-        // Khởi tạo bản đồ để lưu tổng số lượng package theo tên package
         Map<String, PackageNumberResponse> packageCountMap = new HashMap<>();
 
         for (TransactionResponse transactionResponse : transactionResponses) {
-            String packageName = transactionResponse.getApackage(); // Lấy tên package
+            if (transactionResponse.getStatus().equals(TransactionsEnum.SUCCESS.toString())) {
+                String packageName = transactionResponse.getApackage();
+                Date transactionDate = transactionResponse.getDate();
 
-            // Kiểm tra nếu tên package chứa "-sh"
-            if (packageName.contains("-me")) {
-                // Nếu tên package chưa tồn tại trong bản đồ, khởi tạo một PackageNumberResponse mới
-                packageCountMap.putIfAbsent(packageName, new PackageNumberResponse(packageName, 0));
+                //Lấy tháng và năm từ Date
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(transactionDate);
+                int month = calendar.get(Calendar.MONTH) + 1;
+                int year = calendar.get(Calendar.YEAR);
 
-                // Lấy PackageNumberResponse hiện tại và tăng số lượng package lên 1
-                PackageNumberResponse packageResponse = packageCountMap.get(packageName);
-                packageResponse.setNumberOfPackage(packageResponse.getNumberOfPackage() + 1);
+                //Tạo khóa dựa trên tên package, tháng và năm
+                String key = packageName + "-" + month + "-" + year;
+
+                if (packageName.contains("-me")) {
+                    packageCountMap.putIfAbsent(key, new PackageNumberResponse(packageName, 0, month, year));
+
+                    PackageNumberResponse packageResponse = packageCountMap.get(key);
+                    packageResponse.setNumberOfPackage(packageResponse.getNumberOfPackage() + 1);
+                }
             }
         }
 
-        // Trả về danh sách các PackageNumberResponse chỉ chứa các package có "-sh" trong tên
         return new ArrayList<>(packageCountMap.values());
     }
-
-
 }

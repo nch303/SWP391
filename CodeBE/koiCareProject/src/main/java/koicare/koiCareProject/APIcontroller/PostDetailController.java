@@ -112,5 +112,26 @@ public class PostDetailController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("update/{postID}")
+    public ResponseEntity updatePostDetail(@PathVariable long postID, @RequestBody PostDetailRequest request){
+        APIResponse<PostDetailResponse> response = new APIResponse<>();
+        PostDetail postDetail = postDetailService.updatePostDetail(postID,request);
+        postDetail.setPostID(postID);
+        PostDetailResponse postDetailResponse = modelMapper.map(postDetail, PostDetailResponse.class);
+
+        postDetailResponse.setProducTypeID(postDetail.getProductType().getProductTypeID());
+        response.setResult(postDetailResponse);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("delete/{postID}")
+    public ResponseEntity deletePostDetail(@PathVariable long postID){
+        APIResponse<String> response = new APIResponse<>();
+        postDetailService.deletePostDetail(postID);
+
+        response.setResult("Delete PostDetail Successfully");
+        return ResponseEntity.ok(response);
+    }
+
 
 }

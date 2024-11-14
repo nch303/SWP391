@@ -2,10 +2,7 @@ package koicare.koiCareProject.service;
 
 import koicare.koiCareProject.dto.response.AccountResponse;
 import koicare.koiCareProject.dto.response.TransactionResponse;
-import koicare.koiCareProject.entity.Account;
-import koicare.koiCareProject.entity.Orders;
-import koicare.koiCareProject.entity.Payment;
-import koicare.koiCareProject.entity.Transactions;
+import koicare.koiCareProject.entity.*;
 import koicare.koiCareProject.enums.TransactionsEnum;
 import koicare.koiCareProject.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +47,13 @@ public class TransactionService {
             response.setApackage(orderDetailRepository.getByOrderId(orders1.getId()).getApackage().getName());
             response.setDuration(orderDetailRepository.getByOrderId(orders1.getId()).getApackage().getDuration());
             response.setPrice(orders1.getTotal());
+
+            //set name customer cho giao dich
+            Account customer = accountRepository.findAccountByAccountID(orders1.getCustomer().getAccountID());
+            if (customer.getRole() == Role.MEMBER) {
+                response.setCustomer(customer.getMember().getName());
+            } else response.setCustomer(customer.getShop().getName());
+
 
             //set status of transaction
             Payment payment = paymentRepository.getByOrders(orders1);

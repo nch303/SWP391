@@ -19,6 +19,6 @@ public class Blog {
     private String title;
     private String content;
     private String author;
-    private LocalDate publishedDate;
+    private Date publishedDate;
     private String mainImage;
 }

@@ -9,13 +9,14 @@ import java.util.UUID;
 @Data
 public class TransactionResponse {
 
-    UUID orderID;
-    String orderCode;
-    Date date;
-    String apackage;
-    float price;
-    int duration;
-    String status;
+    private UUID orderID;
+    private String orderCode;
+    private Date date;
+    private String apackage;
+    private float price;
+    private int duration;
+    private String status;
+    private String customer;
 //    String payment_method;
 
 }

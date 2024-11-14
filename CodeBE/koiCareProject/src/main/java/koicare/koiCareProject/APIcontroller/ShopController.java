@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/shop")
 //dán qua các controller thì mới xài được token
@@ -25,19 +27,32 @@ public class ShopController {
     private ModelMapper modelMapper;
 
     @PutMapping("update")
-    public ResponseEntity updateMember(@RequestBody MemberCreationRequest request){
-        Shop shop   = shopService.updateShop(request);
+    public ResponseEntity updateMember(@RequestBody MemberCreationRequest request) {
+        Shop shop = shopService.updateShop(request);
 
         return ResponseEntity.ok("Update successfully");
     }
 
     @GetMapping("{shopID}")
-    public ResponseEntity getShopByID(long shopID){
+    public ResponseEntity getShopByID(long shopID) {
         APIResponse<ShopResponse> response = new APIResponse<>();
 
         Shop shop = shopService.getShopByID(shopID);
-        ShopResponse shopResponse = modelMapper.map(shop,ShopResponse.class);
+        ShopResponse shopResponse = modelMapper.map(shop, ShopResponse.class);
         response.setResult(shopResponse);
+        return ResponseEntity.ok(response);
+
+    }
+
+    @GetMapping
+    public ResponseEntity getAllShop() {
+        APIResponse<List<ShopResponse>> response = new APIResponse<>();
+
+        List<Shop> shops = shopService.getAllShop();
+        List<ShopResponse> shopResponses = shops.stream()
+                .map(shop -> modelMapper.map(shop, ShopResponse.class))
+                .toList();
+        response.setResult(shopResponses);
         return ResponseEntity.ok(response);
 
     }

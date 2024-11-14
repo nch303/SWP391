@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,6 +70,9 @@ public class KoiFishController {
                 })
                 .collect(Collectors.toList());
 
+        Collections.reverse(koiFishResponses);
+
+        
         return ResponseEntity.ok(koiFishResponses);
     }
 

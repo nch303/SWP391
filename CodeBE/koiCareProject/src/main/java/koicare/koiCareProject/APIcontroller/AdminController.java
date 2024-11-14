@@ -9,9 +9,12 @@ import koicare.koiCareProject.dto.request.WaterStandardRequest;
 import koicare.koiCareProject.dto.response.*;
 
 import koicare.koiCareProject.entity.*;
+import koicare.koiCareProject.enums.PaymentEnums;
+import koicare.koiCareProject.enums.TransactionsEnum;
 import koicare.koiCareProject.repository.AccountRepository;
 import koicare.koiCareProject.repository.OrderRepository;
 import koicare.koiCareProject.repository.ProductTypeRepository;
+import koicare.koiCareProject.repository.TransactionRepository;
 import koicare.koiCareProject.service.*;
 
 import org.modelmapper.ModelMapper;
@@ -45,6 +48,9 @@ public class AdminController {
 
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    TransactionService transactionService;
 
 
 
@@ -400,12 +406,6 @@ public class AdminController {
     }
 
 
-
-
-
-
-
-
     @GetMapping("viewPondstandard/{pondStandardID}")
     public ResponseEntity viewPondStandard(@PathVariable("pondStandardID") long pondStandardID){
         APIResponse<PondStandardResponse> response = new APIResponse<>();
@@ -485,20 +485,32 @@ public class AdminController {
 
     @GetMapping("totalOrder")
     public ResponseEntity TotalOrder(){
-        APIResponse<Long> response = new APIResponse<>();
+        APIResponse<String> response = new APIResponse<>();
         List<Orders> orders = orderRepository.findAll();
         long totalOrder = orders.size();
-        response.setResult(totalOrder);
+//        response.setResult(totalOrder);
+//        return ResponseEntity.ok(response);
+        List<TransactionResponse> transaction = transactionService.viewAllTransaction();
+        float totalSuccesOrder = 0;
+        for(TransactionResponse transactionResponse:transaction){
+            if(transactionResponse.getStatus().equals(TransactionsEnum.SUCCESS.toString())){
+                totalSuccesOrder += 1;
+            }
+        }
+
+        response.setResult("Success: " + (int) totalSuccesOrder  + "/" + totalOrder);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("totalRevenue")
     public ResponseEntity TotalRevenue(){
         APIResponse<Float> response = new APIResponse<>();
-        List<Orders> orders = orderRepository.findAll();
+        List<TransactionResponse> transaction = transactionService.viewAllTransaction();
         float totalRevenue = 0;
-        for(Orders orders1 : orders){
-            totalRevenue += orders1.getTotal();
+        for(TransactionResponse transactionResponse:transaction){
+            if(transactionResponse.getStatus().equals(TransactionsEnum.SUCCESS.toString())){
+                totalRevenue += transactionResponse.getPrice();
+            }
         }
         response.setResult(totalRevenue);
         return ResponseEntity.ok(response);
