@@ -123,6 +123,7 @@ public class AuthenticationService implements UserDetailsService {
                     loginRequest.getPassword()
             ));
             Account account = (Account) authentication.getPrincipal();
+
             Member member = memberRepository.getMemberByAccount(account);
             //kiểm tra xem member còn hạn premium không
             if (account.getRole().toString().equals("MEMBER")) {

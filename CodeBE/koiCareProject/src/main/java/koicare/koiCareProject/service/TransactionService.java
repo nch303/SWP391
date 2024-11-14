@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class TransactionService {
@@ -91,6 +92,29 @@ public class TransactionService {
         }
         return responses;
     }
+
+//    public TransactionResponse viewTransactionsByID(UUID id) {
+//
+//        Account customer = authenticationService.getCurrentAccount();
+//        Orders order = orderRepository.findOrdersById(id);
+//
+//        TransactionResponse response = new TransactionResponse();
+//        response.setOrderID(order.getId());
+//        response.setOrderCode(order.getOrderCode());
+//        response.setDate(order.getDate());
+//        response.setApackage(orderDetailRepository.getByOrderId(order.getId()).getApackage().getName());
+//        response.setDuration(orderDetailRepository.getByOrderId(order.getId()).getApackage().getDuration());
+//        response.setPrice(order.getTotal());
+//
+//        //set status of transaction
+//        Payment payment = paymentRepository.getByOrders(order);
+//        List<Transactions> transactions = transactionRepository.getAllByPayment(payment);
+//        if (transactions.get(1).getStatus().equals(TransactionsEnum.SUCCESS))
+//            response.setStatus("SUCCESS");
+//        else response.setStatus("FAIL");
+//
+//        return response;
+//    }
 
 
 }
